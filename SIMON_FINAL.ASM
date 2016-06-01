@@ -1,6 +1,8 @@
 	list p=16f887
 	INCLUDE "p16F887.inc"
 	CBLOCK 0x21
+	Cont_Sec
+	Cont_Sec1
 	Numero_de_valores_de_secuencia
 	Contador
 	Contador_Aux
@@ -54,9 +56,13 @@ CFG
 	movlw	b'10011000'
 	movwf 	INTCON
 
+	
+	
 	;Configuro timer0 para que sea temporizador interno
 	banksel OPTION_REG
 	movlw 	b'00000111' ;Falta configurar PRESCALER
+		
+
 
 	;Configuro el puertoB como digital
 	banksel ANSELH
@@ -66,6 +72,10 @@ CFG
 	banksel TMR0
 	movlw 	b'00000000' 
 	movwf 	TMR0
+
+	movlw	.1
+	movwf	Contador_Aux
+	movwf	Contador
 	
 	;Configuro puertoB como de entrada
 	banksel TRISB
@@ -122,6 +132,7 @@ Llego_Cero
 	incf	Contador_aux
 	movlw	Contador_aux
 	movwf	Contador
+	bsf		FLAGS,Proximo
 	retfie
 
 
@@ -131,14 +142,6 @@ Levanto_bandera_gano
 	retfie
 	
 	
-	
-
-	
-
-
-
-
-
 Levanto_flag_perdio
 
 	bsf 	FLAGS,Perdio	;LEVANTO EL FLAG YA QUE PERDIO
@@ -167,6 +170,37 @@ FIN_INT_TIMER
 	
 
 Generar_Secuencia
+	movlw	.8
+	movwf	Numero_de_valores_de_secuencia
+
+	movlw	.4
+	movwf	Cont_Sec
+	
+	movlw	.2
+	movwf	Cont_Sec1
+
+
+	movf 	Primer_Valor,0
+	movwf	FSR
+	clrf	Valor_Aux
+Bucle
+	movf	Valor_Aux,0
+	movwf	INDF
+	incf	Valor_Aux,1
+	incf	FSR
+	decfsz	Cont_Sec
+	goto	Bucle
+	goto	Bajo_Cont
+Bajo_Cont
+	movlw	.4
+	movwf	Cont_Sec
+	decfsz	Cont_Sec1
+	goto	Bucle	
+	return
+	
+	
+			 	
+	
 	return
 Mostrar_Secuencia
 	bcf 	INTCON, INTE
