@@ -10,9 +10,9 @@
 	Valor_aux
 	Primer_valor 
 	endc
-	Perdio	EQU 0
-	Proximo EQU 1
-	Gano	EQU 2
+Perdio	EQU 0
+Proximo EQU 1
+Gano	EQU 2
 	org	0x00
 	goto 	INICIO
 	org	0x04
@@ -55,6 +55,7 @@ CFG
 	banksel INTCON
 	movlw	b'10011000'
 	movwf 	INTCON
+	bcf INTCON, INTE
 
 	
 	
@@ -85,14 +86,16 @@ CFG
 	;Configuro PuertoA como de salida
 	movlw 	b'00000000'
 	movwf 	TRISC
-
+	
+	bcf STATUS, RP0
+	bcf STATUS, RP1
 
 	return
 
 INTERRUPCION
 	btfsc 	INTCON,T0IF	;CHEQUEO DE DONDE VIENEN LAS INTERRUPCIONES
 	goto	INT_TIMER
-	btfsc	INTCON,INTE
+	btfsc	INTCON,RBIF
 	goto	INT_PUERTOB
 	;ALGO
 	
@@ -105,7 +108,7 @@ INT_PUERTOB
 	movwf	Valor_aux
 	movf	INDF,0	
 	call	TABLA	
-	xorwf	Valor_aux	;tengo que ver si el valor que pulso es el que deberia pulsar
+	xorwf	Valor_aux, 0	;tengo que ver si el valor que pulso es el que deberia pulsar
 	btfsc	STATUS,Z
 	goto	Levanto_flag_perdio
 	goto	SIG
@@ -113,7 +116,7 @@ INT_PUERTOB
 
 
 SIG
-	decfsz	Contador
+	decfsz	Contador, 1
 	goto	No_Llego_Cero
 	goto	Llego_Cero
 
@@ -126,10 +129,10 @@ Llego_Cero
 	movf	Primer_valor,0
 	movwf	FSR	
 	movf	Numero_de_valores_de_secuencia,0
-	xorwf	Contador_Aux
+	xorwf	Contador_Aux, 0
 	btfsc	STATUS,Z
 	goto	Levanto_bandera_gano
-	incf	Contador_Aux
+	incf	Contador_Aux, 1
 	movlw	Contador_Aux
 	movwf	Contador
 	bsf		FLAGS,Proximo
@@ -180,28 +183,28 @@ Generar_Secuencia
 	movwf	Cont_Sec1
 
 
-	movf 	Primer_valor,0
+	movlw 	Primer_valor
 	movwf	FSR
 	clrf	Valor_aux
 Bucle
 	movf	Valor_aux,0
 	movwf	INDF
 	incf	Valor_aux,1
-	incf	FSR
-	decfsz	Cont_Sec
+	incf	FSR, 1
+	decfsz	Cont_Sec, 1
 	goto	Bucle
 	goto	Bajo_Cont
 Bajo_Cont
 	movlw	.4
 	movwf	Cont_Sec
-	decfsz	Cont_Sec1
+	decfsz	Cont_Sec1, 1
 	goto	Bucle	
 	return
 	
 	
 			 	
 	
-	return
+	
 Mostrar_Secuencia
 	bcf 	INTCON, INTE
 	bcf 	INTCON, RBIE ;En este momento no se puede interrumpir el programa
