@@ -32,9 +32,9 @@ Espero
 	nop
 	btfsc	FLAGS,Proximo	;Si pulso el/los color/es correcto/s, muestro la siguiente secuencia
 	call	SIGUIENTE_COLOR
-	btfsc 	FLAGS,PERDIO	;Si le erro, perdio
+	btfsc 	FLAGS,Perdio	;Si le erro, perdio
 	goto	PERDIO_JUEGO
-	btfsc	FLAGS,GANO		;Si gano, gano 
+	btfsc	FLAGS,Gano		;Si gano, gano 
 	goto	GANO_JUEGO
 	goto	Espero
 	
@@ -126,11 +126,11 @@ Llego_Cero
 	movf	Primer_valor,0
 	movwf	FSR	
 	movf	Numero_de_valores_de_secuencia,0
-	xorwf	Contador_aux
+	xorwf	Contador_Aux
 	btfsc	STATUS,Z
 	goto	Levanto_bandera_gano
-	incf	Contador_aux
-	movlw	Contador_aux
+	incf	Contador_Aux
+	movlw	Contador_Aux
 	movwf	Contador
 	bsf		FLAGS,Proximo
 	retfie
@@ -138,7 +138,7 @@ Llego_Cero
 
 
 Levanto_bandera_gano
-	bsf		FLAGS,GANO
+	bsf		FLAGS,Gano
 	retfie
 	
 	
@@ -180,13 +180,13 @@ Generar_Secuencia
 	movwf	Cont_Sec1
 
 
-	movf 	Primer_Valor,0
+	movf 	Primer_valor,0
 	movwf	FSR
-	clrf	Valor_Aux
+	clrf	Valor_aux
 Bucle
-	movf	Valor_Aux,0
+	movf	Valor_aux,0
 	movwf	INDF
-	incf	Valor_Aux,1
+	incf	Valor_aux,1
 	incf	FSR
 	decfsz	Cont_Sec
 	goto	Bucle
@@ -205,7 +205,7 @@ Bajo_Cont
 Mostrar_Secuencia
 	bcf 	INTCON, INTE
 	bcf 	INTCON, RBIE ;En este momento no se puede interrumpir el programa
-	movf 	PRIMER_VALOR,0
+	movf 	Primer_valor,0
 	movwf 	FSR
 	bsf 	INTCON, T0IE
 	movf 	INDF,0
@@ -224,7 +224,7 @@ SIGUIENTE_COLOR
 	incf 	Contador_Aux,1
 	movf 	Contador_Aux, 0
 	movwf 	Contador
-	bcf 	FLAGS,PROXIMO
+	bcf 	FLAGS,Proximo
 	call 	Mostrar_Secuencia
 	return
 
