@@ -84,7 +84,7 @@ CFG
 	
 	;Configuro PuertoA como de salida
 	movlw 	b'00000000'
-	movwf 	TRISA
+	movwf 	TRISC
 
 
 	return
@@ -159,7 +159,7 @@ INT_TIMER
 MUESTRO_COLOR
 	movf	INDF,0
 	call	TABLA
-	movwf	PORTA
+	movwf	PORTC
 	;Falta reiniciar TIMER
 	retfie
 
@@ -210,7 +210,7 @@ Mostrar_Secuencia
 	bsf 	INTCON, T0IE
 	movf 	INDF,0
 	call 	TABLA
-	movwf 	PORTA
+	movwf 	PORTC
 ESPERO_TIMER
 	nop
 	btfss 	FLAGS, Proximo
