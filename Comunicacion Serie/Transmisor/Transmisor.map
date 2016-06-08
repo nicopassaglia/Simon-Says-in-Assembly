@@ -1,0 +1,66 @@
+MPLINK 4.37, Linker
+Linker Map File - Created Sun Jun 05 11:31:40 2016
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000002
+                   .cinit    romdata   0x000001    program   0x000004
+                   .org_1       code   0x000005    program   0x000104
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000002      
+                            0x000005    0x000086      
+            133 out of 8454 program addresses used, program memory utilization is 1%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                CFG_EXTRA   0x00000a    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+Configuracion_Puerto_Serie   0x000018    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+                    EXTRA   0x00007d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+               FINISH_INT   0x000078    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+            FRAMING_ERROR   0x00006a    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+                   INICIO   0x000006    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+                      INT   0x00003d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+         INTERRUPCION_RB0   0x000052    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+       INTERRUPCION_RX232   0x00005e    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+ Interrupts_Configuration   0x000035    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+                     Main   0x000086    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+                 NOT_INTE   0x000050    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+            NOT_RX232_INT   0x00004a    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+            OVERRUN_ERROR   0x000071    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+             RECIBIR_DATO   0x000065    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+                    TABLA   0x000081    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+             _.org_1_0086   0x000086    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   INICIO   0x000006    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+                CFG_EXTRA   0x00000a    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+Configuracion_Puerto_Serie   0x000018    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+ Interrupts_Configuration   0x000035    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+                      INT   0x00003d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+            NOT_RX232_INT   0x00004a    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+                 NOT_INTE   0x000050    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+         INTERRUPCION_RB0   0x000052    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+       INTERRUPCION_RX232   0x00005e    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+             RECIBIR_DATO   0x000065    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+            FRAMING_ERROR   0x00006a    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+            OVERRUN_ERROR   0x000071    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+               FINISH_INT   0x000078    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+                    EXTRA   0x00007d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+                    TABLA   0x000081    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+                     Main   0x000086    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+             _.org_1_0086   0x000086    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Comunicacion Serie\Transmisor\Transmisor.asm
+
+
