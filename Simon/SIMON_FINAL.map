@@ -1,0 +1,88 @@
+MPLINK 4.37, Linker
+Linker Map File - Created Mon Jun 06 15:35:00 2016
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000002
+                   .org_2       code   0x000004    program   0x0001cc
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x0000e9      
+            231 out of 8454 program addresses used, program memory utilization is 2%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+            ANTIREBOTE_RB   0x00004e    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+                   BUCLE1   0x000063    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+                   BUCLE2   0x000061    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+                Bajo_Cont   0x0000c6    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+                    Bucle   0x0000bf    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+                      CFG   0x000018    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+             ESPERO_TIMER   0x0000d7    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+                   Espero   0x00000b    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+            FIN_INT_TIMER   0x0000ac    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+               GANO_JUEGO   0x000016    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+        Generar_Secuencia   0x0000b6    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+                   INICIO   0x000005    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+             INTERRUPCION   0x000048    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+              INT_PUERTOB   0x00004e    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+                INT_TIMER   0x000082    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+     Levanto_bandera_gano   0x00007a    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+      Levanto_flag_perdio   0x00007e    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+               Llego_Cero   0x000070    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+                     MAIN   0x000006    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+            MUESTRO_COLOR   0x000095    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+        Mostrar_Secuencia   0x0000cd    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+            No_Llego_Cero   0x00006c    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+             PERDIO_JUEGO   0x000014    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+              PROBANDO_RB   0x000053    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+                      SIG   0x000069    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+          SIGUIENTE_COLOR   0x0000df    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+                    TABLA   0x0000e5    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+               delay_10ms   0x00005f    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   INICIO   0x000005    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+                     MAIN   0x000006    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+                   Espero   0x00000b    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+             PERDIO_JUEGO   0x000014    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+               GANO_JUEGO   0x000016    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+                      CFG   0x000018    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+             INTERRUPCION   0x000048    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+            ANTIREBOTE_RB   0x00004e    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+              INT_PUERTOB   0x00004e    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+              PROBANDO_RB   0x000053    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+               delay_10ms   0x00005f    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+                   BUCLE2   0x000061    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+                   BUCLE1   0x000063    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+                      SIG   0x000069    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+            No_Llego_Cero   0x00006c    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+               Llego_Cero   0x000070    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+     Levanto_bandera_gano   0x00007a    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+      Levanto_flag_perdio   0x00007e    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+                INT_TIMER   0x000082    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+            MUESTRO_COLOR   0x000095    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+            FIN_INT_TIMER   0x0000ac    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+        Generar_Secuencia   0x0000b6    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+                    Bucle   0x0000bf    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+                Bajo_Cont   0x0000c6    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+        Mostrar_Secuencia   0x0000cd    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+             ESPERO_TIMER   0x0000d7    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+          SIGUIENTE_COLOR   0x0000df    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+                    TABLA   0x0000e5    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL.ASM
+
+

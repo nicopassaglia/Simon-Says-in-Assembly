@@ -1,0 +1,1001 @@
+MPASM  5.37   SIMON_FINAL_NOAANDASPUERTOC.ASM   6-7-2016  22:46:15         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001         list p=16f887
+                      00002         INCLUDE "p16F887.inc"
+                      00001         LIST
+                      00002 ; P16F887.INC  Standard Header File, Version 1.00    Microchip Technology, Inc.
+                      00617         LIST
+                      00003         CBLOCK 0x21
+  00000021            00004         Cont_Sec
+  00000022            00005         Cont_Sec1
+  00000023            00006         Numero_de_valores_de_secuencia
+  00000024            00007         Contador
+  00000025            00008         Contador_Aux
+  00000026            00009         DELAY1
+  00000027            00010         DELAY2
+  00000028            00011         valor
+  00000029            00012         FLAGS
+  0000002A            00013         Valor_aux
+  0000002B            00014         Primer_valor 
+                      00015         endc
+  00000000            00016 Perdio  EQU 0
+  00000001            00017 Proximo EQU 1
+  00000002            00018 Gano    EQU 2
+0000                  00019         org     0x00
+0000   2805           00020         goto    INICIO
+0004                  00021         org     0x04
+0004   2857           00022         goto    INTERRUPCION
+                      00023         ;SOMOS GRUPO 18
+0005                  00024 INICIO
+                      00025 
+0005   2031           00026         call    CFG
+                      00027 
+0006                  00028 MAIN
+0006   20D0           00029         call    Generar_Secuencia
+0007   201B           00030         call    Mostrar_Secuencia
+                      00031 ;----BLOQUE QUE ESPERA UNA PULSACION-----
+0008                  00032 Espero
+0008   0181           00033         clrf    TMR0
+0009   0064           00034         CLRWDT
+000A   18A9           00035         btfsc   FLAGS,Proximo   ;Si pulso el/los color/es correcto/s, muestro la siguiente secuencia
+000B   2011           00036         call    SIGUIENTE_COLOR
+000C   1829           00037         btfsc   FLAGS,Perdio    ;Si le erro, perdio
+000D   2817           00038         goto    PERDIO_JUEGO
+000E   1929           00039         btfsc   FLAGS,Gano              ;Si gano, gano 
+000F   2819           00040         goto    GANO_JUEGO
+0010   2808           00041         goto    Espero
+                      00042 
+                      00043 ;----FIN BLOQUE ESPERO-----
+                      00044         
+                      00045 
+0011                  00046 SIGUIENTE_COLOR
+0011   0AA5           00047         incf    Contador_Aux,1
+0012   0825           00048         movf    Contador_Aux,0
+0013   00A4           00049         movwf   Contador
+0014   10A9           00050         bcf     FLAGS,Proximo
+MPASM  5.37   SIMON_FINAL_NOAANDASPUERTOC.ASM   6-7-2016  22:46:15         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0015   201B           00051         call    Mostrar_Secuencia
+0016   0008           00052         return
+                      00053 
+                      00054 
+                      00055 
+0017                  00056 PERDIO_JUEGO
+                      00057         ;{
+                      00058         ;PRENDO LED QUE MUESTRA QUE PERDIO
+0017   1408           00059         bsf     PORTD,0
+0018   2817           00060         goto    PERDIO_JUEGO;}
+                      00061 
+                      00062 
+0019                  00063 GANO_JUEGO
+                      00064 ;{
+                      00065         ;PRENDO LED QUE MUESTRA QUE GANO
+0019   1488           00066         bsf             PORTD,1
+001A   2819           00067         goto    GANO_JUEGO;}
+                      00068 
+                      00069 
+                      00070 ;MUESTRO LA SECUENCIA DE LEDS
+                      00071 
+                      00072         ;----MOSTRAR SECUENCIA DE COLORES----
+001B                  00073 Mostrar_Secuencia
+                      00074 ;{
+001B   0825           00075         movf    Contador_Aux,0
+001C   00A4           00076         movwf   Contador
+001D   0AA4           00077         incf    Contador, 1
+001E   118B           00078         bcf             INTCON,RBIE ;En este momento no se puede interrumpir el programa
+001F   120B           00079         bcf             INTCON,INTE
+0020   302B           00080         movlw   Primer_valor
+0021   0084           00081         movwf   FSR
+0022   3000           00082         movlw   .0
+0023   0081           00083         movwf   TMR0
+0024   168B           00084         bsf     INTCON, T0IE
+0025   0800           00085         movf    INDF,0
+0026   20CB           00086         call    TABLA
+0027   0088           00087         movwf   PORTD
+0028   0384           00088         decf    FSR, 1;}
+                      00089         
+                      00090                 
+0029                  00091 ESPERO_TIMER ;EL BLOQUE ESPERO_TIMER HACE UN RETARDO PARA QUE EL COLOR SEA VISIBLE AL OJO
+0029   0000           00092         nop
+002A   1CA9           00093         btfss   FLAGS, Proximo 
+002B   2829           00094         goto    ESPERO_TIMER    
+002C   0188           00095         clrf    PORTD
+002D   10A9           00096         bcf     FLAGS, Proximo
+002E   160B           00097         bsf     INTCON, INTE ;YA PUEDO TOMAR INTERRUPCIONES POR PUERTO B
+002F   158B           00098         bsf     INTCON, RBIE
+0030   0008           00099         return
+                      00100         ;----FIN MOSTRAR SECUENCIA DE COLORES-----
+                      00101 
+                      00102 
+                      00103         
+MPASM  5.37   SIMON_FINAL_NOAANDASPUERTOC.ASM   6-7-2016  22:46:15         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00104 
+                      00105 ;--------CONFIGURACION-------
+                      00106 
+0031                  00107 CFG
+                      00108         
+                      00109         ;Habilito los enables de las interrupciones
+0031   1283 1303      00110         banksel INTCON
+0033   3098           00111         movlw   b'10011000'
+0034   008B           00112         movwf   INTCON
+                      00113 
+0035   1683 1303      00114         banksel IOCB
+0037   30FE           00115         movlw   b'11111110'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0038   0096           00116         movwf   IOCB
+                      00117 
+                      00118         ;Configuro timer0 para que sea temporizador interno
+0039   1683 1303      00119         banksel OPTION_REG
+003B   30C7           00120         movlw   b'11000111'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+003C   0081           00121         movwf   OPTION_REG ;Falta configurar PRESCALER
+                      00122                 
+                      00123 
+                      00124         ;Configuro el puertoB como digital
+003D   1683 1703      00125         banksel ANSELH
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+003F   0189           00126         clrf    ANSELH
+                      00127 
+                      00128         ;Configurar carga al timer
+0040   1283 1303      00129         banksel TMR0
+0042   3000           00130         movlw   .0
+0043   0081           00131         movwf   TMR0
+                      00132 
+0044   3001           00133         movlw   .1
+0045   00A5           00134         movwf   Contador_Aux
+0046   00A4           00135         movwf   Contador
+                      00136         
+                      00137         ;Configuro puertoB como de entrada
+0047   1683 1303      00138         banksel TRISB
+0049   30FF           00139         movlw   b'11111111'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+004A   0086           00140         movwf   TRISB
+                      00141         
+                      00142         ;Configuro PuertoC como de salida
+004B   3000           00143         movlw   b'00000000'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+004C   0088           00144         movwf   TRISD
+                      00145         
+004D   3000           00146         movlw   b'00000000'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+004E   0088           00147         movwf   TRISD
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+004F   1085           00148         bcf             TRISA,1 
+                      00149         
+MPASM  5.37   SIMON_FINAL_NOAANDASPUERTOC.ASM   6-7-2016  22:46:15         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00150         ;vuelvo al banco 0
+0050   1283           00151         bcf     STATUS, RP0
+0051   1303           00152         bcf     STATUS, RP1
+                      00153         ;Limpio los puertos y el registro de banderas
+0052   0188           00154         clrf    PORTD
+0053   0186           00155         clrf    PORTB
+0054   0188           00156         clrf    PORTD
+0055   01A9           00157         clrf    FLAGS
+0056   0008           00158         return
+                      00159         
+                      00160 ;--------FIN CONFIGURACION-----------
+                      00161 
+                      00162 
+                      00163 ;-----INTERRUPCIONES---------
+                      00164 ;RUTINA DE INTERRUPCION
+0057                  00165 INTERRUPCION
+                      00166         ;---VERIFICACION DE DONDE VINO LA INTERRUPCION---
+0057   180B           00167         btfsc   INTCON,RBIF
+0058   285D           00168         goto    INT_PUERTOB
+0059   188B           00169         btfsc   INTCON,INTF
+005A   285D           00170         goto    INT_PUERTOB
+005B   190B           00171         btfsc   INTCON,T0IF     
+005C   2887           00172         goto    INT_TIMER
+                      00173         ;---FIN VERIFICACION---
+                      00174 
+                      00175 ;-----INTERRUPCION POR PUERTO B-------
+005D                  00176 INT_PUERTOB
+                      00177 
+                      00178         ;---ANTIREBOTE POR SOFTWARE DE LOS PULSADORES-----      
+005D                  00179 ANTIREBOTE_RB
+                      00180 
+005D   20E7           00181         call    delay_10ms
+005E   20E7           00182         call    delay_10ms ;Espero 10ms a que pase el rebote
+005F   0806           00183         movf    PORTB, 0        ;muevo el puerto B a w
+0060   39F0           00184         andlw   0xF0    ;Hago and con los bits que me importan y los guardo
+0061   00AA           00185         movwf   Valor_aux ;Esta es la variable que utilizo en la rutina para comparar
+                      00186 
+0062                  00187 PROBANDO_RB
+0062   0806           00188         movf    PORTB,0 ;Muevo al puerto B a W
+0063   39F0           00189         andlw   0xF0    ;Hago AND a los bits que me interesan
+0064   1D03           00190         btfss   STATUS, Z       ;Si todos los bits estan en cero significa que se dejo de pulsar
+0065   2862           00191         goto    PROBANDO_RB     ;Sino, sigo probando hasta que se deje de pulsar el boton
+0066   20E7           00192         call    delay_10ms
+0067   20E7           00193         call    delay_10ms      ;Hago un delay por el rebote de soltar el pulsador
+                      00194 
+                      00195         ;-----FIN ANTIREBOTE POR SOFTWARE-----
+                      00196 
+                      00197         ;----Comienzo de Rutina de Interrupcion por PUERTO B----        
+                      00198 
+0068   0800           00199         movf    INDF,0                  ;MUEVO EL VALOR AL QUE PUNTA FSR A W
+0069   20CB           00200         call    TABLA                   
+006A   062A           00201         xorwf   Valor_aux, 0    ;tengo que ver si el valor que pulso es el que deberia pulsar
+006B   1D03           00202         btfss   STATUS,Z                ;SI EL XOR DA 0 ES PORQUE SON IGUALES, ENTONCES PULSO BIEN
+MPASM  5.37   SIMON_FINAL_NOAANDASPUERTOC.ASM   6-7-2016  22:46:15         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+006C   2883           00203         goto    Levanto_flag_perdio;SI NO DA EL BIT Z DE STATUS DA 0 ENTONCES PERDIO
+006D   286E           00204         goto    SIG
+                      00205 
+                      00206 ;En el bloque SIG, verifico si ya pulso todos o debe seguir pulsando
+006E                  00207 SIG
+006E   0BA4           00208         decfsz  Contador, 1
+006F   2871           00209         goto    No_Llego_Cero
+0070   2875           00210         goto    Llego_Cero
+                      00211 
+                      00212 ;EL CONTADOR NO LLEGO A CERO, EL JUGADOR DEBE CONTINUAR CON LA SECUENCIA
+0071                  00213 No_Llego_Cero
+0071   0A84           00214         incf    FSR,1   ;AUMENTO FSR ASI EN LA SIGUIENTE PULSACION VERIFICO CORRECTAMENTE
+0072   100B           00215         bcf             INTCON,RBIF
+0073   108B           00216         bcf             INTCON,INTF
+0074   0009           00217         retfie
+                      00218 
+                      00219 ;---EL CONTADOR LLEGO A CERO, ACA DEBO CONTROLAR SI YA GANO 
+                      00220 ;O HAY QUE MOSTRAR UNA NUEVA SECUENCIA----
+0075                  00221 Llego_Cero
+0075   302B           00222         movlw   Primer_valor
+0076   0084           00223         movwf   FSR     
+0077   0823           00224         movf    Numero_de_valores_de_secuencia,0
+0078   0625           00225         xorwf   Contador_Aux, 0
+0079   1903           00226         btfsc   STATUS,Z        ;verifico si ya gano haciendo un xor con la cantidad de valores
+007A   287F           00227         goto    Levanto_bandera_gano
+007B   14A9           00228         bsf             FLAGS,Proximo ;Seteo la bandera de proximo para que el programa sepa que debe mo
+                            strar la siguiente secuencia
+007C   100B           00229         bcf             INTCON,RBIF
+007D   108B           00230         bcf             INTCON,INTF
+007E   0009           00231         retfie
+                      00232 
+                      00233 
+                      00234         ;----LEVANTAMIENTO DE BANDERAS DE GANO O PERDIO-----
+007F                  00235 Levanto_bandera_gano 
+007F   1529           00236         bsf             FLAGS,Gano ;Se levanta el flag de la bandera que gano
+0080   100B           00237         bcf             INTCON,RBIF
+0081   108B           00238         bcf             INTCON,INTF
+0082   0009           00239         retfie
+                      00240 
+                      00241         
+0083                  00242 Levanto_flag_perdio
+                      00243 
+0083   1429           00244         bsf     FLAGS,Perdio ;LEVANTO EL FLAG YA QUE PERDIO
+0084   100B           00245         bcf             INTCON,RBIF
+0085   108B           00246         bcf             INTCON,INTF     
+0086   0009           00247         retfie
+                      00248         ;------ FIN LEVANTAMIENTO DE BANDERAS----------------
+                      00249 ;---------FIN INTERRUPCIONES PUERTO B---------
+                      00250 
+                      00251 ;-------INTERRUPCION POR TIMER0--------
+0087                  00252 INT_TIMER
+0087   20E7           00253         call    delay_10ms
+0088   20E7           00254         call    delay_10ms
+MPASM  5.37   SIMON_FINAL_NOAANDASPUERTOC.ASM   6-7-2016  22:46:15         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0089   20E7           00255         call    delay_10ms
+008A   20E7           00256         call    delay_10ms
+008B   20E7           00257         call    delay_10ms
+008C   20E7           00258         call    delay_10ms
+008D   20E7           00259         call    delay_10ms      
+008E   20E7           00260         call    delay_10ms      
+008F   20E7           00261         call    delay_10ms
+0090   20E7           00262         call    delay_10ms
+0091   20E7           00263         call    delay_10ms
+0092   20E7           00264         call    delay_10ms
+0093   20E7           00265         call    delay_10ms
+0094   20E7           00266         call    delay_10ms
+0095   20E7           00267         call    delay_10ms
+0096   20E7           00268         call    delay_10ms      
+0097   20E7           00269         call    delay_10ms      
+0098   20E7           00270         call    delay_10ms
+0099   20E7           00271         call    delay_10ms
+009A   20E7           00272         call    delay_10ms
+009B   20E7           00273         call    delay_10ms
+009C   20E7           00274         call    delay_10ms
+009D   20E7           00275         call    delay_10ms
+009E   0A84           00276         incf    FSR,1   
+009F   0BA4           00277         decfsz  Contador,1 ;aca controlo si debo mostrar un color mas o ya termino esa secuencia
+00A0   28A2           00278         goto    MUESTRO_COLOR
+00A1   28C1           00279         goto    FIN_INT_TIMER
+                      00280 
+                      00281         ;-----MOSTRAR COLOR------
+00A2                  00282 MUESTRO_COLOR
+00A2   20E7           00283         call    delay_10ms
+00A3   20E7           00284         call    delay_10ms
+00A4   20E7           00285         call    delay_10ms
+00A5   20E7           00286         call    delay_10ms
+00A6   20E7           00287         call    delay_10ms
+00A7   20E7           00288         call    delay_10ms
+00A8   20E7           00289         call    delay_10ms      
+00A9   20E7           00290         call    delay_10ms      
+00AA   20E7           00291         call    delay_10ms
+00AB   20E7           00292         call    delay_10ms
+00AC   20E7           00293         call    delay_10ms
+00AD   20E7           00294         call    delay_10ms
+00AE   20E7           00295         call    delay_10ms
+00AF   20E7           00296         call    delay_10ms
+00B0   20E7           00297         call    delay_10ms
+00B1   20E7           00298         call    delay_10ms      
+00B2   20E7           00299         call    delay_10ms      
+00B3   20E7           00300         call    delay_10ms
+00B4   20E7           00301         call    delay_10ms
+00B5   20E7           00302         call    delay_10ms
+00B6   20E7           00303         call    delay_10ms
+00B7   20E7           00304         call    delay_10ms
+00B8   20E7           00305         call    delay_10ms
+00B9   0800           00306         movf    INDF,0          ;MUEVO EL VALOR AL QUE APUNTA FSR A W Y LUEGO LLAMO A LA TABLA
+00BA   20CB           00307         call    TABLA
+MPASM  5.37   SIMON_FINAL_NOAANDASPUERTOC.ASM   6-7-2016  22:46:15         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00BB   0088           00308         movwf   PORTD           ;LE MANDO W AL PUERTOD PARA QUE SE PRENDA EL LED CORRESPONDIENTE
+00BC   0000           00309         nop
+00BD   3000           00310         movlw   .0
+00BE   0081           00311         movwf   TMR0
+00BF   110B           00312         bcf             INTCON,T0IF     ;BAJO BANDERA DEL TIMER
+00C0   0009           00313         retfie
+                      00314         ;---FIN MOSTRAR COLOR----
+                      00315         
+00C1                  00316 FIN_INT_TIMER
+                      00317         ;ESTE BLOQUE MANEJA CUANDO YA TERMINO DE MOSTRAR TODA LA SECUENCIA DE COLORES.
+00C1   3000           00318         movlw   .0
+00C2   0081           00319         movwf   TMR0
+00C3   0825           00320         movf    Contador_Aux,0
+00C4   00A4           00321         movwf   Contador
+00C5   14A9           00322         bsf             FLAGS,Proximo   ;ESTA BANDERA LA SETEO PARA QUE SALGA DEL BUCLE ESPERO_TIMER
+00C6   302B           00323         movlw   Primer_valor
+00C7   0084           00324         movwf   FSR                             ;REINICIO EL VALOR AL QUE APUNTA FSR
+00C8   110B           00325         bcf             INTCON,T0IF             ;BAJO BANDERA DE TIMER0
+00C9   128B           00326         bcf             INTCON,T0IE             ;DESHABILITO LA INTERRUPCIONES POR TIMER
+00CA   0009           00327         retfie
+                      00328         ;------FIN INTERRUPCION POR TIMER0-------
+                      00329 
+                      00330 
+                      00331 
+                      00332 
+                      00333 
+                      00334 ;-----FIN INTERRUPCIONES---------
+                      00335 
+                      00336 ;---TABLA DE VALORES PARA LOS LEDS----
+                      00337 
+00CB                  00338 TABLA
+                      00339 
+00CB   0782           00340         addwf   PCL,1
+00CC   3480           00341         retlw   b'10000000'
+00CD   3440           00342         retlw   b'01000000'
+00CE   3420           00343         retlw   b'00100000'
+00CF   3410           00344         retlw   b'00010000'
+                      00345 
+                      00346 
+                      00347 ;-------FIN TABLA---------------
+                      00348 
+                      00349 ;----BLOQUE QUE GENERA LA SECUENCIA----
+                      00350 ;{
+00D0                  00351 Generar_Secuencia
+00D0   3008           00352         movlw   .8
+00D1   00A3           00353         movwf   Numero_de_valores_de_secuencia
+                      00354 
+00D2   3004           00355         movlw   .4
+00D3   00A1           00356         movwf   Cont_Sec
+                      00357         
+00D4   3002           00358         movlw   .2
+00D5   00A2           00359         movwf   Cont_Sec1
+                      00360 
+MPASM  5.37   SIMON_FINAL_NOAANDASPUERTOC.ASM   6-7-2016  22:46:15         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00361 
+00D6   302B           00362         movlw   Primer_valor
+00D7   0084           00363         movwf   FSR
+00D8   01AA           00364         clrf    Valor_aux
+00D9                  00365 Bucle
+00D9   082A           00366         movf    Valor_aux,0
+00DA   0080           00367         movwf   INDF
+00DB   0AAA           00368         incf    Valor_aux,1
+00DC   0A84           00369         incf    FSR, 1
+00DD   0BA1           00370         decfsz  Cont_Sec, 1
+00DE   28D9           00371         goto    Bucle
+00DF   28E0           00372         goto    Bajo_Cont
+00E0                  00373 Bajo_Cont
+00E0   3000           00374         movlw   0
+00E1   00AA           00375         movwf   Valor_aux
+00E2   3004           00376         movlw   .4
+00E3   00A1           00377         movwf   Cont_Sec
+00E4   0BA2           00378         decfsz  Cont_Sec1, 1
+00E5   28D9           00379         goto    Bucle   
+00E6   0008           00380         return
+                      00381 ;}
+                      00382 ;-------FIN BLOQUE GENERADOR DE SECUENCIA---------------
+                      00383 
+                      00384 ;---Retardo por software de 10ms----
+                      00385 ;{
+00E7                  00386 delay_10ms      
+00E7   3014           00387         movlw   .20
+00E8   00A7           00388         movwf   DELAY2
+00E9                  00389 BUCLE2
+00E9   307C           00390         movlw   .124
+00EA   00A6           00391         movwf   DELAY1
+00EB                  00392 BUCLE1
+00EB   0000           00393         nop
+00EC   0BA6           00394         decfsz  DELAY1, 1
+00ED   28EB           00395         goto    BUCLE1
+00EE   0BA7           00396         decfsz  DELAY2, 1
+00EF   28E9           00397         goto    BUCLE2
+00F0   0008           00398         return          ;La formula del delay es R=[(4X)+4]Y+1 donde X=124 e Y=20.
+                      00399 ;}
+                      00400 ;--------FIN RETARDO--------------
+                      00401 
+                      00402 
+                      00403         end
+MPASM  5.37   SIMON_FINAL_NOAANDASPUERTOC.ASM   6-7-2016  22:46:15         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ABDEN                             00000000
+ABDOVF                            00000007
+ACKDT                             00000005
+ACKEN                             00000004
+ACKSTAT                           00000006
+ADCON0                            0000001F
+ADCON1                            0000009F
+ADCS0                             00000006
+ADCS1                             00000007
+ADDEN                             00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADON                              00000000
+ADRESH                            0000001E
+ADRESL                            0000009E
+ANS0                              00000000
+ANS1                              00000001
+ANS10                             00000002
+ANS11                             00000003
+ANS12                             00000004
+ANS13                             00000005
+ANS2                              00000002
+ANS3                              00000003
+ANS4                              00000004
+ANS5                              00000005
+ANS6                              00000006
+ANS7                              00000007
+ANS8                              00000000
+ANS9                              00000001
+ANSEL                             00000188
+ANSELH                            00000189
+ANTIREBOTE_RB                     0000005D
+BAUDCTL                           00000187
+BCLIE                             00000003
+BCLIF                             00000003
+BF                                00000000
+BRG0                              00000000
+BRG1                              00000001
+BRG10                             00000002
+BRG11                             00000003
+BRG12                             00000004
+BRG13                             00000005
+BRG14                             00000006
+BRG15                             00000007
+BRG16                             00000003
+BRG2                              00000002
+BRG3                              00000003
+BRG4                              00000004
+BRG5                              00000005
+BRG6                              00000006
+BRG7                              00000007
+BRG8                              00000000
+MPASM  5.37   SIMON_FINAL_NOAANDASPUERTOC.ASM   6-7-2016  22:46:15         PAGE 10
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+BRG9                              00000001
+BRGH                              00000002
+BUCLE1                            000000EB
+BUCLE2                            000000E9
+Bajo_Cont                         000000E0
+Bucle                             000000D9
+C                                 00000000
+C1CH0                             00000000
+C1CH1                             00000001
+C1IE                              00000005
+C1IF                              00000005
+C1OE                              00000005
+C1ON                              00000007
+C1OUT                             00000006
+C1POL                             00000004
+C1R                               00000002
+C1RSEL                            00000005
+C1SEN                             00000005
+C2CH0                             00000000
+C2CH1                             00000001
+C2IE                              00000006
+C2IF                              00000006
+C2OE                              00000005
+C2ON                              00000007
+C2OUT                             00000006
+C2POL                             00000004
+C2R                               00000002
+C2REN                             00000004
+C2RSEL                            00000004
+C2SYNC                            00000000
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCP2CON                           0000001D
+CCP2IE                            00000000
+CCP2IF                            00000000
+CCP2M0                            00000000
+CCP2M1                            00000001
+CCP2M2                            00000002
+CCP2M3                            00000003
+CCP2X                             00000005
+CCP2Y                             00000004
+CCPR1H                            00000016
+CCPR1L                            00000015
+CCPR2H                            0000001C
+CCPR2L                            0000001B
+CFG                               00000031
+MPASM  5.37   SIMON_FINAL_NOAANDASPUERTOC.ASM   6-7-2016  22:46:15         PAGE 11
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+CHS0                              00000002
+CHS1                              00000003
+CHS2                              00000004
+CHS3                              00000005
+CKE                               00000006
+CKP                               00000004
+CM1CON0                           00000107
+CM2CON0                           00000108
+CM2CON1                           00000109
+CREN                              00000004
+CSRC                              00000007
+Cont_Sec                          00000021
+Cont_Sec1                         00000022
+Contador                          00000024
+Contador_Aux                      00000025
+D                                 00000005
+DATA_ADDRESS                      00000005
+DC                                00000001
+DC1B0                             00000004
+DC1B1                             00000005
+DC2B0                             00000004
+DC2B1                             00000005
+DELAY1                            00000026
+DELAY2                            00000027
+D_A                               00000005
+ECCPAS                            0000009C
+ECCPAS0                           00000004
+ECCPAS1                           00000005
+ECCPAS2                           00000006
+ECCPASE                           00000007
+EEADR                             0000010D
+EEADRH                            0000010F
+EECON1                            0000018C
+EECON2                            0000018D
+EEDAT                             0000010C
+EEDATA                            0000010C
+EEDATH                            0000010E
+EEIE                              00000004
+EEIF                              00000004
+EEPGD                             00000007
+ESPERO_TIMER                      00000029
+Espero                            00000008
+F                                 00000001
+FERR                              00000002
+FIN_INT_TIMER                     000000C1
+FLAGS                             00000029
+FSR                               00000004
+FVREN                             00000000
+GANO_JUEGO                        00000019
+GCEN                              00000007
+GIE                               00000007
+GO                                00000001
+GO_DONE                           00000001
+MPASM  5.37   SIMON_FINAL_NOAANDASPUERTOC.ASM   6-7-2016  22:46:15         PAGE 12
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+Gano                              00000002
+Generar_Secuencia                 000000D0
+HTS                               00000002
+I2C_DATA                          00000005
+I2C_READ                          00000002
+I2C_START                         00000003
+I2C_STOP                          00000004
+INDF                              00000000
+INICIO                            00000005
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTERRUPCION                      00000057
+INTF                              00000001
+INT_PUERTOB                       0000005D
+INT_TIMER                         00000087
+IOCB                              00000096
+IOCB0                             00000000
+IOCB1                             00000001
+IOCB2                             00000002
+IOCB3                             00000003
+IOCB4                             00000004
+IOCB5                             00000005
+IOCB6                             00000006
+IOCB7                             00000007
+IRCF0                             00000004
+IRCF1                             00000005
+IRCF2                             00000006
+IRP                               00000007
+LTS                               00000001
+Levanto_bandera_gano              0000007F
+Levanto_flag_perdio               00000083
+Llego_Cero                        00000075
+MAIN                              00000006
+MC1OUT                            00000007
+MC2OUT                            00000006
+MSK                               00000093
+MUESTRO_COLOR                     000000A2
+Mostrar_Secuencia                 0000001B
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+NOT_BO                            00000000
+NOT_BOR                           00000000
+NOT_DONE                          00000001
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_RC8                           00000006
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_TX8                           00000006
+NOT_W                             00000002
+NOT_WRITE                         00000002
+MPASM  5.37   SIMON_FINAL_NOAANDASPUERTOC.ASM   6-7-2016  22:46:15         PAGE 13
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+No_Llego_Cero                     00000071
+Numero_de_valores_de_secuencia    00000023
+OERR                              00000001
+OPTION_REG                        00000081
+OSCCON                            0000008F
+OSCTUNE                           00000090
+OSFIE                             00000007
+OSFIF                             00000007
+OSTS                              00000003
+P                                 00000004
+P1M0                              00000006
+P1M1                              00000007
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PDC0                              00000000
+PDC1                              00000001
+PDC2                              00000002
+PDC3                              00000003
+PDC4                              00000004
+PDC5                              00000005
+PDC6                              00000006
+PEIE                              00000006
+PEN                               00000002
+PERDIO_JUEGO                      00000017
+PIE1                              0000008C
+PIE2                              0000008D
+PIR1                              0000000C
+PIR2                              0000000D
+PORTA                             00000005
+PORTB                             00000006
+PORTC                             00000007
+PORTD                             00000008
+PORTE                             00000009
+PR2                               00000092
+PROBANDO_RB                       00000062
+PRSEN                             00000007
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+PSSAC0                            00000002
+PSSAC1                            00000003
+PSSBD0                            00000000
+PSSBD1                            00000001
+PSTRCON                           0000009D
+PULSR                             00000002
+PULSS                             00000003
+PWM1CON                           0000009B
+Perdio                            00000000
+Primer_valor                      0000002B
+Proximo                           00000001
+R                                 00000002
+MPASM  5.37   SIMON_FINAL_NOAANDASPUERTOC.ASM   6-7-2016  22:46:15         PAGE 14
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RBIE                              00000003
+RBIF                              00000000
+RC8_9                             00000006
+RC9                               00000006
+RCD8                              00000000
+RCEN                              00000003
+RCIDL                             00000006
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+READ_WRITE                        00000002
+RP0                               00000005
+RP1                               00000006
+RSEN                              00000001
+RX9                               00000006
+RX9D                              00000000
+R_W                               00000002
+S                                 00000003
+SBOREN                            00000004
+SCKP                              00000004
+SCS                               00000000
+SEN                               00000000
+SENDB                             00000003
+SIG                               0000006E
+SIGUIENTE_COLOR                   00000011
+SMP                               00000007
+SPBRG                             00000099
+SPBRGH                            0000009A
+SPEN                              00000007
+SR0                               00000006
+SR1                               00000007
+SRCON                             00000185
+SREN                              00000005
+SSPADD                            00000093
+SSPBUF                            00000013
+SSPCON                            00000014
+SSPCON2                           00000091
+SSPEN                             00000005
+SSPIE                             00000003
+SSPIF                             00000003
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+SSPM3                             00000003
+SSPMSK                            00000093
+SSPOV                             00000006
+SSPSTAT                           00000094
+STATUS                            00000003
+STRA                              00000000
+STRB                              00000001
+STRC                              00000002
+MPASM  5.37   SIMON_FINAL_NOAANDASPUERTOC.ASM   6-7-2016  22:46:15         PAGE 15
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+STRD                              00000003
+STRSYNC                           00000004
+SWDTEN                            00000000
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1GIV                             00000007
+T1GSS                             00000001
+T1INSYNC                          00000002
+T1OSCEN                           00000003
+T1SYNC                            00000002
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+TABLA                             000000CB
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR1CS                            00000001
+TMR1GE                            00000006
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISB                             00000086
+TRISC                             00000087
+TRISD                             00000088
+TRISE                             00000089
+TRMT                              00000001
+TUN0                              00000000
+TUN1                              00000001
+TUN2                              00000002
+TUN3                              00000003
+TUN4                              00000004
+TX8_9                             00000006
+TX9                               00000006
+TX9D                              00000000
+TXD8                              00000000
+MPASM  5.37   SIMON_FINAL_NOAANDASPUERTOC.ASM   6-7-2016  22:46:15         PAGE 16
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+UA                                00000001
+ULPWUE                            00000005
+ULPWUIE                           00000002
+ULPWUIF                           00000002
+VCFG0                             00000004
+VCFG1                             00000005
+VR0                               00000000
+VR1                               00000001
+VR2                               00000002
+VR3                               00000003
+VRCON                             00000097
+VREN                              00000007
+VROE                              00000006
+VRR                               00000005
+VRSS                              00000004
+Valor_aux                         0000002A
+W                                 00000000
+WCOL                              00000007
+WDTCON                            00000105
+WDTPS0                            00000001
+WDTPS1                            00000002
+WDTPS2                            00000003
+WDTPS3                            00000004
+WPUB                              00000095
+WPUB0                             00000000
+WPUB1                             00000001
+WPUB2                             00000002
+WPUB3                             00000003
+WPUB4                             00000004
+WPUB5                             00000005
+WPUB6                             00000006
+WPUB7                             00000007
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+WUE                               00000001
+Z                                 00000002
+_BOR21V                           00003EFF
+_BOR40V                           00003FFF
+_BOR_NSLEEP                       00003EFF
+_BOR_OFF                          00003CFF
+_BOR_ON                           00003FFF
+_BOR_SBODEN                       00003DFF
+_CONFIG1                          00002007
+_CONFIG2                          00002008
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003F7F
+_CP_OFF                           00003FFF
+MPASM  5.37   SIMON_FINAL_NOAANDASPUERTOC.ASM   6-7-2016  22:46:15         PAGE 17
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_CP_ON                            00003FBF
+_DEBUG_OFF                        00003FFF
+_DEBUG_ON                         00001FFF
+_EC_OSC                           00003FFB
+_EXTRC                            00003FFF
+_EXTRCIO                          00003FFE
+_EXTRC_OSC_CLKOUT                 00003FFF
+_EXTRC_OSC_NOCLKOUT               00003FFE
+_FCMEN_OFF                        000037FF
+_FCMEN_ON                         00003FFF
+_HS_OSC                           00003FFA
+_IESO_OFF                         00003BFF
+_IESO_ON                          00003FFF
+_INTOSC                           00003FFD
+_INTOSCIO                         00003FFC
+_INTRC_OSC_CLKOUT                 00003FFD
+_INTRC_OSC_NOCLKOUT               00003FFC
+_LP_OSC                           00003FF8
+_LVP_OFF                          00002FFF
+_LVP_ON                           00003FFF
+_MCLRE_OFF                        00003FDF
+_MCLRE_ON                         00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FEF
+_WDT_OFF                          00003FF7
+_WDT_ON                           00003FFF
+_WRT_1FOURTH                      00003BFF
+_WRT_256                          00003DFF
+_WRT_HALF                         000039FF
+_WRT_OFF                          00003FFF
+_XT_OSC                           00003FF9
+__16F887                          00000001
+__DEBUG                           1
+delay_10ms                        000000E7
+valor                             00000028
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : X---XXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0080 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+00C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX X---------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:   238
+Program Memory Words Free:  7954
+
+
+MPASM  5.37   SIMON_FINAL_NOAANDASPUERTOC.ASM   6-7-2016  22:46:15         PAGE 18
+
+
+
+
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     7 reported,     0 suppressed
+
+
