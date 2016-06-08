@@ -1,12 +1,12 @@
 MPLINK 4.37, Linker
-Linker Map File - Created Wed Jun 08 18:03:32 2016
+Linker Map File - Created Wed Jun 08 18:43:47 2016
 
                                  Section Info
                   Section       Type    Address   Location Size(Bytes)
                 ---------  ---------  ---------  ---------  ---------
                    .org_0       code   0x000000    program   0x000000
                    .org_1       code   0x000000    program   0x000002
-                   .org_2       code   0x000004    program   0x00022c
+                   .org_2       code   0x000004    program   0x000192
 
 
 
@@ -14,83 +14,77 @@ Linker Map File - Created Wed Jun 08 18:03:32 2016
                                Start         End      
                            ---------   ---------      
                             0x000000    0x000000      
-                            0x000004    0x000119      
-            279 out of 8454 program addresses used, program memory utilization is 3%
+                            0x000004    0x0000cc      
+            202 out of 8454 program addresses used, program memory utilization is 2%
 
 
 
                               Symbols - Sorted by Name
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
-           ANTIREBOTE_INT   0x00006b    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-            ANTIREBOTE_RB   0x000077    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-                   BUCLE1   0x00010a    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-                   BUCLE2   0x000108    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-                Bajo_Cont   0x0000ff    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-                    Bucle   0x0000f8    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-                      CFG   0x00003c    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-             CREAR_RANDOM   0x000110    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-             ESPERO_TIMER   0x000034    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-                   Espero   0x000012    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-            FIN_INT_TIMER   0x0000e0    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-               GANO_JUEGO   0x000024    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-        Generar_Secuencia   0x0000ef    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-                   INICIO   0x000005    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-             INTERRUPCION   0x000065    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-              INT_PUERTOB   0x00006b    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-             INT_PUERTOB1   0x000077    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-                INT_TIMER   0x0000a6    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-     Levanto_bandera_gano   0x00009e    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-      Levanto_flag_perdio   0x0000a2    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-               Llego_Cero   0x000093    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-                     MAIN   0x000008    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-            MUESTRO_COLOR   0x0000c0    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-        Mostrar_Secuencia   0x000026    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-            No_Llego_Cero   0x00008f    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-             PERDIO_JUEGO   0x000022    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-              PROBANDO_RB   0x00007f    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-             PROBANDO_RB0   0x00006d    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-                      SIG   0x00008c    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-          SIGUIENTE_COLOR   0x00001c    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-                    TABLA   0x0000ea    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-               delay_10ms   0x000106    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
+           ANTIREBOTE_INT   0x00006b    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+            ANTIREBOTE_RB   0x000077    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+                   BUCLE1   0x0000b3    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+               BUCLE1_100   0x0000bd    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+                   BUCLE2   0x0000b1    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+               BUCLE2_100   0x0000bb    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+                      CFG   0x00003e    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+             CREAR_RANDOM   0x0000c3    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+                   Espero   0x000012    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+               GANO_JUEGO   0x000024    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+                   INICIO   0x000005    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+             INTERRUPCION   0x000067    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+              INT_PUERTOB   0x00006b    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+             INT_PUERTOB1   0x000077    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+     Levanto_bandera_gano   0x0000a2    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+      Levanto_flag_perdio   0x0000a6    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+               Llego_Cero   0x000093    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+                     MAIN   0x000008    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+        Mostrar_Secuencia   0x000026    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+            No_Llego_Cero   0x00008f    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+             PERDIO_JUEGO   0x000022    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+              PROBANDO_RB   0x00007f    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+             PROBANDO_RB0   0x00006d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+                      SIG   0x00008c    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+          SIGUIENTE_COLOR   0x00001c    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+                    TABLA   0x0000aa    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+           Volver_Hacerlo   0x00002a    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+              delay_100ms   0x0000b9    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+               delay_10ms   0x0000af    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
 
 
 
                               Symbols - Sorted by Address
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
-                   INICIO   0x000005    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-                     MAIN   0x000008    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-                   Espero   0x000012    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-          SIGUIENTE_COLOR   0x00001c    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-             PERDIO_JUEGO   0x000022    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-               GANO_JUEGO   0x000024    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-        Mostrar_Secuencia   0x000026    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-             ESPERO_TIMER   0x000034    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-                      CFG   0x00003c    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-             INTERRUPCION   0x000065    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-           ANTIREBOTE_INT   0x00006b    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-              INT_PUERTOB   0x00006b    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-             PROBANDO_RB0   0x00006d    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-             INT_PUERTOB1   0x000077    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-            ANTIREBOTE_RB   0x000077    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-              PROBANDO_RB   0x00007f    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-                      SIG   0x00008c    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-            No_Llego_Cero   0x00008f    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-               Llego_Cero   0x000093    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-     Levanto_bandera_gano   0x00009e    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-      Levanto_flag_perdio   0x0000a2    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-                INT_TIMER   0x0000a6    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-            MUESTRO_COLOR   0x0000c0    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-            FIN_INT_TIMER   0x0000e0    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-                    TABLA   0x0000ea    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-        Generar_Secuencia   0x0000ef    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-                    Bucle   0x0000f8    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-                Bajo_Cont   0x0000ff    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-               delay_10ms   0x000106    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-                   BUCLE2   0x000108    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-                   BUCLE1   0x00010a    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
-             CREAR_RANDOM   0x000110    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\SIMON_FINAL_noaandaspuertoc.asm
+                   INICIO   0x000005    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+                     MAIN   0x000008    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+                   Espero   0x000012    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+          SIGUIENTE_COLOR   0x00001c    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+             PERDIO_JUEGO   0x000022    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+               GANO_JUEGO   0x000024    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+        Mostrar_Secuencia   0x000026    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+           Volver_Hacerlo   0x00002a    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+                      CFG   0x00003e    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+             INTERRUPCION   0x000067    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+              INT_PUERTOB   0x00006b    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+           ANTIREBOTE_INT   0x00006b    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+             PROBANDO_RB0   0x00006d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+             INT_PUERTOB1   0x000077    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+            ANTIREBOTE_RB   0x000077    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+              PROBANDO_RB   0x00007f    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+                      SIG   0x00008c    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+            No_Llego_Cero   0x00008f    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+               Llego_Cero   0x000093    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+     Levanto_bandera_gano   0x0000a2    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+      Levanto_flag_perdio   0x0000a6    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+                    TABLA   0x0000aa    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+               delay_10ms   0x0000af    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+                   BUCLE2   0x0000b1    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+                   BUCLE1   0x0000b3    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+              delay_100ms   0x0000b9    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+               BUCLE2_100   0x0000bb    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+               BUCLE1_100   0x0000bd    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
+             CREAR_RANDOM   0x0000c3    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\Simon\SIMON_FINAL_noaandaspuertoc.asm
 
 

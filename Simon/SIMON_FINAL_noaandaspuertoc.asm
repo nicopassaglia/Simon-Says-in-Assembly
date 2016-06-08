@@ -1,8 +1,7 @@
 	list p=16f887
 	INCLUDE "p16F887.inc"
 	CBLOCK 0x21
-	Cont_Sec
-	Cont_Sec1
+	SCORE
 	Numero_de_valores_de_secuencia
 	Contador
 	Contador_Aux
@@ -19,7 +18,7 @@ Proximo EQU 1
 Gano	EQU 2
 Crear	EQU	3
 Comenzo EQU 4
-MAX_VAL	EQU .8
+MAX_VAL	EQU .4
 	org	0x00
 	goto 	INICIO
 	org	0x04
@@ -30,14 +29,14 @@ INICIO
 	call	CFG
 	movlw 	MAX_VAL
 	movwf 	Numero_de_valores_de_secuencia
-MAIN
-	call	Generar_Secuencia	
+MAIN	
 	incf	Random, 1
 	btfss 	FLAGS, Comenzo	;Cuando viene interrupcion por RB0 setea el FLAG
 	goto 	MAIN
 	movf 	Random, 0
 	andlw 	b'00000011'
 	movwf 	Primer_valor
+	clrf	SCORE	;Reinicio SCORE
 	bsf 	INTCON, RBIE
 	bsf 	FLAGS, Crear
 	call	Mostrar_Secuencia
@@ -88,30 +87,33 @@ GANO_JUEGO
 	;----MOSTRAR SECUENCIA DE COLORES----
 Mostrar_Secuencia
 ;{
-	movf	Contador_Aux,0
-	movwf	Contador
-	incf 	Contador, 1
+
 	bcf		INTCON,RBIE ;En este momento no se puede interrumpir el programa
 	bcf		INTCON,INTE
 	movlw 	Primer_valor
 	movwf 	FSR
-	movlw	.0
-	movwf	TMR0
-	bsf 	INTCON, T0IE
+Volver_Hacerlo
 	movf 	INDF,0
 	call 	TABLA
 	movwf 	PORTD
-	decf 	FSR, 1
 
+	call delay_100ms
+	call delay_100ms
+	call delay_100ms
+	call delay_100ms
+	call delay_100ms
+	incf FSR, 1
+	clrf PORTD
+	call delay_100ms
+	decfsz Contador, 1
+	goto Volver_Hacerlo
 
-ESPERO_TIMER ;EL BLOQUE ESPERO_TIMER HACE UN RETARDO PARA QUE EL COLOR SEA VISIBLE AL OJO
-	nop
-	btfss 	FLAGS, Proximo 
-	goto 	ESPERO_TIMER	
 	clrf	PORTD
-	bcf 	FLAGS, Proximo
-	bsf 	INTCON, INTE ;YA PUEDO TOMAR INTERRUPCIONES POR PUERTO B
 	bsf 	INTCON, RBIE
+	movlw 	Primer_valor
+	movwf 	FSR
+	movf 	Contador_Aux, 0
+	movwf 	Contador
 	return
 ;}
 	;----FIN MOSTRAR SECUENCIA DE COLORES-----
@@ -189,8 +191,7 @@ INTERRUPCION
 	goto	INT_PUERTOB
 	btfsc	INTCON,RBIF
 	goto	INT_PUERTOB1
-	btfsc 	INTCON,T0IF	
-	goto	INT_TIMER
+
 ;}
 	;---FIN VERIFICACION---
 
@@ -263,6 +264,7 @@ No_Llego_Cero
 ;---EL CONTADOR LLEGO A CERO, ACA DEBO CONTROLAR SI YA GANO 
 ;O HAY QUE MOSTRAR UNA NUEVA SECUENCIA----
 Llego_Cero
+	incf SCORE, 1	;Aumento uno al score
 	movlw	Primer_valor
 	movwf	FSR	
 	movf	Numero_de_valores_de_secuencia,0
@@ -271,6 +273,9 @@ Llego_Cero
 	goto	Levanto_bandera_gano
 	bsf		FLAGS,Crear
 	bsf		FLAGS,Proximo ;Seteo la bandera de proximo para que el programa sepa que debe mostrar la siguiente secuencia
+	call delay_100ms
+	call delay_100ms
+	call delay_100ms
 	bcf		INTCON,RBIF
 	bcf		INTCON,INTF
 	retfie
@@ -293,90 +298,6 @@ Levanto_flag_perdio
 	;------	FIN LEVANTAMIENTO DE BANDERAS----------------
 ;---------FIN INTERRUPCIONES PUERTO B---------
 
-;-------INTERRUPCION POR TIMER0--------
-INT_TIMER
-;{
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms	
-	call	delay_10ms	
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms	
-	call	delay_10ms	
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms	
-	decfsz	Contador,1 ;aca controlo si debo mostrar un color mas o ya termino esa secuencia
-	goto	MUESTRO_COLOR
-	goto	FIN_INT_TIMER
-
-	;-----MOSTRAR COLOR------
-MUESTRO_COLOR
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms	
-	call	delay_10ms	
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms	
-	call	delay_10ms	
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	call	delay_10ms
-	incf	FSR,1
-	movf	INDF,0		;MUEVO EL VALOR AL QUE APUNTA FSR A W Y LUEGO LLAMO A LA TABLA
-	call	TABLA
-	movwf 	PORTD		;LE MANDO W AL PUERTOD PARA QUE SE PRENDA EL LED CORRESPONDIENTE
-	nop
-	movlw	.0
-	movwf	TMR0
-	bcf		INTCON,T0IF	;BAJO BANDERA DEL TIMER
-	retfie
-	;---FIN MOSTRAR COLOR----
-	
-FIN_INT_TIMER
-	;ESTE BLOQUE MANEJA CUANDO YA TERMINO DE MOSTRAR TODA LA SECUENCIA DE COLORES.
-	movlw	.0
-	movwf	TMR0
-	movf	Contador_Aux,0
-	movwf	Contador
-	bsf		FLAGS,Proximo	;ESTA BANDERA LA SETEO PARA QUE SALGA DEL BUCLE ESPERO_TIMER
-	movlw	Primer_valor
-	movwf	FSR				;REINICIO EL VALOR AL QUE APUNTA FSR
-	bcf		INTCON,T0IF		;BAJO BANDERA DE TIMER0
-	bcf		INTCON,T0IE		;DESHABILITO LA INTERRUPCIONES POR TIMER
-	retfie
-;}
-	;------FIN INTERRUPCION POR TIMER0-------
-
-
-
-
 
 ;-----FIN INTERRUPCIONES---------
 
@@ -393,41 +314,6 @@ TABLA
 ;}
 ;-------FIN TABLA---------------
 
-;----BLOQUE QUE GENERA LA SECUENCIA----
-
-Generar_Secuencia
-;{
-	movlw	.8
-	movwf	Numero_de_valores_de_secuencia
-
-	movlw	.4
-	movwf	Cont_Sec
-	
-	movlw	.2
-	movwf	Cont_Sec1
-
-
-	movlw 	Primer_valor
-	movwf	FSR
-	clrf	Valor_aux
-Bucle
-	movf	Valor_aux,0
-	movwf	INDF
-	incf	Valor_aux,1
-	incf	FSR, 1
-	decfsz	Cont_Sec, 1
-	goto	Bucle
-	goto	Bajo_Cont
-Bajo_Cont
-	movlw	0
-	movwf	Valor_aux
-	movlw	.4
-	movwf	Cont_Sec
-	decfsz	Cont_Sec1, 1
-	goto	Bucle	
-	return
-;}
-;-------FIN BLOQUE GENERADOR DE SECUENCIA---------------
 
 ;---Retardo por software de 10ms----
 
@@ -444,6 +330,23 @@ BUCLE1
 	goto 	BUCLE1
 	decfsz 	DELAY2, 1
 	goto 	BUCLE2
+	return		;La formula del delay es R=[(4X)+4]Y+1 donde X=124 e Y=20.
+;}
+;---Retardo por software de 100ms----
+
+delay_100ms	
+;{
+	movlw 	.200
+	movwf 	DELAY2
+BUCLE2_100
+	movlw 	.124
+	movwf 	DELAY1
+BUCLE1_100
+	nop
+	decfsz 	DELAY1, 1
+	goto 	BUCLE1_100
+	decfsz 	DELAY2, 1
+	goto 	BUCLE2_100
 	return		;La formula del delay es R=[(4X)+4]Y+1 donde X=124 e Y=20.
 ;}
 ;--------FIN RETARDO--------------
