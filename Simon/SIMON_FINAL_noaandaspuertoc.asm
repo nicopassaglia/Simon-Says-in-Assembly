@@ -8,7 +8,8 @@
 	Contador_Aux
 	DELAY1
 	DELAY2
-	valor
+	Random
+	Puntero
 	FLAGS
 	Valor_aux
 	Primer_valor 
@@ -16,6 +17,9 @@
 Perdio	EQU 0
 Proximo EQU 1
 Gano	EQU 2
+Crear	EQU	3
+Comenzo EQU 4
+MAX_VAL	EQU .8
 	org	0x00
 	goto 	INICIO
 	org	0x04
@@ -24,12 +28,23 @@ Gano	EQU 2
 INICIO
 
 	call	CFG
-
+	movlw 	MAX_VAL
+	movwf 	Numero_de_valores_de_secuencia
 MAIN
-	call	Generar_Secuencia
+	call	Generar_Secuencia	
+	incf	Random, 1
+	btfss 	FLAGS, Comenzo	;Cuando viene interrupcion por RB0 setea el FLAG
+	goto 	MAIN
+	movf 	Random, 0
+	andlw 	b'00000011'
+	movwf 	Primer_valor
+	bsf 	INTCON, RBIE
+	bsf 	FLAGS, Crear
 	call	Mostrar_Secuencia
 ;----BLOQUE QUE ESPERA UNA PULSACION-----
 Espero
+;{	
+	incf	Random,1
 	clrf	TMR0
 	CLRWDT
 	btfsc	FLAGS,Proximo	;Si pulso el/los color/es correcto/s, muestro la siguiente secuencia
@@ -38,18 +53,19 @@ Espero
 	goto	PERDIO_JUEGO
 	btfsc	FLAGS,Gano		;Si gano, gano 
 	goto	GANO_JUEGO
-	goto	Espero
+	goto	Espero;}
 
 ;----FIN BLOQUE ESPERO-----
 	
 
 SIGUIENTE_COLOR
+;{
 	incf 	Contador_Aux,1
 	movf	Contador_Aux,0
 	movwf	Contador
 	bcf 	FLAGS,Proximo
 	call 	Mostrar_Secuencia
-	return
+	return;}
 
 
 
@@ -85,9 +101,9 @@ Mostrar_Secuencia
 	movf 	INDF,0
 	call 	TABLA
 	movwf 	PORTD
-	decf 	FSR, 1;}
-	
-		
+	decf 	FSR, 1
+
+
 ESPERO_TIMER ;EL BLOQUE ESPERO_TIMER HACE UN RETARDO PARA QUE EL COLOR SEA VISIBLE AL OJO
 	nop
 	btfss 	FLAGS, Proximo 
@@ -97,6 +113,7 @@ ESPERO_TIMER ;EL BLOQUE ESPERO_TIMER HACE UN RETARDO PARA QUE EL COLOR SEA VISIB
 	bsf 	INTCON, INTE ;YA PUEDO TOMAR INTERRUPCIONES POR PUERTO B
 	bsf 	INTCON, RBIE
 	return
+;}
 	;----FIN MOSTRAR SECUENCIA DE COLORES-----
 
 
@@ -105,10 +122,10 @@ ESPERO_TIMER ;EL BLOQUE ESPERO_TIMER HACE UN RETARDO PARA QUE EL COLOR SEA VISIB
 ;--------CONFIGURACION-------
 
 CFG
-	
+;{	
 	;Habilito los enables de las interrupciones
 	banksel INTCON
-	movlw	b'10011000'
+	movlw	b'10010000'
 	movwf 	INTCON
 
 	banksel	IOCB
@@ -155,8 +172,11 @@ CFG
 	clrf	PORTB
 	clrf	PORTD
 	clrf	FLAGS
+	movlw	Primer_valor
+	movwf	Puntero
+	incf	Puntero,1
 	return
-	
+	;}
 ;--------FIN CONFIGURACION-----------
 
 
@@ -164,36 +184,60 @@ CFG
 ;RUTINA DE INTERRUPCION
 INTERRUPCION
 	;---VERIFICACION DE DONDE VINO LA INTERRUPCION---
-	btfsc	INTCON,RBIF
-	goto	INT_PUERTOB
+;{
 	btfsc 	INTCON,INTF
 	goto	INT_PUERTOB
+	btfsc	INTCON,RBIF
+	goto	INT_PUERTOB1
 	btfsc 	INTCON,T0IF	
 	goto	INT_TIMER
+;}
 	;---FIN VERIFICACION---
 
 ;-----INTERRUPCION POR PUERTO B-------
 INT_PUERTOB
+	
+ANTIREBOTE_INT
+	call 	delay_10ms ;Hago delay para esperar a que pase el rebote
+	call 	delay_10ms
+PROBANDO_RB0
+	btfsc 	PORTB, 0 	;Testeo el bit RB0, si se dejo de pulsar el boton bajara a cero
+	goto 	PROBANDO_RB0
+	call 	delay_10ms
+	call 	delay_10ms	;Una vez que se dejo de presionar el boton, hago un delay de 10 ms para que pase el rebote.
 
+	bcf		INTCON, INTF
+	bcf		INTCON, INTE	
+	bsf	 	FLAGS, Comenzo
+	bcf		INTCON, RBIF
+	bcf 	INTCON, T0IF
+	retfie
 	;---ANTIREBOTE POR SOFTWARE DE LOS PULSADORES-----	
-ANTIREBOTE_RB
 
+INT_PUERTOB1
+ANTIREBOTE_RB
+;{
 	call 	delay_10ms
 	call	delay_10ms ;Espero 10ms a que pase el rebote
 	movf 	PORTB, 0 	;muevo el puerto B a w
 	andlw 	0xF0	;Hago and con los bits que me importan y los guardo
 	movwf 	Valor_aux ;Esta es la variable que utilizo en la rutina para comparar
+	movwf	PORTD
+	btfsc	FLAGS, Crear
+	call	CREAR_RANDOM
 
 PROBANDO_RB
-	movf 	PORTB,0	;Muevo al puerto B a W
+	movf 	PORTB, 0	;Prendemos el led que se pulsa
 	andlw 	0xF0	;Hago AND a los bits que me interesan
 	btfss 	STATUS, Z	;Si todos los bits estan en cero significa que se dejo de pulsar
 	goto 	PROBANDO_RB	;Sino, sigo probando hasta que se deje de pulsar el boton
 	call 	delay_10ms
 	call	delay_10ms	;Hago un delay por el rebote de soltar el pulsador
+	clrf	PORTD
+;}
 
 	;-----FIN ANTIREBOTE POR SOFTWARE-----
-
+;{
 	;----Comienzo de Rutina de Interrupcion por PUERTO B----	
 
 	movf	INDF,0			;MUEVO EL VALOR AL QUE PUNTA FSR A W
@@ -225,6 +269,7 @@ Llego_Cero
 	xorwf	Contador_Aux, 0
 	btfsc	STATUS,Z 	;verifico si ya gano haciendo un xor con la cantidad de valores
 	goto	Levanto_bandera_gano
+	bsf		FLAGS,Crear
 	bsf		FLAGS,Proximo ;Seteo la bandera de proximo para que el programa sepa que debe mostrar la siguiente secuencia
 	bcf		INTCON,RBIF
 	bcf		INTCON,INTF
@@ -244,12 +289,13 @@ Levanto_flag_perdio
 	bsf 	FLAGS,Perdio ;LEVANTO EL FLAG YA QUE PERDIO
 	bcf		INTCON,RBIF
 	bcf		INTCON,INTF	
-	retfie
+	retfie;}
 	;------	FIN LEVANTAMIENTO DE BANDERAS----------------
 ;---------FIN INTERRUPCIONES PUERTO B---------
 
 ;-------INTERRUPCION POR TIMER0--------
 INT_TIMER
+;{
 	call	delay_10ms
 	call	delay_10ms
 	call	delay_10ms
@@ -272,8 +318,7 @@ INT_TIMER
 	call	delay_10ms
 	call	delay_10ms
 	call	delay_10ms
-	call	delay_10ms
-	incf	FSR,1	
+	call	delay_10ms	
 	decfsz	Contador,1 ;aca controlo si debo mostrar un color mas o ya termino esa secuencia
 	goto	MUESTRO_COLOR
 	goto	FIN_INT_TIMER
@@ -303,6 +348,7 @@ MUESTRO_COLOR
 	call	delay_10ms
 	call	delay_10ms
 	call	delay_10ms
+	incf	FSR,1
 	movf	INDF,0		;MUEVO EL VALOR AL QUE APUNTA FSR A W Y LUEGO LLAMO A LA TABLA
 	call	TABLA
 	movwf 	PORTD		;LE MANDO W AL PUERTOD PARA QUE SE PRENDA EL LED CORRESPONDIENTE
@@ -325,6 +371,7 @@ FIN_INT_TIMER
 	bcf		INTCON,T0IF		;BAJO BANDERA DE TIMER0
 	bcf		INTCON,T0IE		;DESHABILITO LA INTERRUPCIONES POR TIMER
 	retfie
+;}
 	;------FIN INTERRUPCION POR TIMER0-------
 
 
@@ -336,19 +383,20 @@ FIN_INT_TIMER
 ;---TABLA DE VALORES PARA LOS LEDS----
 
 TABLA
-
+;{
 	addwf 	PCL,1
 	retlw	b'10000000'
 	retlw	b'01000000'
 	retlw	b'00100000'
 	retlw	b'00010000'
 
-
+;}
 ;-------FIN TABLA---------------
 
 ;----BLOQUE QUE GENERA LA SECUENCIA----
-;{
+
 Generar_Secuencia
+;{
 	movlw	.8
 	movwf	Numero_de_valores_de_secuencia
 
@@ -382,8 +430,9 @@ Bajo_Cont
 ;-------FIN BLOQUE GENERADOR DE SECUENCIA---------------
 
 ;---Retardo por software de 10ms----
-;{
+
 delay_10ms	
+;{
 	movlw 	.20
 	movwf 	DELAY2
 BUCLE2
@@ -399,5 +448,15 @@ BUCLE1
 ;}
 ;--------FIN RETARDO--------------
 
-
+CREAR_RANDOM
+	movf	Puntero,0
+	movwf	FSR
+	movf	Random,0
+	andlw	b'00000011'
+	movwf	INDF
+	movlw	Primer_valor
+	movwf	FSR
+	incf	Puntero,1
+	bcf		FLAGS,Crear
+	return
 	end
