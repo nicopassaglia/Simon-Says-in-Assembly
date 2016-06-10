@@ -1,12 +1,12 @@
 MPLINK 4.37, Linker
-Linker Map File - Created Wed Jun 08 18:59:08 2016
+Linker Map File - Created Thu Jun 09 22:03:14 2016
 
                                  Section Info
                   Section       Type    Address   Location Size(Bytes)
                 ---------  ---------  ---------  ---------  ---------
                    .org_0       code   0x000000    program   0x000000
                    .org_1       code   0x000000    program   0x000002
-                   .org_2       code   0x000004    program   0x00004c
+                   .org_2       code   0x000004    program   0x0000b2
 
 
 
@@ -14,23 +14,27 @@ Linker Map File - Created Wed Jun 08 18:59:08 2016
                                Start         End      
                            ---------   ---------      
                             0x000000    0x000000      
-                            0x000004    0x000029      
-            39 out of 8454 program addresses used, program memory utilization is 0%
+                            0x000004    0x00005c      
+            90 out of 8454 program addresses used, program memory utilization is 1%
 
 
 
                               Symbols - Sorted by Name
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
-                      CFG   0x000007    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
-                CONVERTIR   0x00000b    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
-            DECENAS_BUCLE   0x00000e    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+                      CFG   0x00000a    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+                CONVERTIR   0x000029    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+              DECENAS_TAG   0x00002b    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+                FIN_TIMER   0x00004e    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
                    INICIO   0x000005    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
-             INTERRUPCION   0x00000a    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
-                     MAIN   0x000006    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
-           PUNTAJE_MAYOR?   0x000016    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
-                    TABLA   0x00001f    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
-             UNIDADES_TAG   0x000013    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+             INTERRUPCION   0x000024    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+                INT_TIMER   0x000026    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+                     MAIN   0x000008    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+          MOSTRAR_DECENAS   0x000047    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+         MOSTRAR_UNIDADES   0x00003f    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+           PUNTAJE_MAYOR?   0x000036    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+                    TABLA   0x000052    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+             UNIDADES_TAG   0x000033    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
 
 
 
@@ -38,13 +42,17 @@ Linker Map File - Created Wed Jun 08 18:59:08 2016
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
                    INICIO   0x000005    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
-                     MAIN   0x000006    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
-                      CFG   0x000007    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
-             INTERRUPCION   0x00000a    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
-                CONVERTIR   0x00000b    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
-            DECENAS_BUCLE   0x00000e    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
-             UNIDADES_TAG   0x000013    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
-           PUNTAJE_MAYOR?   0x000016    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
-                    TABLA   0x00001f    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+                     MAIN   0x000008    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+                      CFG   0x00000a    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+             INTERRUPCION   0x000024    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+                INT_TIMER   0x000026    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+                CONVERTIR   0x000029    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+              DECENAS_TAG   0x00002b    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+             UNIDADES_TAG   0x000033    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+           PUNTAJE_MAYOR?   0x000036    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+         MOSTRAR_UNIDADES   0x00003f    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+          MOSTRAR_DECENAS   0x000047    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+                FIN_TIMER   0x00004e    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
+                    TABLA   0x000052    program     static D:\Usuario\Documents\Facultad\Electronica Digital II\Simon\Segundo_Pic.asm
 
 

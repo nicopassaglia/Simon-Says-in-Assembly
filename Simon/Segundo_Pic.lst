@@ -1,4 +1,4 @@
-MPASM  5.37                   SEGUNDO_PIC.ASM   6-8-2016  18:59:07         PAGE  1
+MPASM  5.37                   SEGUNDO_PIC.ASM   6-9-2016  22:03:13         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -17,98 +17,178 @@ Warning[205]: Found directive in column 1. (CBLOCK)
   00000021            00005 AUX1
   00000022            00006 AUX2
   00000023            00007 PUNTAJE
-  00000024            00008 MAYOR_PUNTAJE
-  00000025            00009 UNIDADES
-  00000026            00010 DECENAS
+  00000024            00008 FLAGS
+  00000025            00009 MAYOR_PUNTAJE
+  00000026            00010 UNIDADES
+  00000027            00011 DECENAS
 Warning[205]: Found directive in column 1. (ENDC)
-                      00011 ENDC
-  0000003F            00012 DISP_0  EQU b'00111111'
-  00000006            00013 DISP_1  EQU b'00000110'
-  0000005B            00014 DISP_2  EQU b'01011011'
-  0000004F            00015 DISP_3  EQU b'01001111'
-  00000066            00016 DISP_4  EQU b'01100110'
-  0000006D            00017 DISP_5  EQU b'01101101'
-  0000007D            00018 DISP_6  EQU b'01111101'
-  00000007            00019 DISP_7  EQU b'00000111'
-  0000007F            00020 DISP_8  EQU b'01111111'
-  0000006F            00021 DISP_9  EQU b'01101111'
+                      00012 ENDC
+  0000003F            00013 DISP_0  EQU b'00111111'
+  00000006            00014 DISP_1  EQU b'00000110'
+  000000DB            00015 DISP_2  EQU b'11011011'
+  000000CF            00016 DISP_3  EQU b'11001111'
+  000000E6            00017 DISP_4  EQU b'11100110'
+  000000ED            00018 DISP_5  EQU b'11101101'
+  000000FD            00019 DISP_6  EQU b'11111101'
+  00000007            00020 DISP_7  EQU b'00000111'
+  000000FF            00021 DISP_8  EQU b'11111111'
+  000000EF            00022 DISP_9  EQU b'11101111'
+  00000000            00023 DISP_UNIDADES EQU 0
 Warning[205]: Found directive in column 1. (org)
-0000                  00022 org     0x00
+0000                  00024 org     0x00
 Warning[203]: Found opcode in column 1. (goto)
-0000   2805           00023 goto    INICIO
+0000   2805           00025 goto    INICIO
 Warning[205]: Found directive in column 1. (org)
-0004                  00024 org     0x04
+0004                  00026 org     0x04
 Warning[203]: Found opcode in column 1. (goto)
-0004   280A           00025 goto    INTERRUPCION
-                      00026 
-                      00027 
+0004   2824           00027 goto    INTERRUPCION
                       00028 
-0005                  00029 INICIO
-0005   2007           00030         call    CFG
-                      00031 
-0006                  00032 MAIN
-0006   2806           00033         goto    $
-                      00034 
-0007                  00035 CFG
-0007   3000           00036         movlw   0x00
-0008   00A4           00037         movwf   MAYOR_PUNTAJE
-0009   0008           00038         return
+                      00029 
+                      00030 
+0005                  00031 INICIO
+0005   200A           00032         call    CFG
+0006   2029           00033         call    CONVERTIR
+0007   168B           00034         bsf             INTCON,T0IE
+                      00035 
+0008                  00036 MAIN
+0008   0000           00037         nop     
+0009   2808           00038         goto    MAIN
                       00039 
-000A                  00040 INTERRUPCION
-000A   0009           00041         retfie
-                      00042 
-MPASM  5.37                   SEGUNDO_PIC.ASM   6-8-2016  18:59:07         PAGE  2
+000A                  00040 CFG
+000A   3019           00041         movlw   .25
+000B   00A3           00042         movwf   PUNTAJE
+MPASM  5.37                   SEGUNDO_PIC.ASM   6-9-2016  22:03:13         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      00043 
-000B                  00044 CONVERTIR
-000B   0823           00045         movf    PUNTAJE,0
-000C   00A0           00046         movwf   AUX
-000D   300A           00047         movlw   .10
-                      00048 
-000E                  00049 DECENAS_BUCLE
-000E   02A0           00050         subwf   AUX,1
-000F   1803           00051         btfsc   STATUS,C
-0010   2825           00052         goto    UNIDADES
-0011   0AA6           00053         incf    DECENAS,1
-0012   2826           00054         goto    DECENAS
-                      00055 
-0013                  00056 UNIDADES_TAG
-0013   0820           00057         movf    AUX,0
-0014   00A5           00058         movwf   UNIDADES
-0015   0008           00059         return
-                      00060         
+000C   3000           00043         movlw   0x00
+000D   00A5           00044         movwf   MAYOR_PUNTAJE
+000E   00A7           00045         movwf   DECENAS
+000F   00A6           00046         movwf   UNIDADES
+                      00047 
+0010   1683 1303      00048         banksel OPTION_REG
+0012   3004           00049         movlw   b'00000100'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0013   0081           00050         movwf   OPTION_REG
+0014   3000           00051         movlw   b'00000000'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0015   0086           00052         movwf   TRISB
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0016   0088           00053         movwf   TRISD
+                      00054         
+0017   1683 1703      00055         banksel ANSELH
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0019   0189           00056         clrf    ANSELH
+                      00057         
+001A   1283 1303      00058         banksel INTCON
+001C   3080           00059         movlw   b'10000000'
+001D   008B           00060         movwf   INTCON
                       00061         
-0016                  00062 PUNTAJE_MAYOR?
-0016   0823           00063         movf    PUNTAJE,0
-0017   00A1           00064         movwf   AUX1
-0018   0824           00065         movf    MAYOR_PUNTAJE,0
-0019   02A1           00066         subwf   AUX1,1
-001A   1C03           00067         btfss   STATUS,C
-001B   0008           00068         return
-001C   0823           00069         movf    PUNTAJE,0
-001D   00A4           00070         movwf   MAYOR_PUNTAJE
-001E   0008           00071         return
-                      00072         
-                      00073 
-001F                  00074 TABLA
-001F   0782           00075         addwf   PCL,1
-0020   343F           00076         retlw   DISP_0  
-0021   3406           00077         retlw   DISP_1
-0022   345B           00078         retlw   DISP_2  
-0023   344F           00079         retlw   DISP_3  
-0024   3466           00080         retlw   DISP_4  
-0025   346D           00081         retlw   DISP_5  
-0026   347D           00082         retlw   DISP_6  
-0027   3407           00083         retlw   DISP_7  
-0028   347F           00084         retlw   DISP_8  
-0029   346F           00085         retlw   DISP_9  
+001E   3032           00062         movlw   .50
+001F   0081           00063         movwf   TMR0
+0020   3000           00064         movlw   0x00
+0021   0088           00065         movwf   PORTD
+0022   01A4           00066         clrf    FLAGS
+                      00067         
+0023   0008           00068   return
+                      00069 
+0024                  00070 INTERRUPCION
+0024   190B           00071         btfsc   INTCON,T0IF
+0025   2826           00072         goto    INT_TIMER
+                      00073         
+                      00074 
+                      00075 
+0026                  00076 INT_TIMER
+0026   1C24           00077         btfss   FLAGS,DISP_UNIDADES
+0027   283F           00078         goto    MOSTRAR_UNIDADES
+0028   2847           00079         goto    MOSTRAR_DECENAS
+                      00080         
+                      00081         
+                      00082 
+                      00083 
+0029                  00084 CONVERTIR
+0029   0823           00085         movf    PUNTAJE,0
+002A   00A0           00086         movwf   AUX
+002B                  00087 DECENAS_TAG
+002B   300A           00088         movlw   .10
+002C   02A0           00089         subwf   AUX,1
+002D   1C03           00090         btfss   STATUS,C
+002E   2833           00091         goto    UNIDADES_TAG
+MPASM  5.37                   SEGUNDO_PIC.ASM   6-9-2016  22:03:13         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+002F   0820           00092         movf    AUX,0
+0030   00A2           00093         movwf   AUX2
+0031   0AA7           00094         incf    DECENAS,1
+0032   282B           00095         goto    DECENAS_TAG
+                      00096 
+0033                  00097 UNIDADES_TAG
+0033   0822           00098         movf    AUX2,0
+0034   00A6           00099         movwf   UNIDADES
+0035   0008           00100         return
+                      00101         
+                      00102         
+0036                  00103 PUNTAJE_MAYOR?
+0036   0823           00104         movf    PUNTAJE,0
+0037   00A1           00105         movwf   AUX1
+0038   0825           00106         movf    MAYOR_PUNTAJE,0
+0039   02A1           00107         subwf   AUX1,1
+003A   1C03           00108         btfss   STATUS,C
+003B   0008           00109         return
+003C   0823           00110         movf    PUNTAJE,0
+003D   00A5           00111         movwf   MAYOR_PUNTAJE
+003E   0008           00112         return
+                      00113 
+003F                  00114 MOSTRAR_UNIDADES
+003F   0186           00115         clrf    PORTB
+0040   1088           00116         bcf             PORTD,1
+0041   1408           00117         bsf             PORTD,0
+0042   0826           00118         movf    UNIDADES,0
+0043   2052           00119         call    TABLA
+0044   0086           00120         movwf   PORTB
+0045   1424           00121         bsf             FLAGS,DISP_UNIDADES
+0046   284E           00122         goto    FIN_TIMER
+                      00123 
+0047                  00124 MOSTRAR_DECENAS
+0047   0186           00125         clrf    PORTB
+0048   1008           00126         bcf             PORTD,0
+0049   1488           00127         bsf             PORTD,1
+004A   0827           00128         movf    DECENAS,0
+004B   2052           00129         call    TABLA
+004C   1024           00130         bcf             FLAGS,DISP_UNIDADES
+004D   0086           00131         movwf   PORTB
+                      00132         
+004E                  00133 FIN_TIMER
+004E   3032           00134         movlw   .50 ;valor de carga de timer
+004F   0081           00135         movwf   TMR0
+0050   110B           00136         bcf             INTCON,T0IF
+0051   0009           00137         retfie
+0052                  00138 TABLA
+0052   0782           00139         addwf   PCL,1
+0053   343F           00140         retlw   DISP_0
+0054   3406           00141         retlw   DISP_1
+0055   34DB           00142         retlw   DISP_2  
+0056   34CF           00143         retlw   DISP_3  
+0057   34E6           00144         retlw   DISP_4  
+MPASM  5.37                   SEGUNDO_PIC.ASM   6-9-2016  22:03:13         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0058   34ED           00145         retlw   DISP_5  
+0059   34FD           00146         retlw   DISP_6  
+005A   3407           00147         retlw   DISP_7  
+005B   34FF           00148         retlw   DISP_8  
+005C   34EF           00149         retlw   DISP_9  
 Warning[205]: Found directive in column 1. (end)
-                      00086 end
-MPASM  5.37                   SEGUNDO_PIC.ASM   6-8-2016  18:59:07         PAGE  3
+                      00150 end
+MPASM  5.37                   SEGUNDO_PIC.ASM   6-9-2016  22:03:13         PAGE  5
 
 
 SYMBOL TABLE
@@ -167,7 +247,7 @@ BRG3                              00000003
 BRG4                              00000004
 BRG5                              00000005
 BRG6                              00000006
-MPASM  5.37                   SEGUNDO_PIC.ASM   6-8-2016  18:59:07         PAGE  4
+MPASM  5.37                   SEGUNDO_PIC.ASM   6-9-2016  22:03:13         PAGE  6
 
 
 SYMBOL TABLE
@@ -223,10 +303,10 @@ CCPR1H                            00000016
 CCPR1L                            00000015
 CCPR2H                            0000001C
 CCPR2L                            0000001B
-CFG                               00000007
+CFG                               0000000A
 CHS0                              00000002
 CHS1                              00000003
-MPASM  5.37                   SEGUNDO_PIC.ASM   6-8-2016  18:59:07         PAGE  5
+MPASM  5.37                   SEGUNDO_PIC.ASM   6-9-2016  22:03:13         PAGE  7
 
 
 SYMBOL TABLE
@@ -239,7 +319,7 @@ CKP                               00000004
 CM1CON0                           00000107
 CM2CON0                           00000108
 CM2CON1                           00000109
-CONVERTIR                         0000000B
+CONVERTIR                         00000029
 CREN                              00000004
 CSRC                              00000007
 D                                 00000005
@@ -249,18 +329,19 @@ DC1B0                             00000004
 DC1B1                             00000005
 DC2B0                             00000004
 DC2B1                             00000005
-DECENAS                           00000026
-DECENAS_BUCLE                     0000000E
+DECENAS                           00000027
+DECENAS_TAG                       0000002B
 DISP_0                            0000003F
 DISP_1                            00000006
-DISP_2                            0000005B
-DISP_3                            0000004F
-DISP_4                            00000066
-DISP_5                            0000006D
-DISP_6                            0000007D
+DISP_2                            000000DB
+DISP_3                            000000CF
+DISP_4                            000000E6
+DISP_5                            000000ED
+DISP_6                            000000FD
 DISP_7                            00000007
-DISP_8                            0000007F
-DISP_9                            0000006F
+DISP_8                            000000FF
+DISP_9                            000000EF
+DISP_UNIDADES                     00000000
 D_A                               00000005
 ECCPAS                            0000009C
 ECCPAS0                           00000004
@@ -279,18 +360,20 @@ EEIF                              00000004
 EEPGD                             00000007
 F                                 00000001
 FERR                              00000002
+FIN_TIMER                         0000004E
+FLAGS                             00000024
 FSR                               00000004
 FVREN                             00000000
 GCEN                              00000007
-GIE                               00000007
-GO                                00000001
-GO_DONE                           00000001
-MPASM  5.37                   SEGUNDO_PIC.ASM   6-8-2016  18:59:07         PAGE  6
+MPASM  5.37                   SEGUNDO_PIC.ASM   6-9-2016  22:03:13         PAGE  8
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+GIE                               00000007
+GO                                00000001
+GO_DONE                           00000001
 HTS                               00000002
 I2C_DATA                          00000005
 I2C_READ                          00000002
@@ -301,8 +384,9 @@ INICIO                            00000005
 INTCON                            0000000B
 INTE                              00000004
 INTEDG                            00000006
-INTERRUPCION                      0000000A
+INTERRUPCION                      00000024
 INTF                              00000001
+INT_TIMER                         00000026
 IOCB                              00000096
 IOCB0                             00000000
 IOCB1                             00000001
@@ -317,10 +401,12 @@ IRCF1                             00000005
 IRCF2                             00000006
 IRP                               00000007
 LTS                               00000001
-MAIN                              00000006
-MAYOR_PUNTAJE                     00000024
+MAIN                              00000008
+MAYOR_PUNTAJE                     00000025
 MC1OUT                            00000007
 MC2OUT                            00000006
+MOSTRAR_DECENAS                   00000047
+MOSTRAR_UNIDADES                  0000003F
 MSK                               00000093
 NOT_A                             00000005
 NOT_ADDRESS                       00000005
@@ -338,18 +424,18 @@ NOT_W                             00000002
 NOT_WRITE                         00000002
 OERR                              00000001
 OPTION_REG                        00000081
+MPASM  5.37                   SEGUNDO_PIC.ASM   6-9-2016  22:03:13         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 OSCCON                            0000008F
 OSCTUNE                           00000090
 OSFIE                             00000007
 OSFIF                             00000007
 OSTS                              00000003
 P                                 00000004
-MPASM  5.37                   SEGUNDO_PIC.ASM   6-8-2016  18:59:07         PAGE  7
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 P1M0                              00000006
 P1M1                              00000007
 PCL                               00000002
@@ -387,7 +473,7 @@ PSTRCON                           0000009D
 PULSR                             00000002
 PULSS                             00000003
 PUNTAJE                           00000023
-PUNTAJE_MAYOR?                    00000016
+PUNTAJE_MAYOR?                    00000036
 PWM1CON                           0000009B
 R                                 00000002
 RBIE                              00000003
@@ -397,18 +483,18 @@ RC9                               00000006
 RCD8                              00000000
 RCEN                              00000003
 RCIDL                             00000006
+MPASM  5.37                   SEGUNDO_PIC.ASM   6-9-2016  22:03:13         PAGE 10
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 RCIE                              00000005
 RCIF                              00000005
 RCREG                             0000001A
 RCSTA                             00000018
 RD                                00000000
 READ_WRITE                        00000002
-MPASM  5.37                   SEGUNDO_PIC.ASM   6-8-2016  18:59:07         PAGE  8
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 RP0                               00000005
 RP1                               00000006
 RSEN                              00000001
@@ -456,23 +542,23 @@ T0IE                              00000005
 T0IF                              00000002
 T0SE                              00000004
 T1CKPS0                           00000004
+MPASM  5.37                   SEGUNDO_PIC.ASM   6-9-2016  22:03:13         PAGE 11
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 T1CKPS1                           00000005
 T1CON                             00000010
 T1GIV                             00000007
 T1GSS                             00000001
 T1INSYNC                          00000002
 T1OSCEN                           00000003
-MPASM  5.37                   SEGUNDO_PIC.ASM   6-8-2016  18:59:07         PAGE  9
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 T1SYNC                            00000002
 T2CKPS0                           00000000
 T2CKPS1                           00000001
 T2CON                             00000012
-TABLA                             0000001F
+TABLA                             00000052
 TMR0                              00000001
 TMR0IE                            00000005
 TMR0IF                            00000002
@@ -515,18 +601,18 @@ UA                                00000001
 ULPWUE                            00000005
 ULPWUIE                           00000002
 ULPWUIF                           00000002
-UNIDADES                          00000025
-UNIDADES_TAG                      00000013
-VCFG0                             00000004
-VCFG1                             00000005
-VR0                               00000000
-VR1                               00000001
-MPASM  5.37                   SEGUNDO_PIC.ASM   6-8-2016  18:59:07         PAGE 10
+MPASM  5.37                   SEGUNDO_PIC.ASM   6-9-2016  22:03:13         PAGE 12
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+UNIDADES                          00000026
+UNIDADES_TAG                      00000033
+VCFG0                             00000004
+VCFG1                             00000005
+VR0                               00000000
+VR1                               00000001
 VR2                               00000002
 VR3                               00000003
 VRCON                             00000097
@@ -574,18 +660,18 @@ _EXTRC                            00003FFF
 _EXTRCIO                          00003FFE
 _EXTRC_OSC_CLKOUT                 00003FFF
 _EXTRC_OSC_NOCLKOUT               00003FFE
+MPASM  5.37                   SEGUNDO_PIC.ASM   6-9-2016  22:03:13         PAGE 13
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 _FCMEN_OFF                        000037FF
 _FCMEN_ON                         00003FFF
 _HS_OSC                           00003FFA
 _IESO_OFF                         00003BFF
 _IESO_ON                          00003FFF
 _INTOSC                           00003FFD
-MPASM  5.37                   SEGUNDO_PIC.ASM   6-8-2016  18:59:07         PAGE 11
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 _INTOSCIO                         00003FFC
 _INTRC_OSC_CLKOUT                 00003FFD
 _INTRC_OSC_NOCLKOUT               00003FFC
@@ -609,16 +695,17 @@ __DEBUG                           1
 
 MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
 
-0000 : X---XXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXX------ ----------------
+0000 : X---XXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXX--- ---------------- ----------------
 
 All other memory blocks unused.
 
-Program Memory Words Used:    39
-Program Memory Words Free:  8153
+Program Memory Words Used:    90
+Program Memory Words Free:  8102
 
 
 Errors   :     0
 Warnings :     9 reported,     0 suppressed
-Messages :     0 reported,     0 suppressed
+Messages :     4 reported,     0 suppressed
 
 
