@@ -7,7 +7,7 @@
  </FRAME>
  <MODULE name="VSMDEBUG">
   <PWI>
-   <POPUP w="800" x="309" flags="00000002" y="153" h="200" pid="0" iid="-1">
+   <POPUP w="800" x="309" flags="00000002" y="153" h="462" pid="0" iid="-1">
     <PROPERTIES>
      <ITEM name="Message Column Width">665</ITEM>
      <ITEM name="ShowGrid">No</ITEM>
@@ -79,10 +79,10 @@
      <ITEM name="TopLineAddress">00000000</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="52" x="469" flags="00000048" y="313" h="13" pid="3" iid="2">
+   <POPUP w="52" x="309" flags="00000048" y="153" h="13" pid="3" iid="16">
     <PROPERTIES/>
    </POPUP>
-   <POPUP w="8" x="489" flags="0000000a" y="333" h="32" pid="4" iid="2">
+   <POPUP w="8" x="329" flags="0000000a" y="173" h="32" pid="4" iid="16">
     <PROPERTIES>
      <ITEM name="DataType">2</ITEM>
      <ITEM name="DispChars">Yes</ITEM>
@@ -92,7 +92,7 @@
      <ITEM name="TopLineAddress">00000000</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="8" x="509" flags="0000000a" y="353" h="32" pid="5" iid="2">
+   <POPUP w="8" x="349" flags="0000000a" y="193" h="32" pid="5" iid="16">
     <PROPERTIES>
      <ITEM name="DataType">2</ITEM>
      <ITEM name="DispChars">Yes</ITEM>
@@ -102,7 +102,7 @@
      <ITEM name="TopLineAddress">00000000</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="16" x="529" flags="0000000a" y="373" h="32" pid="6" iid="2">
+   <POPUP w="16" x="369" flags="0000000a" y="213" h="32" pid="6" iid="16">
     <PROPERTIES>
      <ITEM name="DataType">2</ITEM>
      <ITEM name="DispChars">Yes</ITEM>
@@ -112,10 +112,10 @@
      <ITEM name="TopLineAddress">00000000</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="14" x="549" flags="00000008" y="393" h="8" pid="7" iid="2">
+   <POPUP w="14" x="389" flags="00000008" y="233" h="8" pid="7" iid="16">
     <PROPERTIES/>
    </POPUP>
-   <POPUP w="8" x="569" flags="00000002" y="413" h="8" pid="8" iid="2">
+   <POPUP w="8" x="409" flags="00000002" y="253" h="8" pid="8" iid="16">
     <PROPERTIES>
      <ITEM name="DataType">2</ITEM>
      <ITEM name="DispChars">Yes</ITEM>

@@ -1,0 +1,97 @@
+MPLINK 4.37, Linker
+Linker Map File - Created Fri Jun 10 01:16:13 2016
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000002
+                   .org_1       code   0x000004    program   0x0001de
+                   .cinit    romdata   0x001800    program   0x000004
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x0000f2      
+                            0x001800    0x001801      
+            242 out of 8454 program addresses used, program memory utilization is 2%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+           ANTIREBOTE_INT   0x000072    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+            ANTIREBOTE_RB   0x00007e    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+                   BUCLE1   0x0000ba    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+               BUCLE1_100   0x0000c4    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+                   BUCLE2   0x0000b8    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+               BUCLE2_100   0x0000c2    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+                      CFG   0x000045    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+             CREAR_RANDOM   0x0000ca    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+Configuracion_Puerto_Serie   0x0000d4    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+                   Espero   0x000013    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+               GANO_JUEGO   0x000028    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+                   INICIO   0x000005    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+             INTERRUPCION   0x00006e    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+              INT_PUERTOB   0x000072    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+             INT_PUERTOB1   0x00007e    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+     Levanto_bandera_gano   0x0000a9    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+      Levanto_flag_perdio   0x0000ad    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+               Llego_Cero   0x00009a    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+                     MAIN   0x000009    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+        Mostrar_Secuencia   0x00002d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+            No_Llego_Cero   0x000096    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+             PERDIO_JUEGO   0x000023    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+              PROBANDO_RB   0x000086    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+             PROBANDO_RB0   0x000074    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+                      SIG   0x000093    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+          SIGUIENTE_COLOR   0x00001d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+                    TABLA   0x0000b1    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+           Volver_Hacerlo   0x000031    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+             _.org_1_0027   0x000027    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+             _.org_1_002C   0x00002c    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+              delay_100ms   0x0000c0    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+               delay_10ms   0x0000b6    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   INICIO   0x000005    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+                     MAIN   0x000009    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+                   Espero   0x000013    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+          SIGUIENTE_COLOR   0x00001d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+             PERDIO_JUEGO   0x000023    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+             _.org_1_0027   0x000027    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+               GANO_JUEGO   0x000028    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+             _.org_1_002C   0x00002c    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+        Mostrar_Secuencia   0x00002d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+           Volver_Hacerlo   0x000031    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+                      CFG   0x000045    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+             INTERRUPCION   0x00006e    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+           ANTIREBOTE_INT   0x000072    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+              INT_PUERTOB   0x000072    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+             PROBANDO_RB0   0x000074    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+             INT_PUERTOB1   0x00007e    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+            ANTIREBOTE_RB   0x00007e    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+              PROBANDO_RB   0x000086    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+                      SIG   0x000093    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+            No_Llego_Cero   0x000096    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+               Llego_Cero   0x00009a    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+     Levanto_bandera_gano   0x0000a9    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+      Levanto_flag_perdio   0x0000ad    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+                    TABLA   0x0000b1    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+               delay_10ms   0x0000b6    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+                   BUCLE2   0x0000b8    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+                   BUCLE1   0x0000ba    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+              delay_100ms   0x0000c0    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+               BUCLE2_100   0x0000c2    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+               BUCLE1_100   0x0000c4    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+             CREAR_RANDOM   0x0000ca    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+Configuracion_Puerto_Serie   0x0000d4    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.asm
+
+
