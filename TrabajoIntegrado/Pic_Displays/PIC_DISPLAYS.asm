@@ -1,6 +1,7 @@
 	list p=16f887
 	INCLUDE "p16f887.inc"
 	CBLOCK 0x20
+CONTADOR_PRUEBA
 AUX
 AUX1
 AUX2
@@ -33,13 +34,22 @@ INICIO
 	call	Configuracion_Puerto_Serie
 	call	CONVERTIR
 	bsf		INTCON,T0IE
+	goto	MAIN
 
 MAIN
 	nop	
-	clrWDT
+	clrwdt
 	goto	MAIN
+PRUEBA
+	incf 	CONTADOR_PRUEBA
+	movf 	CONTADOR_PRUEBA, 0
+	movwf 	PUNTAJE
+	call 	PUNTAJE_MAYOR?
+	call 	CONVERTIR
+	return
 
 CFG
+	clrf 	CONTADOR_PRUEBA
 	clrf	PUNTAJE
 	clrf	MAYOR_PUNTAJE
 	clrf	DECENAS
@@ -86,8 +96,11 @@ INT_TIMER
 
 
 CONVERTIR
+	clrf 	UNIDADES
+	clrf 	DECENAS
 	movf	MAYOR_PUNTAJE,0
 	movwf	AUX
+	movwf 	AUX2
 DECENAS_TAG
 	movlw	.10
 	subwf	AUX,1
@@ -105,14 +118,14 @@ UNIDADES_TAG
 	
 	
 PUNTAJE_MAYOR?
-	movf	PUNTAJE,0
-	movwf	AUX1
-	movf	MAYOR_PUNTAJE,0
-	subwf	AUX1,1
-	btfss	STATUS,C
+	movf	PUNTAJE,0		
+	movwf	AUX1			;Paso el valor de puntaje a AUX1
+	movf	MAYOR_PUNTAJE,0	;Paso Mayor_Puntaje a W
+	subwf	AUX1,1			;Hago AUX1-W (Puntaje-Mayor_Puntaje)
+	btfss	STATUS,C		;Si B=0(C=1) entonces guardo a puntaje en Mayor_Puntaje
 	return
 	movf	PUNTAJE,0
-	movwf	MAYOR_PUNTAJE
+	movwf	MAYOR_PUNTAJE	;Guardo a puntaje en puntaje mayor
 	return
 
 MOSTRAR_UNIDADES
@@ -160,7 +173,7 @@ Configuracion_Puerto_Serie
 	bsf TRISC, 7	;RC7/RX/DT = input
 
 	banksel BAUDCTL	
-	bsf BAUDCTL, BRG16	;16-bit BAUD Rate Generator is used.
+	bcf BAUDCTL, BRG16	;16-bit BAUD Rate Generator is used.
 	
 	banksel SPBRG
 	movlw .51	;baud rate = 38400 --->	Esto seguro hay que modificarlo.
@@ -170,7 +183,7 @@ Configuracion_Puerto_Serie
 
 	banksel TXSTA
 	bcf TXSTA, TX9 	;Data is 8-bit wide
-	bsf TXSTA, TXEN	;Data transmission enabled	No se para que...
+	bcf TXSTA, TXEN	;Data transmission disabled
 	bcf TXSTA, SYNC	;Asynchronous mode
 	bsf TXSTA, BRGH	;High-speed baud rate
 	
@@ -202,27 +215,34 @@ Interrupts_Configuration		;Para Comunicacion Serie
 
 INT_RX
 	;bcf 	PIR1, RCIF
+	;banksel PIE1
+	;bcf 	PIE1, RCIE
+	;call 	PRUEBA
 	banksel	RCSTA
-	btfsc	RCSTA, FERR
-	goto	FRAMING_ERROR
 	btfsc	RCSTA, OERR
 	goto	OVERRUN_ERROR
+	btfsc	RCSTA, FERR
+	goto	FRAMING_ERROR
 	goto	RECIBIR_DATO
 RECIBIR_DATO
+	banksel RCREG
 	movf 	RCREG, 0
-	bcf		STATUS, RP0
-	bcf 	STATUS, RP1
 	movwf 	PUNTAJE
 	call	PUNTAJE_MAYOR?
 	call	CONVERTIR
 	goto	FIN_RX
 OVERRUN_ERROR
+	banksel RCREG
 	movf 	RCREG, 0
 	bcf 	RCSTA, OERR
 	bsf 	PORTD, 7
 	goto	FIN_RX	
 FRAMING_ERROR
+	banksel RCREG
 	movf	RCREG, 0
+	movwf 	PUNTAJE
+	call 	PUNTAJE_MAYOR?
+	call	CONVERTIR
 	bcf		RCSTA, FERR
 	bsf 	PORTD, 6
 	goto	FIN_RX

@@ -1,11 +1,11 @@
 MPLINK 4.37, Linker
-Linker Map File - Created Fri Jun 10 01:25:51 2016
+Linker Map File - Created Fri Jun 10 12:23:06 2016
 
                                  Section Info
                   Section       Type    Address   Location Size(Bytes)
                 ---------  ---------  ---------  ---------  ---------
                    .org_0       code   0x000000    program   0x000002
-                   .org_1       code   0x000004    program   0x000140
+                   .org_1       code   0x000004    program   0x000164
                    .cinit    romdata   0x001800    program   0x000004
 
 
@@ -14,35 +14,36 @@ Linker Map File - Created Fri Jun 10 01:25:51 2016
                                Start         End      
                            ---------   ---------      
                             0x000000    0x000000      
-                            0x000004    0x0000a3      
+                            0x000004    0x0000b5      
                             0x001800    0x001801      
-            163 out of 8454 program addresses used, program memory utilization is 1%
+            181 out of 8454 program addresses used, program memory utilization is 2%
 
 
 
                               Symbols - Sorted by Name
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
-                      CFG   0x00000c    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-                CONVERTIR   0x000030    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-Configuracion_Puerto_Serie   0x000064    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-              DECENAS_TAG   0x000032    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-                   FIN_RX   0x0000a1    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-                FIN_TIMER   0x000055    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-            FRAMING_ERROR   0x00009d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+                      CFG   0x000013    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+                CONVERTIR   0x000038    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+Configuracion_Puerto_Serie   0x00006f    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+              DECENAS_TAG   0x00003d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+                   FIN_RX   0x0000b3    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+                FIN_TIMER   0x000060    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+            FRAMING_ERROR   0x0000aa    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
                    INICIO   0x000005    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-             INTERRUPCION   0x000024    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-                   INT_RX   0x00008b    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-                INT_TIMER   0x00002d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
- Interrupts_Configuration   0x000082    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-                     MAIN   0x000009    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-          MOSTRAR_DECENAS   0x00004e    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-         MOSTRAR_UNIDADES   0x000046    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-            OVERRUN_ERROR   0x000099    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-           PUNTAJE_MAYOR?   0x00003d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-             RECIBIR_DATO   0x000092    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-                    TABLA   0x000059    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-             UNIDADES_TAG   0x00003a    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+             INTERRUPCION   0x00002c    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+                   INT_RX   0x000096    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+                INT_TIMER   0x000035    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+ Interrupts_Configuration   0x00008d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+                     MAIN   0x00000a    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+          MOSTRAR_DECENAS   0x000059    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+         MOSTRAR_UNIDADES   0x000051    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+            OVERRUN_ERROR   0x0000a4    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+                   PRUEBA   0x00000d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+           PUNTAJE_MAYOR?   0x000048    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+             RECIBIR_DATO   0x00009d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+                    TABLA   0x000064    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+             UNIDADES_TAG   0x000045    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
 
 
 
@@ -50,24 +51,25 @@ Configuracion_Puerto_Serie   0x000064    program     static C:\Users\familia col
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
                    INICIO   0x000005    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-                     MAIN   0x000009    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-                      CFG   0x00000c    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-             INTERRUPCION   0x000024    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-                INT_TIMER   0x00002d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-                CONVERTIR   0x000030    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-              DECENAS_TAG   0x000032    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-             UNIDADES_TAG   0x00003a    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-           PUNTAJE_MAYOR?   0x00003d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-         MOSTRAR_UNIDADES   0x000046    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-          MOSTRAR_DECENAS   0x00004e    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-                FIN_TIMER   0x000055    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-                    TABLA   0x000059    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-Configuracion_Puerto_Serie   0x000064    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
- Interrupts_Configuration   0x000082    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-                   INT_RX   0x00008b    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-             RECIBIR_DATO   0x000092    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-            OVERRUN_ERROR   0x000099    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-            FRAMING_ERROR   0x00009d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
-                   FIN_RX   0x0000a1    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+                     MAIN   0x00000a    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+                   PRUEBA   0x00000d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+                      CFG   0x000013    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+             INTERRUPCION   0x00002c    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+                INT_TIMER   0x000035    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+                CONVERTIR   0x000038    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+              DECENAS_TAG   0x00003d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+             UNIDADES_TAG   0x000045    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+           PUNTAJE_MAYOR?   0x000048    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+         MOSTRAR_UNIDADES   0x000051    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+          MOSTRAR_DECENAS   0x000059    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+                FIN_TIMER   0x000060    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+                    TABLA   0x000064    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+Configuracion_Puerto_Serie   0x00006f    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+ Interrupts_Configuration   0x00008d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+                   INT_RX   0x000096    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+             RECIBIR_DATO   0x00009d    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+            OVERRUN_ERROR   0x0000a4    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+            FRAMING_ERROR   0x0000aa    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
+                   FIN_RX   0x0000b3    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_Displays\PIC_DISPLAYS.asm
 
 

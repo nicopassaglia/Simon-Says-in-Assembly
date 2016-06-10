@@ -1,4 +1,4 @@
-MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  1:16:12         PAGE  1
+MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  12:17:04         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -41,451 +41,454 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0008   00A2           00032         movwf   Numero_de_valores_de_secuencia
 0009                  00033 MAIN    
 0009   0AA7           00034         incf    Random, 1
-000A   1E29           00035         btfss   FLAGS, Comenzo  ;Cuando viene interrupcion por RB0 setea el FLAG
-000B   2???           00036         goto    MAIN
-000C   0827           00037         movf    Random, 0
-000D   3903           00038         andlw   b'00000011'
-000E   00AB           00039         movwf   Primer_valor
-000F   01A1           00040         clrf    SCORE   ;Reinicio SCORE
-0010   158B           00041         bsf     INTCON, RBIE
-0011   15A9           00042         bsf     FLAGS, Crear
-0012   2???           00043         call    Mostrar_Secuencia
-                      00044 ;----BLOQUE QUE ESPERA UNA PULSACION-----
-0013                  00045 Espero
-                      00046 ;{      
-0013   0AA7           00047         incf    Random,1
-0014   0181           00048         clrf    TMR0
-0015   0064           00049         CLRWDT
-0016   18A9           00050         btfsc   FLAGS,Proximo   ;Si pulso el/los color/es correcto/s, muestro la siguiente secuencia
-MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  1:16:12         PAGE  2
+000A   0064           00035         clrwdt
+000B   1E29           00036         btfss   FLAGS, Comenzo  ;Cuando viene interrupcion por RB0 setea el FLAG
+000C   2???           00037         goto    MAIN
+000D   0827           00038         movf    Random, 0
+000E   3903           00039         andlw   b'00000011'
+000F   00AB           00040         movwf   Primer_valor
+0010   01A1           00041         clrf    SCORE   ;Reinicio SCORE
+0011   158B           00042         bsf     INTCON, RBIE
+0012   15A9           00043         bsf     FLAGS, Crear
+0013   2???           00044         call    Mostrar_Secuencia
+                      00045 ;----BLOQUE QUE ESPERA UNA PULSACION-----
+0014                  00046 Espero
+                      00047 ;{      
+0014   0AA7           00048         incf    Random,1
+0015   0181           00049         clrf    TMR0
+0016   0064           00050         CLRWDT
+MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  12:17:04         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0017   2???           00051         call    SIGUIENTE_COLOR
-0018   1829           00052         btfsc   FLAGS,Perdio    ;Si le erro, perdio
-0019   2???           00053         goto    PERDIO_JUEGO
-001A   1929           00054         btfsc   FLAGS,Gano              ;Si gano, gano 
-001B   2???           00055         goto    GANO_JUEGO
-001C   2???           00056         goto    Espero;}
-                      00057 
-                      00058 ;----FIN BLOQUE ESPERO-----
-                      00059         
-                      00060 
-001D                  00061 SIGUIENTE_COLOR
-                      00062 ;{
-001D   0AA4           00063         incf    Contador_Aux,1
-001E   0824           00064         movf    Contador_Aux,0
-001F   00A3           00065         movwf   Contador
-0020   10A9           00066         bcf     FLAGS,Proximo
-0021   2???           00067         call    Mostrar_Secuencia
-0022   0008           00068         return;}
-                      00069 
+0017   18A9           00051         btfsc   FLAGS,Proximo   ;Si pulso el/los color/es correcto/s, muestro la siguiente secuencia
+0018   2???           00052         call    SIGUIENTE_COLOR
+0019   1829           00053         btfsc   FLAGS,Perdio    ;Si le erro, perdio
+001A   2???           00054         goto    PERDIO_JUEGO
+001B   1929           00055         btfsc   FLAGS,Gano              ;Si gano, gano 
+001C   2???           00056         goto    GANO_JUEGO
+001D   2???           00057         goto    Espero;}
+                      00058 
+                      00059 ;----FIN BLOQUE ESPERO-----
+                      00060         
+                      00061 
+001E                  00062 SIGUIENTE_COLOR
+                      00063 ;{
+001E   0AA4           00064         incf    Contador_Aux,1
+001F   0824           00065         movf    Contador_Aux,0
+0020   00A3           00066         movwf   Contador
+0021   10A9           00067         bcf     FLAGS,Proximo
+0022   2???           00068         call    Mostrar_Secuencia
+0023   0008           00069         return;}
                       00070 
                       00071 
-0023                  00072 PERDIO_JUEGO
-                      00073         ;{
-                      00074         ;PRENDO LED QUE MUESTRA QUE PERDIO
-0023   1408           00075         bsf     PORTD,0
-0024   138B           00076         bcf             INTCON, GIE ;No puede haber mas interrupciones
-0025   0821           00077         movf    SCORE, 0        
-0026   0099           00078         movwf   TXREG           ;Transmito el puntaje al otro PIC
-0027   2???           00079         goto    $       ;}
-                      00080 
+                      00072 
+0024                  00073 PERDIO_JUEGO
+                      00074         ;{
+                      00075         ;PRENDO LED QUE MUESTRA QUE PERDIO
+0024   1408           00076         bsf     PORTD,0
+0025   138B           00077         bcf             INTCON, GIE ;No puede haber mas interrupciones
+0026   0821           00078         movf    SCORE, 0        
+0027   0099           00079         movwf   TXREG           ;Transmito el puntaje al otro PIC
+0028   2???           00080         goto    $       ;}
                       00081 
-0028                  00082 GANO_JUEGO
-                      00083 ;{
-                      00084         ;PRENDO LED QUE MUESTRA QUE GANO
-0028   1488           00085         bsf             PORTD,1
-0029   138B           00086         bcf             INTCON, GIE ;No puede haber mas interrupciones
-002A   0821           00087         movf    SCORE, 0
-002B   0099           00088         movwf   TXREG           ;Aqui deberia transmitir algo para mostrar que gano.
-002C   2???           00089         goto    $ ;}
-                      00090 
+                      00082 
+0029                  00083 GANO_JUEGO
+                      00084 ;{
+                      00085         ;PRENDO LED QUE MUESTRA QUE GANO
+0029   1488           00086         bsf             PORTD,1
+002A   138B           00087         bcf             INTCON, GIE ;No puede haber mas interrupciones
+002B   0821           00088         movf    SCORE, 0
+002C   0099           00089         movwf   TXREG           ;Aqui deberia transmitir algo para mostrar que gano.
+002D   2???           00090         goto    $ ;}
                       00091 
-                      00092 ;MUESTRO LA SECUENCIA DE LEDS
-                      00093 
-                      00094         ;----MOSTRAR SECUENCIA DE COLORES----
-002D                  00095 Mostrar_Secuencia
-                      00096 ;{
-                      00097 
-002D   118B           00098         bcf             INTCON,RBIE ;En este momento no se puede interrumpir el programa
-002E   120B           00099         bcf             INTCON,INTE
-002F   302B           00100         movlw   Primer_valor
-0030   0084           00101         movwf   FSR
-0031                  00102 Volver_Hacerlo
-0031   0800           00103         movf    INDF,0
-MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  1:16:12         PAGE  3
+                      00092 
+                      00093 ;MUESTRO LA SECUENCIA DE LEDS
+                      00094 
+                      00095         ;----MOSTRAR SECUENCIA DE COLORES----
+002E                  00096 Mostrar_Secuencia
+                      00097 ;{
+                      00098 
+002E   118B           00099         bcf             INTCON,RBIE ;En este momento no se puede interrumpir el programa
+002F   120B           00100         bcf             INTCON,INTE
+0030   302B           00101         movlw   Primer_valor
+0031   0084           00102         movwf   FSR
+0032                  00103 Volver_Hacerlo
+MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  12:17:04         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0032   2???           00104         call    TABLA
-0033   0088           00105         movwf   PORTD
-                      00106 
-0034   2???           00107         call delay_100ms
+0032   0800           00104         movf    INDF,0
+0033   2???           00105         call    TABLA
+0034   0088           00106         movwf   PORTD
+                      00107 
 0035   2???           00108         call delay_100ms
 0036   2???           00109         call delay_100ms
 0037   2???           00110         call delay_100ms
 0038   2???           00111         call delay_100ms
-0039   0A84           00112         incf FSR, 1
-003A   0188           00113         clrf PORTD
-003B   2???           00114         call delay_100ms
-003C   0BA3           00115         decfsz Contador, 1
-003D   2???           00116         goto Volver_Hacerlo
-                      00117 
-003E   0188           00118         clrf    PORTD
-003F   158B           00119         bsf     INTCON, RBIE
-0040   302B           00120         movlw   Primer_valor
-0041   0084           00121         movwf   FSR
-0042   0824           00122         movf    Contador_Aux, 0
-0043   00A3           00123         movwf   Contador
-0044   0008           00124         return
-                      00125 ;}
-                      00126         ;----FIN MOSTRAR SECUENCIA DE COLORES-----
-                      00127 
+0039   2???           00112         call delay_100ms
+003A   0A84           00113         incf FSR, 1
+003B   0188           00114         clrf PORTD
+003C   2???           00115         call delay_100ms
+003D   0BA3           00116         decfsz Contador, 1
+003E   2???           00117         goto Volver_Hacerlo
+                      00118 
+003F   0188           00119         clrf    PORTD
+0040   158B           00120         bsf     INTCON, RBIE
+0041   302B           00121         movlw   Primer_valor
+0042   0084           00122         movwf   FSR
+0043   0824           00123         movf    Contador_Aux, 0
+0044   00A3           00124         movwf   Contador
+0045   0008           00125         return
+                      00126 ;}
+                      00127         ;----FIN MOSTRAR SECUENCIA DE COLORES-----
                       00128 
-                      00129         
-                      00130 
-                      00131 ;--------CONFIGURACION-------
-                      00132 
-0045                  00133 CFG
-                      00134 ;{      
-                      00135         ;Habilito los enables de las interrupciones
-0045   1283 1303      00136         banksel INTCON
-0047   3090           00137         movlw   b'10010000'
-0048   008B           00138         movwf   INTCON
-                      00139 
-0049   1683 1303      00140         banksel IOCB
-004B   30FE           00141         movlw   b'11111110'
+                      00129 
+                      00130         
+                      00131 
+                      00132 ;--------CONFIGURACION-------
+                      00133 
+0046                  00134 CFG
+                      00135 ;{      
+                      00136         ;Habilito los enables de las interrupciones
+0046   1283 1303      00137         banksel INTCON
+0048   3090           00138         movlw   b'10010000'
+0049   008B           00139         movwf   INTCON
+                      00140 
+004A   1683 1303      00141         banksel IOCB
+004C   30FE           00142         movlw   b'11111110'
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-004C   0096           00142         movwf   IOCB
-                      00143 
-                      00144         ;Configuro timer0 para que sea temporizador interno
-004D   1683 1303      00145         banksel OPTION_REG
-004F   30C7           00146         movlw   b'11000111'
+004D   0096           00143         movwf   IOCB
+                      00144 
+                      00145         ;Configuro timer0 para que sea temporizador interno
+004E   1683 1303      00146         banksel OPTION_REG
+0050   30C7           00147         movlw   b'11000111'
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0050   0081           00147         movwf   OPTION_REG ;Falta configurar PRESCALER
-                      00148                 
-                      00149 
-                      00150         ;Configuro el puertoB como digital
-0051   1683 1703      00151         banksel ANSELH
+0051   0081           00148         movwf   OPTION_REG ;Falta configurar PRESCALER
+                      00149                 
+                      00150 
+                      00151         ;Configuro el puertoB como digital
+0052   1683 1703      00152         banksel ANSELH
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0053   0189           00152         clrf    ANSELH
-                      00153 
-MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  1:16:12         PAGE  4
+0054   0189           00153         clrf    ANSELH
+MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  12:17:04         PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      00154         ;Configurar carga al timer
-0054   1283 1303      00155         banksel TMR0
-0056   3000           00156         movlw   .0
-0057   0081           00157         movwf   TMR0
-                      00158 
-0058   3001           00159         movlw   .1
-0059   00A4           00160         movwf   Contador_Aux
-005A   00A3           00161         movwf   Contador
-                      00162         
-                      00163         ;Configuro puertoB como de entrada
-005B   1683 1303      00164         banksel TRISB
-005D   30FF           00165         movlw   b'11111111'
+                      00154 
+                      00155         ;Configurar carga al timer
+0055   1283 1303      00156         banksel TMR0
+0057   3000           00157         movlw   .0
+0058   0081           00158         movwf   TMR0
+                      00159 
+0059   3001           00160         movlw   .1
+005A   00A4           00161         movwf   Contador_Aux
+005B   00A3           00162         movwf   Contador
+                      00163         
+                      00164         ;Configuro puertoB como de entrada
+005C   1683 1303      00165         banksel TRISB
+005E   30FF           00166         movlw   b'11111111'
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-005E   0086           00166         movwf   TRISB
-                      00167         
-                      00168         ;Configuro PuertoC como de salida
-005F   3000           00169         movlw   b'00000000'
+005F   0086           00167         movwf   TRISB
+                      00168         
+                      00169         ;Configuro PuertoC como de salida
+0060   3000           00170         movlw   b'00000000'
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0060   0088           00170         movwf   TRISD
-                      00171         
-0061   3000           00172         movlw   b'00000000'
+0061   0088           00171         movwf   TRISD
+                      00172         
+0062   3000           00173         movlw   b'00000000'
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0062   0088           00173         movwf   TRISD
+0063   0088           00174         movwf   TRISD
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0063   1085           00174         bcf             TRISA,1 
-                      00175         
-                      00176         ;vuelvo al banco 0
-0064   1283           00177         bcf     STATUS, RP0
-0065   1303           00178         bcf     STATUS, RP1
-                      00179         ;Limpio los puertos y el registro de banderas
-0066   0188           00180         clrf    PORTD
-0067   0186           00181         clrf    PORTB
-0068   0188           00182         clrf    PORTD
-0069   01A9           00183         clrf    FLAGS
-006A   302B           00184         movlw   Primer_valor
-006B   00A8           00185         movwf   Puntero
-006C   0AA8           00186         incf    Puntero,1
-006D   0008           00187         return
-                      00188         ;}
-                      00189 ;--------FIN CONFIGURACION-----------
-                      00190 
+0064   1085           00175         bcf             TRISA,1 
+                      00176         
+                      00177         ;vuelvo al banco 0
+0065   1283           00178         bcf     STATUS, RP0
+0066   1303           00179         bcf     STATUS, RP1
+                      00180         ;Limpio los puertos y el registro de banderas
+0067   0188           00181         clrf    PORTD
+0068   0186           00182         clrf    PORTB
+0069   0188           00183         clrf    PORTD
+006A   01A9           00184         clrf    FLAGS
+006B   302B           00185         movlw   Primer_valor
+006C   00A8           00186         movwf   Puntero
+006D   0AA8           00187         incf    Puntero,1
+006E   0008           00188         return
+                      00189         ;}
+                      00190 ;--------FIN CONFIGURACION-----------
                       00191 
-                      00192 ;-----INTERRUPCIONES---------
-                      00193 ;RUTINA DE INTERRUPCION
-006E                  00194 INTERRUPCION
-                      00195         ;---VERIFICACION DE DONDE VINO LA INTERRUPCION---
-                      00196 ;{
-006E   188B           00197         btfsc   INTCON,INTF
-006F   2???           00198         goto    INT_PUERTOB
-0070   180B           00199         btfsc   INTCON,RBIF
-0071   2???           00200         goto    INT_PUERTOB1
-                      00201 
-                      00202 ;}
-MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  1:16:12         PAGE  5
+                      00192 
+                      00193 ;-----INTERRUPCIONES---------
+                      00194 ;RUTINA DE INTERRUPCION
+006F                  00195 INTERRUPCION
+                      00196         ;---VERIFICACION DE DONDE VINO LA INTERRUPCION---
+                      00197 ;{
+006F   188B           00198         btfsc   INTCON,INTF
+0070   2???           00199         goto    INT_PUERTOB
+0071   180B           00200         btfsc   INTCON,RBIF
+0072   2???           00201         goto    INT_PUERTOB1
+                      00202 
+MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  12:17:04         PAGE  5
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      00203         ;---FIN VERIFICACION---
-                      00204 
-                      00205 ;-----INTERRUPCION POR PUERTO B-------
-0072                  00206 INT_PUERTOB
-                      00207         
-0072                  00208 ANTIREBOTE_INT
-0072   2???           00209         call    delay_10ms ;Hago delay para esperar a que pase el rebote
-0073   2???           00210         call    delay_10ms
-0074                  00211 PROBANDO_RB0
-0074   1806           00212         btfsc   PORTB, 0        ;Testeo el bit RB0, si se dejo de pulsar el boton bajara a cero
-0075   2???           00213         goto    PROBANDO_RB0
-0076   2???           00214         call    delay_10ms
-0077   2???           00215         call    delay_10ms      ;Una vez que se dejo de presionar el boton, hago un delay de 10 ms para 
+                      00203 ;}
+                      00204         ;---FIN VERIFICACION---
+                      00205 
+                      00206 ;-----INTERRUPCION POR PUERTO B-------
+0073                  00207 INT_PUERTOB
+                      00208         
+0073                  00209 ANTIREBOTE_INT
+0073   2???           00210         call    delay_10ms ;Hago delay para esperar a que pase el rebote
+0074   2???           00211         call    delay_10ms
+0075                  00212 PROBANDO_RB0
+0075   1806           00213         btfsc   PORTB, 0        ;Testeo el bit RB0, si se dejo de pulsar el boton bajara a cero
+0076   2???           00214         goto    PROBANDO_RB0
+0077   2???           00215         call    delay_10ms
+0078   2???           00216         call    delay_10ms      ;Una vez que se dejo de presionar el boton, hago un delay de 10 ms para 
                             que pase el rebote.
-                      00216 
-0078   108B           00217         bcf             INTCON, INTF
-0079   120B           00218         bcf             INTCON, INTE    
-007A   1629           00219         bsf             FLAGS, Comenzo
-007B   100B           00220         bcf             INTCON, RBIF
-007C   110B           00221         bcf     INTCON, T0IF
-007D   0009           00222         retfie
-                      00223         ;---ANTIREBOTE POR SOFTWARE DE LOS PULSADORES-----      
-                      00224 
-007E                  00225 INT_PUERTOB1
-007E                  00226 ANTIREBOTE_RB
-                      00227 ;{
-007E   2???           00228         call    delay_10ms
-007F   2???           00229         call    delay_10ms ;Espero 10ms a que pase el rebote
-0080   0806           00230         movf    PORTB, 0        ;muevo el puerto B a w
-0081   39F0           00231         andlw   0xF0    ;Hago and con los bits que me importan y los guardo
-0082   00AA           00232         movwf   Valor_aux ;Esta es la variable que utilizo en la rutina para comparar
-0083   0088           00233         movwf   PORTD
-0084   19A9           00234         btfsc   FLAGS, Crear
-0085   2???           00235         call    CREAR_RANDOM
-                      00236 
-0086                  00237 PROBANDO_RB
-0086   0806           00238         movf    PORTB, 0        ;Prendemos el led que se pulsa
-0087   39F0           00239         andlw   0xF0    ;Hago AND a los bits que me interesan
-0088   1D03           00240         btfss   STATUS, Z       ;Si todos los bits estan en cero significa que se dejo de pulsar
-0089   2???           00241         goto    PROBANDO_RB     ;Sino, sigo probando hasta que se deje de pulsar el boton
-008A   2???           00242         call    delay_10ms
-008B   2???           00243         call    delay_10ms      ;Hago un delay por el rebote de soltar el pulsador
-008C   0188           00244         clrf    PORTD
-                      00245 ;}
-                      00246 
-                      00247         ;-----FIN ANTIREBOTE POR SOFTWARE-----
-                      00248 ;{
-                      00249         ;----Comienzo de Rutina de Interrupcion por PUERTO B----        
-                      00250 
-008D   0800           00251         movf    INDF,0                  ;MUEVO EL VALOR AL QUE PUNTA FSR A W
-008E   2???           00252         call    TABLA                   
-008F   062A           00253         xorwf   Valor_aux, 0    ;tengo que ver si el valor que pulso es el que deberia pulsar
-0090   1D03           00254         btfss   STATUS,Z                ;SI EL XOR DA 0 ES PORQUE SON IGUALES, ENTONCES PULSO BIEN
-MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  1:16:12         PAGE  6
+                      00217 
+0079   108B           00218         bcf             INTCON, INTF
+007A   120B           00219         bcf             INTCON, INTE    
+007B   1629           00220         bsf             FLAGS, Comenzo
+007C   100B           00221         bcf             INTCON, RBIF
+007D   110B           00222         bcf     INTCON, T0IF
+007E   0009           00223         retfie
+                      00224         ;---ANTIREBOTE POR SOFTWARE DE LOS PULSADORES-----      
+                      00225 
+007F                  00226 INT_PUERTOB1
+007F                  00227 ANTIREBOTE_RB
+                      00228 ;{
+007F   2???           00229         call    delay_10ms
+0080   2???           00230         call    delay_10ms ;Espero 10ms a que pase el rebote
+0081   0806           00231         movf    PORTB, 0        ;muevo el puerto B a w
+0082   39F0           00232         andlw   0xF0    ;Hago and con los bits que me importan y los guardo
+0083   00AA           00233         movwf   Valor_aux ;Esta es la variable que utilizo en la rutina para comparar
+0084   0088           00234         movwf   PORTD
+0085   19A9           00235         btfsc   FLAGS, Crear
+0086   2???           00236         call    CREAR_RANDOM
+                      00237 
+0087                  00238 PROBANDO_RB
+0087   0806           00239         movf    PORTB, 0        ;Prendemos el led que se pulsa
+0088   39F0           00240         andlw   0xF0    ;Hago AND a los bits que me interesan
+0089   1D03           00241         btfss   STATUS, Z       ;Si todos los bits estan en cero significa que se dejo de pulsar
+008A   2???           00242         goto    PROBANDO_RB     ;Sino, sigo probando hasta que se deje de pulsar el boton
+008B   2???           00243         call    delay_10ms
+008C   2???           00244         call    delay_10ms      ;Hago un delay por el rebote de soltar el pulsador
+008D   0188           00245         clrf    PORTD
+                      00246 ;}
+                      00247 
+                      00248         ;-----FIN ANTIREBOTE POR SOFTWARE-----
+                      00249 ;{
+                      00250         ;----Comienzo de Rutina de Interrupcion por PUERTO B----        
+                      00251 
+008E   0800           00252         movf    INDF,0                  ;MUEVO EL VALOR AL QUE PUNTA FSR A W
+008F   2???           00253         call    TABLA                   
+0090   062A           00254         xorwf   Valor_aux, 0    ;tengo que ver si el valor que pulso es el que deberia pulsar
+MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  12:17:04         PAGE  6
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0091   2???           00255         goto    Levanto_flag_perdio;SI NO DA EL BIT Z DE STATUS DA 0 ENTONCES PERDIO
-0092   2???           00256         goto    SIG
-                      00257 
-                      00258 ;En el bloque SIG, verifico si ya pulso todos o debe seguir pulsando
-0093                  00259 SIG
-0093   0BA3           00260         decfsz  Contador, 1
-0094   2???           00261         goto    No_Llego_Cero
-0095   2???           00262         goto    Llego_Cero
-                      00263 
-                      00264 ;EL CONTADOR NO LLEGO A CERO, EL JUGADOR DEBE CONTINUAR CON LA SECUENCIA
-0096                  00265 No_Llego_Cero
-0096   0A84           00266         incf    FSR,1   ;AUMENTO FSR ASI EN LA SIGUIENTE PULSACION VERIFICO CORRECTAMENTE
-0097   100B           00267         bcf             INTCON,RBIF
-0098   108B           00268         bcf             INTCON,INTF
-0099   0009           00269         retfie
-                      00270 
-                      00271 ;---EL CONTADOR LLEGO A CERO, ACA DEBO CONTROLAR SI YA GANO 
-                      00272 ;O HAY QUE MOSTRAR UNA NUEVA SECUENCIA----
-009A                  00273 Llego_Cero
-009A   0AA1           00274         incf SCORE, 1   ;Aumento uno al score
-009B   302B           00275         movlw   Primer_valor
-009C   0084           00276         movwf   FSR     
-009D   0822           00277         movf    Numero_de_valores_de_secuencia,0
-009E   0624           00278         xorwf   Contador_Aux, 0
-009F   1903           00279         btfsc   STATUS,Z        ;verifico si ya gano haciendo un xor con la cantidad de valores
-00A0   2???           00280         goto    Levanto_bandera_gano
-00A1   15A9           00281         bsf             FLAGS,Crear
-00A2   14A9           00282         bsf             FLAGS,Proximo ;Seteo la bandera de proximo para que el programa sepa que debe mo
+0091   1D03           00255         btfss   STATUS,Z                ;SI EL XOR DA 0 ES PORQUE SON IGUALES, ENTONCES PULSO BIEN
+0092   2???           00256         goto    Levanto_flag_perdio;SI NO DA EL BIT Z DE STATUS DA 0 ENTONCES PERDIO
+0093   2???           00257         goto    SIG
+                      00258 
+                      00259 ;En el bloque SIG, verifico si ya pulso todos o debe seguir pulsando
+0094                  00260 SIG
+0094   0BA3           00261         decfsz  Contador, 1
+0095   2???           00262         goto    No_Llego_Cero
+0096   2???           00263         goto    Llego_Cero
+                      00264 
+                      00265 ;EL CONTADOR NO LLEGO A CERO, EL JUGADOR DEBE CONTINUAR CON LA SECUENCIA
+0097                  00266 No_Llego_Cero
+0097   0A84           00267         incf    FSR,1   ;AUMENTO FSR ASI EN LA SIGUIENTE PULSACION VERIFICO CORRECTAMENTE
+0098   100B           00268         bcf             INTCON,RBIF
+0099   108B           00269         bcf             INTCON,INTF
+009A   0009           00270         retfie
+                      00271 
+                      00272 ;---EL CONTADOR LLEGO A CERO, ACA DEBO CONTROLAR SI YA GANO 
+                      00273 ;O HAY QUE MOSTRAR UNA NUEVA SECUENCIA----
+009B                  00274 Llego_Cero
+009B   0AA1           00275         incf SCORE, 1   ;Aumento uno al score
+009C   302B           00276         movlw   Primer_valor
+009D   0084           00277         movwf   FSR     
+009E   0822           00278         movf    Numero_de_valores_de_secuencia,0
+009F   0624           00279         xorwf   Contador_Aux, 0
+00A0   1903           00280         btfsc   STATUS,Z        ;verifico si ya gano haciendo un xor con la cantidad de valores
+00A1   2???           00281         goto    Levanto_bandera_gano
+00A2   15A9           00282         bsf             FLAGS,Crear
+00A3   14A9           00283         bsf             FLAGS,Proximo ;Seteo la bandera de proximo para que el programa sepa que debe mo
                             strar la siguiente secuencia
-00A3   2???           00283         call delay_100ms
-00A4   2???           00284         call delay_100ms
-00A5   2???           00285         call delay_100ms
-00A6   100B           00286         bcf             INTCON,RBIF
-00A7   108B           00287         bcf             INTCON,INTF
-00A8   0009           00288         retfie
-                      00289 
+00A4   2???           00284         call    delay_100ms
+00A5   2???           00285         call    delay_100ms
+00A6   2???           00286         call    delay_100ms
+00A7   100B           00287         bcf             INTCON,RBIF
+00A8   108B           00288         bcf             INTCON,INTF
+00A9   0009           00289         retfie
                       00290 
-                      00291         ;----LEVANTAMIENTO DE BANDERAS DE GANO O PERDIO-----
-00A9                  00292 Levanto_bandera_gano 
-00A9   1529           00293         bsf             FLAGS,Gano ;Se levanta el flag de la bandera que gano
-00AA   100B           00294         bcf             INTCON,RBIF
-00AB   108B           00295         bcf             INTCON,INTF
-00AC   0009           00296         retfie
-                      00297 
-                      00298         
-00AD                  00299 Levanto_flag_perdio
-                      00300 
-00AD   1429           00301         bsf     FLAGS,Perdio ;LEVANTO EL FLAG YA QUE PERDIO
-00AE   100B           00302         bcf             INTCON,RBIF
-00AF   108B           00303         bcf             INTCON,INTF     
-00B0   0009           00304         retfie;}
-                      00305         ;------ FIN LEVANTAMIENTO DE BANDERAS----------------
-                      00306 ;---------FIN INTERRUPCIONES PUERTO B---------
-MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  1:16:12         PAGE  7
+                      00291 
+                      00292         ;----LEVANTAMIENTO DE BANDERAS DE GANO O PERDIO-----
+00AA                  00293 Levanto_bandera_gano 
+00AA   1529           00294         bsf             FLAGS,Gano ;Se levanta el flag de la bandera que gano
+00AB   100B           00295         bcf             INTCON,RBIF
+00AC   108B           00296         bcf             INTCON,INTF
+00AD   0009           00297         retfie
+                      00298 
+                      00299         
+00AE                  00300 Levanto_flag_perdio
+                      00301 
+00AE   1429           00302         bsf     FLAGS,Perdio ;LEVANTO EL FLAG YA QUE PERDIO
+00AF   100B           00303         bcf             INTCON,RBIF
+00B0   108B           00304         bcf             INTCON,INTF     
+00B1   0009           00305         retfie;}
+                      00306         ;------ FIN LEVANTAMIENTO DE BANDERAS----------------
+MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  12:17:04         PAGE  7
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      00307 
+                      00307 ;---------FIN INTERRUPCIONES PUERTO B---------
                       00308 
-                      00309 ;-----FIN INTERRUPCIONES---------
-                      00310 
-                      00311 ;---TABLA DE VALORES PARA LOS LEDS----
-                      00312 
-00B1                  00313 TABLA
-                      00314 ;{
-00B1   0782           00315         addwf   PCL,1
-00B2   3480           00316         retlw   b'10000000'
-00B3   3440           00317         retlw   b'01000000'
-00B4   3420           00318         retlw   b'00100000'
-00B5   3410           00319         retlw   b'00010000'
-                      00320 
-                      00321 ;}
-                      00322 ;-------FIN TABLA---------------
-                      00323 
+                      00309 
+                      00310 ;-----FIN INTERRUPCIONES---------
+                      00311 
+                      00312 ;---TABLA DE VALORES PARA LOS LEDS----
+                      00313 
+00B2                  00314 TABLA
+                      00315 ;{
+00B2   0782           00316         addwf   PCL,1
+00B3   3480           00317         retlw   b'10000000'
+00B4   3440           00318         retlw   b'01000000'
+00B5   3420           00319         retlw   b'00100000'
+00B6   3410           00320         retlw   b'00010000'
+                      00321 
+                      00322 ;}
+                      00323 ;-------FIN TABLA---------------
                       00324 
-                      00325 ;---Retardo por software de 10ms----
-                      00326 
-00B6                  00327 delay_10ms      
-                      00328 ;{
-00B6   3014           00329         movlw   .20
-00B7   00A6           00330         movwf   DELAY2
-00B8                  00331 BUCLE2
-00B8   307C           00332         movlw   .124
-00B9   00A5           00333         movwf   DELAY1
-00BA                  00334 BUCLE1
-00BA   0000           00335         nop
-00BB   0BA5           00336         decfsz  DELAY1, 1
-00BC   2???           00337         goto    BUCLE1
-00BD   0BA6           00338         decfsz  DELAY2, 1
-00BE   2???           00339         goto    BUCLE2
-00BF   0008           00340         return          ;La formula del delay es R=[(4X)+4]Y+1 donde X=124 e Y=20.
-                      00341 ;}
-                      00342 ;---Retardo por software de 100ms----
-                      00343 
-00C0                  00344 delay_100ms     
-                      00345 ;{
-00C0   30C8           00346         movlw   .200
-00C1   00A6           00347         movwf   DELAY2
-00C2                  00348 BUCLE2_100
-00C2   307C           00349         movlw   .124
-00C3   00A5           00350         movwf   DELAY1
-00C4                  00351 BUCLE1_100
-00C4   0000           00352         nop
-00C5   0BA5           00353         decfsz  DELAY1, 1
-00C6   2???           00354         goto    BUCLE1_100
-00C7   0BA6           00355         decfsz  DELAY2, 1
-00C8   2???           00356         goto    BUCLE2_100
-00C9   0008           00357         return          ;La formula del delay es R=[(4X)+4]Y+1 donde X=124 e Y=20.
-                      00358 ;}
-                      00359 ;--------FIN RETARDO--------------
-MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  1:16:12         PAGE  8
+                      00325 
+                      00326 ;---Retardo por software de 10ms----
+                      00327 
+00B7                  00328 delay_10ms      
+                      00329 ;{
+00B7   3014           00330         movlw   .20
+00B8   00A6           00331         movwf   DELAY2
+00B9                  00332 BUCLE2
+00B9   307C           00333         movlw   .124
+00BA   00A5           00334         movwf   DELAY1
+00BB                  00335 BUCLE1
+00BB   0000           00336         nop
+00BC   0BA5           00337         decfsz  DELAY1, 1
+00BD   2???           00338         goto    BUCLE1
+00BE   0BA6           00339         decfsz  DELAY2, 1
+00BF   2???           00340         goto    BUCLE2
+00C0   0008           00341         return          ;La formula del delay es R=[(4X)+4]Y+1 donde X=124 e Y=20.
+                      00342 ;}
+                      00343 ;---Retardo por software de 100ms----
+                      00344 
+00C1                  00345 delay_100ms     
+                      00346 ;{
+00C1   30C8           00347         movlw   .200
+00C2   00A6           00348         movwf   DELAY2
+00C3                  00349 BUCLE2_100
+00C3   307C           00350         movlw   .124
+00C4   00A5           00351         movwf   DELAY1
+00C5                  00352 BUCLE1_100
+00C5   0000           00353         nop
+00C6   0BA5           00354         decfsz  DELAY1, 1
+00C7   2???           00355         goto    BUCLE1_100
+00C8   0BA6           00356         decfsz  DELAY2, 1
+00C9   2???           00357         goto    BUCLE2_100
+00CA   0008           00358         return          ;La formula del delay es R=[(4X)+4]Y+1 donde X=124 e Y=20.
+                      00359 ;}
+MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  12:17:04         PAGE  8
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      00360 
-00CA                  00361 CREAR_RANDOM
-00CA   0828           00362         movf    Puntero,0
-00CB   0084           00363         movwf   FSR
-00CC   0827           00364         movf    Random,0
-00CD   3903           00365         andlw   b'00000011'
-00CE   0080           00366         movwf   INDF
-00CF   302B           00367         movlw   Primer_valor
-00D0   0084           00368         movwf   FSR
-00D1   0AA8           00369         incf    Puntero,1
-00D2   11A9           00370         bcf             FLAGS,Crear
-00D3   0008           00371         return
-                      00372 
-                      00373 ;-------------------------
-00D4                  00374 Configuracion_Puerto_Serie
-                      00375 ;-------------------------
-00D4   1683 1303      00376         banksel TRISC
+                      00360 ;--------FIN RETARDO--------------
+                      00361 
+00CB                  00362 CREAR_RANDOM
+00CB   0828           00363         movf    Puntero,0
+00CC   0084           00364         movwf   FSR
+00CD   0827           00365         movf    Random,0
+00CE   3903           00366         andlw   b'00000011'
+00CF   0080           00367         movwf   INDF
+00D0   302B           00368         movlw   Primer_valor
+00D1   0084           00369         movwf   FSR
+00D2   0AA8           00370         incf    Puntero,1
+00D3   11A9           00371         bcf             FLAGS,Crear
+00D4   0008           00372         return
+                      00373 
+                      00374 ;-------------------------
+00D5                  00375 Configuracion_Puerto_Serie
+                      00376 ;-------------------------
+00D5   1683 1303      00377         banksel TRISC
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-00D6   1307           00377         bcf TRISC, 6    ;RC6/TX/CK = output
+00D7   1307           00378         bcf     TRISC, 6        ;RC6/TX/CK = output
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-00D7   1787           00378         bsf TRISC, 7    ;RC7/RX/DT = input
-                      00379 
-00D8   1683 1703      00380         banksel BAUDCTL 
+00D8   1787           00379         bsf             TRISC, 7        ;RC7/RX/DT = input
+                      00380 
+00D9   1683 1703      00381         banksel BAUDCTL 
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-00DA   1587           00381         bsf BAUDCTL, BRG16      ;16-bit BAUD Rate Generator is used.
-                      00382         
-00DB   1683 1303      00383         banksel SPBRG
-00DD   3033           00384         movlw .51       ;baud rate = 38400 ---> Esto seguro hay que modificarlo.
-                      00385                                 ;(Fosc/(4*(SPBRG+1))) Error + 0.16%
+00DB   1187           00382         bcf     BAUDCTL, BRG16  ;16-bit BAUD Rate Generator is used.
+                      00383         
+00DC   1683 1303      00384         banksel SPBRG
+00DE   3033           00385         movlw   .51     ;baud rate = 38400 ---> Esto seguro hay que modificarlo.
+                      00386                                 ;(Fosc/(4*(SPBRG+1))) Error + 0.16%
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-00DE   0099           00386         movwf SPBRG
+00DF   0099           00387         movwf   SPBRG
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-00DF   019A           00387         clrf SPBRGH
-                      00388 
-00E0   1683 1303      00389         banksel TXSTA
+00E0   019A           00388         clrf    SPBRGH
+                      00389 
+00E1   1683 1303      00390         banksel TXSTA
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-00E2   1318           00390         bcf TXSTA, TX9  ;Data is 8-bit wide
+00E3   1318           00391         bcf     TXSTA, TX9      ;Data is 8-bit wide
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-00E3   1698           00391         bsf TXSTA, TXEN ;Data transmission enabled      No se para que...
+00E4   1698           00392         bsf     TXSTA, TXEN     ;Data transmission enabled      
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-00E4   1218           00392         bcf TXSTA, SYNC ;Asynchronous mode
+00E5   1218           00393         bcf     TXSTA, SYNC     ;Asynchronous mode
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-00E5   1518           00393         bsf TXSTA, BRGH ;High-speed baud rate
-                      00394         
-00E6   1283 1303      00395         banksel RCSTA
-00E8   1798           00396         bsf RCSTA, SPEN ;RX/DT and TX/CK outputs configuration
-00E9   1318           00397         bcf RCSTA, RX9  ;Select mode for 8-bit data receive
-00EA   1618           00398         bsf RCSTA, CREN ;Receive data enabled
-00EB   1198           00399         bcf RCSTA, ADDEN        ;No address detection, ninth bit 
-                      00400                                                 ;might be used as parity bit
-00EC   081A           00401         movf RCREG, 0   ;cleared RCIF bit
-                      00402 
-00ED   1683 1703      00403         banksel BAUDCTL
-MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  1:16:12         PAGE  9
+00E6   1518           00394         bsf     TXSTA, BRGH     ;High-speed baud rate
+                      00395         
+00E7   1283 1303      00396         banksel RCSTA
+00E9   1798           00397         bsf     RCSTA, SPEN     ;RX/DT and TX/CK outputs configuration
+00EA   1318           00398         bcf     RCSTA, RX9      ;Select mode for 8-bit data receive
+00EB   1618           00399         bsf     RCSTA, CREN     ;Receive data enabled
+00EC   1198           00400         bcf             RCSTA, ADDEN    ;No address detection, ninth bit 
+                      00401                                                 ;might be used as parity bit
+00ED   081A           00402         movf    RCREG, 0        ;cleared RCIF bit
+                      00403 
+MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  12:17:04         PAGE  9
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+00EE   1683 1703      00404         banksel BAUDCTL
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-00EF   1207           00404         bcf BAUDCTL, SCKP ;unset inverted mode
-                      00405 
-00F0   1283           00406         bcf STATUS, RP0
-00F1   1303           00407         bcf STATUS, RP1
-                      00408         
-00F2   0008           00409         return
-                      00410 
-                      00411         end
-MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  1:16:12         PAGE 10
+00F0   1207           00405         bcf     BAUDCTL, SCKP ;unset inverted mode
+                      00406 
+00F1   1283           00407         bcf     STATUS, RP0
+00F2   1303           00408         bcf     STATUS, RP1
+                      00409         
+00F3   0008           00410         return
+                      00411 
+                      00412 
+                      00413 
+                      00414         end
+MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  12:17:04         PAGE 10
 
 
 SYMBOL TABLE
@@ -523,8 +526,8 @@ ANS8                              00000000
 ANS9                              00000001
 ANSEL                             00000188
 ANSELH                            00000189
-ANTIREBOTE_INT                    00000072
-ANTIREBOTE_RB                     0000007E
+ANTIREBOTE_INT                    00000073
+ANTIREBOTE_RB                     0000007F
 BAUDCTL                           00000187
 BCLIE                             00000003
 BCLIF                             00000003
@@ -544,7 +547,7 @@ BRG4                              00000004
 BRG5                              00000005
 BRG6                              00000006
 BRG7                              00000007
-MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  1:16:12         PAGE 11
+MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  12:17:04         PAGE 11
 
 
 SYMBOL TABLE
@@ -553,10 +556,10 @@ SYMBOL TABLE
 BRG8                              00000000
 BRG9                              00000001
 BRGH                              00000002
-BUCLE1                            000000BA
-BUCLE1_100                        000000C4
-BUCLE2                            000000B8
-BUCLE2_100                        000000C2
+BUCLE1                            000000BB
+BUCLE1_100                        000000C5
+BUCLE2                            000000B9
+BUCLE2_100                        000000C3
 C                                 00000000
 C1CH0                             00000000
 C1CH1                             00000001
@@ -603,13 +606,13 @@ CCPR1H                            00000016
 CCPR1L                            00000015
 CCPR2H                            0000001C
 CCPR2L                            0000001B
-MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  1:16:12         PAGE 12
+MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  12:17:04         PAGE 12
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-CFG                               00000045
+CFG                               00000046
 CHS0                              00000002
 CHS1                              00000003
 CHS2                              00000004
@@ -619,11 +622,11 @@ CKP                               00000004
 CM1CON0                           00000107
 CM2CON0                           00000108
 CM2CON1                           00000109
-CREAR_RANDOM                      000000CA
+CREAR_RANDOM                      000000CB
 CREN                              00000004
 CSRC                              00000007
 Comenzo                           00000004
-Configuracion_Puerto_Serie        000000D4
+Configuracion_Puerto_Serie        000000D5
 Contador                          00000023
 Contador_Aux                      00000024
 Crear                             00000003
@@ -652,17 +655,17 @@ EEDATH                            0000010E
 EEIE                              00000004
 EEIF                              00000004
 EEPGD                             00000007
-Espero                            00000013
+Espero                            00000014
 F                                 00000001
 FERR                              00000002
 FLAGS                             00000029
 FSR                               00000004
 FVREN                             00000000
-GANO_JUEGO                        00000028
+GANO_JUEGO                        00000029
 GCEN                              00000007
 GIE                               00000007
 GO                                00000001
-MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  1:16:12         PAGE 13
+MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  12:17:04         PAGE 13
 
 
 SYMBOL TABLE
@@ -680,10 +683,10 @@ INICIO                            00000005
 INTCON                            0000000B
 INTE                              00000004
 INTEDG                            00000006
-INTERRUPCION                      0000006E
+INTERRUPCION                      0000006F
 INTF                              00000001
-INT_PUERTOB                       00000072
-INT_PUERTOB1                      0000007E
+INT_PUERTOB                       00000073
+INT_PUERTOB1                      0000007F
 IOCB                              00000096
 IOCB0                             00000000
 IOCB1                             00000001
@@ -698,15 +701,15 @@ IRCF1                             00000005
 IRCF2                             00000006
 IRP                               00000007
 LTS                               00000001
-Levanto_bandera_gano              000000A9
-Levanto_flag_perdio               000000AD
-Llego_Cero                        0000009A
+Levanto_bandera_gano              000000AA
+Levanto_flag_perdio               000000AE
+Llego_Cero                        0000009B
 MAIN                              00000009
 MAX_VAL                           00000004
 MC1OUT                            00000007
 MC2OUT                            00000006
 MSK                               00000093
-Mostrar_Secuencia                 0000002D
+Mostrar_Secuencia                 0000002E
 NOT_A                             00000005
 NOT_ADDRESS                       00000005
 NOT_BO                            00000000
@@ -721,13 +724,13 @@ NOT_TO                            00000004
 NOT_TX8                           00000006
 NOT_W                             00000002
 NOT_WRITE                         00000002
-MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  1:16:12         PAGE 14
+MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  12:17:04         PAGE 14
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-No_Llego_Cero                     00000096
+No_Llego_Cero                     00000097
 Numero_de_valores_de_secuencia    00000022
 OERR                              00000001
 OPTION_REG                        00000081
@@ -751,7 +754,7 @@ PDC5                              00000005
 PDC6                              00000006
 PEIE                              00000006
 PEN                               00000002
-PERDIO_JUEGO                      00000023
+PERDIO_JUEGO                      00000024
 PIE1                              0000008C
 PIE2                              0000008D
 PIR1                              0000000C
@@ -762,8 +765,8 @@ PORTC                             00000007
 PORTD                             00000008
 PORTE                             00000009
 PR2                               00000092
-PROBANDO_RB                       00000086
-PROBANDO_RB0                      00000074
+PROBANDO_RB                       00000087
+PROBANDO_RB0                      00000075
 PRSEN                             00000007
 PS0                               00000000
 PS1                               00000001
@@ -780,7 +783,7 @@ PWM1CON                           0000009B
 Perdio                            00000000
 Primer_valor                      0000002B
 Proximo                           00000001
-MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  1:16:12         PAGE 15
+MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  12:17:04         PAGE 15
 
 
 SYMBOL TABLE
@@ -815,8 +818,8 @@ SCORE                             00000021
 SCS                               00000000
 SEN                               00000000
 SENDB                             00000003
-SIG                               00000093
-SIGUIENTE_COLOR                   0000001D
+SIG                               00000094
+SIGUIENTE_COLOR                   0000001E
 SMP                               00000007
 SPBRG                             00000099
 SPBRGH                            0000009A
@@ -839,7 +842,7 @@ SSPM3                             00000003
 SSPMSK                            00000093
 SSPOV                             00000006
 SSPSTAT                           00000094
-MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  1:16:12         PAGE 16
+MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  12:17:04         PAGE 16
 
 
 SYMBOL TABLE
@@ -868,7 +871,7 @@ T1SYNC                            00000002
 T2CKPS0                           00000000
 T2CKPS1                           00000001
 T2CON                             00000012
-TABLA                             000000B1
+TABLA                             000000B2
 TMR0                              00000001
 TMR0IE                            00000005
 TMR0IF                            00000002
@@ -898,7 +901,7 @@ TUN1                              00000001
 TUN2                              00000002
 TUN3                              00000003
 TUN4                              00000004
-MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  1:16:12         PAGE 17
+MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  12:17:04         PAGE 17
 
 
 SYMBOL TABLE
@@ -929,7 +932,7 @@ VROE                              00000006
 VRR                               00000005
 VRSS                              00000004
 Valor_aux                         0000002A
-Volver_Hacerlo                    00000031
+Volver_Hacerlo                    00000032
 W                                 00000000
 WCOL                              00000007
 WDTCON                            00000105
@@ -951,13 +954,13 @@ WREN                              00000002
 WRERR                             00000003
 WUE                               00000001
 Z                                 00000002
-_.org_1_0027                      00000027
-_.org_1_002C                      0000002C
+_.org_1_0028                      00000028
+_.org_1_002D                      0000002D
 _BOR21V                           00003EFF
 _BOR40V                           00003FFF
 _BOR_NSLEEP                       00003EFF
 _BOR_OFF                          00003CFF
-MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  1:16:12         PAGE 18
+MPASM  5.37                     PIC_SIMON.ASM   6-10-2016  12:17:04         PAGE 18
 
 
 SYMBOL TABLE
@@ -1003,8 +1006,8 @@ _WRT_OFF                          00003FFF
 _XT_OSC                           00003FF9
 __16F887                          00000001
 __DEBUG                           1
-delay_100ms                       000000C0
-delay_10ms                        000000B6
+delay_100ms                       000000C1
+delay_10ms                        000000B7
 
 Errors   :     0
 Warnings :     0 reported,     0 suppressed

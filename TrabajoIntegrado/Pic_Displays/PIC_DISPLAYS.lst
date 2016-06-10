@@ -1,4 +1,4 @@
-MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  1:25:50         PAGE  1
+MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  12:23:06         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -10,277 +10,304 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00002 ; P16F887.INC  Standard Header File, Version 1.00    Microchip Technology, Inc.
                       00617         LIST
                       00003         CBLOCK 0x20
-  00000020            00004 AUX
-  00000021            00005 AUX1
-  00000022            00006 AUX2
-  00000023            00007 PUNTAJE
-  00000024            00008 FLAGS
-  00000025            00009 MAYOR_PUNTAJE
-  00000026            00010 UNIDADES
-  00000027            00011 DECENAS
-                      00012         ENDC
-  0000003F            00013 DISP_0  EQU b'00111111'
-  00000006            00014 DISP_1  EQU b'00000110'
-  000000DB            00015 DISP_2  EQU b'11011011'
-  000000CF            00016 DISP_3  EQU b'11001111'
-  000000E6            00017 DISP_4  EQU b'11100110'
-  000000ED            00018 DISP_5  EQU b'11101101'
-  000000FD            00019 DISP_6  EQU b'11111101'
-  00000007            00020 DISP_7  EQU b'00000111'
-  000000FF            00021 DISP_8  EQU b'11111111'
-  000000EF            00022 DISP_9  EQU b'11101111'
-  00000000            00023 DISP_UNIDADES EQU 0
-                      00024         org     0x00
-0000   2???           00025         goto    INICIO
-                      00026         org     0x04
-0004   2???           00027         goto    INTERRUPCION
-                      00028 
+  00000020            00004 CONTADOR_PRUEBA
+  00000021            00005 AUX
+  00000022            00006 AUX1
+  00000023            00007 AUX2
+  00000024            00008 PUNTAJE
+  00000025            00009 FLAGS
+  00000026            00010 MAYOR_PUNTAJE
+  00000027            00011 UNIDADES
+  00000028            00012 DECENAS
+                      00013         ENDC
+  0000003F            00014 DISP_0  EQU b'00111111'
+  00000006            00015 DISP_1  EQU b'00000110'
+  000000DB            00016 DISP_2  EQU b'11011011'
+  000000CF            00017 DISP_3  EQU b'11001111'
+  000000E6            00018 DISP_4  EQU b'11100110'
+  000000ED            00019 DISP_5  EQU b'11101101'
+  000000FD            00020 DISP_6  EQU b'11111101'
+  00000007            00021 DISP_7  EQU b'00000111'
+  000000FF            00022 DISP_8  EQU b'11111111'
+  000000EF            00023 DISP_9  EQU b'11101111'
+  00000000            00024 DISP_UNIDADES EQU 0
+                      00025         org     0x00
+0000   2???           00026         goto    INICIO
+                      00027         org     0x04
+0004   2???           00028         goto    INTERRUPCION
                       00029 
                       00030 
-0005                  00031 INICIO
-0005   2???           00032         call    CFG
-0006   2???           00033         call    Configuracion_Puerto_Serie
-0007   2???           00034         call    CONVERTIR
-0008   168B           00035         bsf             INTCON,T0IE
-                      00036 
-0009                  00037 MAIN
-0009   0000           00038         nop     
-000A   0064           00039         clrWDT
-000B   2???           00040         goto    MAIN
-                      00041 
-000C                  00042 CFG
-000C   01A3           00043         clrf    PUNTAJE
-000D   01A5           00044         clrf    MAYOR_PUNTAJE
-000E   01A7           00045         clrf    DECENAS
-000F   01A6           00046         clrf    UNIDADES
-                      00047 
-0010   1683 1303      00048         banksel OPTION_REG
-0012   3004           00049         movlw   b'00000100'
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  1:25:50         PAGE  2
+                      00031 
+0005                  00032 INICIO
+0005   2???           00033         call    CFG
+0006   2???           00034         call    Configuracion_Puerto_Serie
+0007   2???           00035         call    CONVERTIR
+0008   168B           00036         bsf             INTCON,T0IE
+0009   2???           00037         goto    MAIN
+                      00038 
+000A                  00039 MAIN
+000A   0000           00040         nop     
+000B   0064           00041         clrwdt
+000C   2???           00042         goto    MAIN
+000D                  00043 PRUEBA
+Message[305]: Using default destination of 1 (file).
+000D   0AA0           00044         incf    CONTADOR_PRUEBA
+000E   0820           00045         movf    CONTADOR_PRUEBA, 0
+000F   00A4           00046         movwf   PUNTAJE
+0010   2???           00047         call    PUNTAJE_MAYOR?
+0011   2???           00048         call    CONVERTIR
+0012   0008           00049         return
+MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  12:23:06         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0013   0081           00050         movwf   OPTION_REG
-0014   3000           00051         movlw   b'00000000'
+                      00050 
+0013                  00051 CFG
+0013   01A0           00052         clrf    CONTADOR_PRUEBA
+0014   01A4           00053         clrf    PUNTAJE
+0015   01A6           00054         clrf    MAYOR_PUNTAJE
+0016   01A8           00055         clrf    DECENAS
+0017   01A7           00056         clrf    UNIDADES
+                      00057 
+0018   1683 1303      00058         banksel OPTION_REG
+001A   3004           00059         movlw   b'00000100'
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0015   0086           00052         movwf   TRISB
+001B   0081           00060         movwf   OPTION_REG
+001C   3000           00061         movlw   b'00000000'
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0016   0088           00053         movwf   TRISD
-                      00054         
-0017   1683 1703      00055         banksel ANSELH
+001D   0086           00062         movwf   TRISB
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0019   0189           00056         clrf    ANSELH
-                      00057         
-001A   1283 1303      00058         banksel INTCON
-001C   3080           00059         movlw   b'10000000'
-001D   008B           00060         movwf   INTCON
-                      00061         
-001E   3032           00062         movlw   .50
-001F   0081           00063         movwf   TMR0
-0020   3000           00064         movlw   0x00
-0021   0088           00065         movwf   PORTD
-0022   01A4           00066         clrf    FLAGS
+001E   0088           00063         movwf   TRISD
+                      00064         
+001F   1683 1703      00065         banksel ANSELH
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0021   0189           00066         clrf    ANSELH
                       00067         
-0023   0008           00068   return
-                      00069 
-0024                  00070 INTERRUPCION
-0024   190B           00071         btfsc   INTCON,T0IF
-0025   2???           00072         goto    INT_TIMER
-0026   1283 1303      00073         banksel PIR1
-0028   1A8C           00074         btfsc   PIR1, RCIF
-0029   2???           00075         goto    INT_RX
-002A   1283           00076         bcf     STATUS, RP0
-002B   1303           00077         bcf     STATUS, RP1
-002C   0009           00078         retfie
+0022   1283 1303      00068         banksel INTCON
+0024   3080           00069         movlw   b'10000000'
+0025   008B           00070         movwf   INTCON
+                      00071         
+0026   3032           00072         movlw   .50
+0027   0081           00073         movwf   TMR0
+0028   3000           00074         movlw   0x00
+0029   0088           00075         movwf   PORTD
+002A   01A5           00076         clrf    FLAGS
+                      00077         
+002B   0008           00078   return
                       00079 
-002D                  00080 INT_TIMER
-002D   1C24           00081         btfss   FLAGS,DISP_UNIDADES
-002E   2???           00082         goto    MOSTRAR_UNIDADES
-002F   2???           00083         goto    MOSTRAR_DECENAS
-                      00084         
-                      00085         
-                      00086 
-                      00087 
-0030                  00088 CONVERTIR
-0030   0825           00089         movf    MAYOR_PUNTAJE,0
-0031   00A0           00090         movwf   AUX
-0032                  00091 DECENAS_TAG
-0032   300A           00092         movlw   .10
-0033   02A0           00093         subwf   AUX,1
-0034   1C03           00094         btfss   STATUS,C
-0035   2???           00095         goto    UNIDADES_TAG
-0036   0820           00096         movf    AUX,0
-0037   00A2           00097         movwf   AUX2
-0038   0AA7           00098         incf    DECENAS,1
-0039   2???           00099         goto    DECENAS_TAG
-MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  1:25:50         PAGE  3
+002C                  00080 INTERRUPCION
+002C   190B           00081         btfsc   INTCON,T0IF
+002D   2???           00082         goto    INT_TIMER
+002E   1283 1303      00083         banksel PIR1
+0030   1A8C           00084         btfsc   PIR1, RCIF
+0031   2???           00085         goto    INT_RX
+0032   1283           00086         bcf     STATUS, RP0
+0033   1303           00087         bcf     STATUS, RP1
+0034   0009           00088         retfie
+                      00089 
+0035                  00090 INT_TIMER
+0035   1C25           00091         btfss   FLAGS,DISP_UNIDADES
+0036   2???           00092         goto    MOSTRAR_UNIDADES
+0037   2???           00093         goto    MOSTRAR_DECENAS
+                      00094         
+                      00095         
+                      00096 
+                      00097 
+0038                  00098 CONVERTIR
+MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  12:23:06         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      00100 
-003A                  00101 UNIDADES_TAG
-003A   0822           00102         movf    AUX2,0
-003B   00A6           00103         movwf   UNIDADES
-003C   0008           00104         return
-                      00105         
-                      00106         
-003D                  00107 PUNTAJE_MAYOR?
-003D   0823           00108         movf    PUNTAJE,0
-003E   00A1           00109         movwf   AUX1
-003F   0825           00110         movf    MAYOR_PUNTAJE,0
-0040   02A1           00111         subwf   AUX1,1
-0041   1C03           00112         btfss   STATUS,C
-0042   0008           00113         return
-0043   0823           00114         movf    PUNTAJE,0
-0044   00A5           00115         movwf   MAYOR_PUNTAJE
-0045   0008           00116         return
-                      00117 
-0046                  00118 MOSTRAR_UNIDADES
-0046   0186           00119         clrf    PORTB
-0047   1088           00120         bcf             PORTD,1
-0048   1408           00121         bsf             PORTD,0
-0049   0826           00122         movf    UNIDADES,0
-004A   2???           00123         call    TABLA
-004B   0086           00124         movwf   PORTB
-004C   1424           00125         bsf             FLAGS,DISP_UNIDADES
-004D   2???           00126         goto    FIN_TIMER
-                      00127 
-004E                  00128 MOSTRAR_DECENAS
-004E   0186           00129         clrf    PORTB
-004F   1008           00130         bcf             PORTD,0
-0050   1488           00131         bsf             PORTD,1
-0051   0827           00132         movf    DECENAS,0
-0052   2???           00133         call    TABLA
-0053   1024           00134         bcf             FLAGS,DISP_UNIDADES
-0054   0086           00135         movwf   PORTB
-                      00136         
-0055                  00137 FIN_TIMER
-0055   3032           00138         movlw   .50 ;valor de carga de timer
-0056   0081           00139         movwf   TMR0
-0057   110B           00140         bcf             INTCON,T0IF
-0058   0009           00141         retfie
-0059                  00142 TABLA
-0059   0782           00143         addwf   PCL,1
-005A   343F           00144         retlw   DISP_0
-005B   3406           00145         retlw   DISP_1
-005C   34DB           00146         retlw   DISP_2  
-005D   34CF           00147         retlw   DISP_3  
-005E   34E6           00148         retlw   DISP_4  
-005F   34ED           00149         retlw   DISP_5  
-0060   34FD           00150         retlw   DISP_6  
-0061   3407           00151         retlw   DISP_7  
-0062   34FF           00152         retlw   DISP_8  
-MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  1:25:50         PAGE  4
+0038   01A7           00099         clrf    UNIDADES
+0039   01A8           00100         clrf    DECENAS
+003A   0826           00101         movf    MAYOR_PUNTAJE,0
+003B   00A1           00102         movwf   AUX
+003C   00A3           00103         movwf   AUX2
+003D                  00104 DECENAS_TAG
+003D   300A           00105         movlw   .10
+003E   02A1           00106         subwf   AUX,1
+003F   1C03           00107         btfss   STATUS,C
+0040   2???           00108         goto    UNIDADES_TAG
+0041   0821           00109         movf    AUX,0
+0042   00A3           00110         movwf   AUX2
+0043   0AA8           00111         incf    DECENAS,1
+0044   2???           00112         goto    DECENAS_TAG
+                      00113 
+0045                  00114 UNIDADES_TAG
+0045   0823           00115         movf    AUX2,0
+0046   00A7           00116         movwf   UNIDADES
+0047   0008           00117         return
+                      00118         
+                      00119         
+0048                  00120 PUNTAJE_MAYOR?
+0048   0824           00121         movf    PUNTAJE,0               
+0049   00A2           00122         movwf   AUX1                    ;Paso el valor de puntaje a AUX1
+004A   0826           00123         movf    MAYOR_PUNTAJE,0 ;Paso Mayor_Puntaje a W
+004B   02A2           00124         subwf   AUX1,1                  ;Hago AUX1-W (Puntaje-Mayor_Puntaje)
+004C   1C03           00125         btfss   STATUS,C                ;Si B=0(C=1) entonces guardo a puntaje en Mayor_Puntaje
+004D   0008           00126         return
+004E   0824           00127         movf    PUNTAJE,0
+004F   00A6           00128         movwf   MAYOR_PUNTAJE   ;Guardo a puntaje en puntaje mayor
+0050   0008           00129         return
+                      00130 
+0051                  00131 MOSTRAR_UNIDADES
+0051   0186           00132         clrf    PORTB
+0052   1088           00133         bcf             PORTD,1
+0053   1408           00134         bsf             PORTD,0
+0054   0827           00135         movf    UNIDADES,0
+0055   2???           00136         call    TABLA
+0056   0086           00137         movwf   PORTB
+0057   1425           00138         bsf             FLAGS,DISP_UNIDADES
+0058   2???           00139         goto    FIN_TIMER
+                      00140 
+0059                  00141 MOSTRAR_DECENAS
+0059   0186           00142         clrf    PORTB
+005A   1008           00143         bcf             PORTD,0
+005B   1488           00144         bsf             PORTD,1
+005C   0828           00145         movf    DECENAS,0
+005D   2???           00146         call    TABLA
+005E   1025           00147         bcf             FLAGS,DISP_UNIDADES
+005F   0086           00148         movwf   PORTB
+                      00149         
+0060                  00150 FIN_TIMER
+0060   3032           00151         movlw   .50 ;valor de carga de timer
+MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  12:23:06         PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0063   34EF           00153         retlw   DISP_9  
-                      00154 
-                      00155 ;-------------------------
-0064                  00156 Configuracion_Puerto_Serie
-                      00157 ;-------------------------
-0064   1683 1303      00158         banksel TRISC
+0061   0081           00152         movwf   TMR0
+0062   110B           00153         bcf             INTCON,T0IF
+0063   0009           00154         retfie
+0064                  00155 TABLA
+0064   0782           00156         addwf   PCL,1
+0065   343F           00157         retlw   DISP_0
+0066   3406           00158         retlw   DISP_1
+0067   34DB           00159         retlw   DISP_2  
+0068   34CF           00160         retlw   DISP_3  
+0069   34E6           00161         retlw   DISP_4  
+006A   34ED           00162         retlw   DISP_5  
+006B   34FD           00163         retlw   DISP_6  
+006C   3407           00164         retlw   DISP_7  
+006D   34FF           00165         retlw   DISP_8  
+006E   34EF           00166         retlw   DISP_9  
+                      00167 
+                      00168 ;-------------------------
+006F                  00169 Configuracion_Puerto_Serie
+                      00170 ;-------------------------
+006F   1683 1303      00171         banksel TRISC
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0066   1307           00159         bcf TRISC, 6    ;RC6/TX/CK = output
+0071   1307           00172         bcf TRISC, 6    ;RC6/TX/CK = output
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0067   1787           00160         bsf TRISC, 7    ;RC7/RX/DT = input
-                      00161 
-0068   1683 1703      00162         banksel BAUDCTL 
+0072   1787           00173         bsf TRISC, 7    ;RC7/RX/DT = input
+                      00174 
+0073   1683 1703      00175         banksel BAUDCTL 
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-006A   1587           00163         bsf BAUDCTL, BRG16      ;16-bit BAUD Rate Generator is used.
-                      00164         
-006B   1683 1303      00165         banksel SPBRG
-006D   3033           00166         movlw .51       ;baud rate = 38400 ---> Esto seguro hay que modificarlo.
-                      00167                                 ;(Fosc/(4*(SPBRG+1))) Error + 0.16%
+0075   1187           00176         bcf BAUDCTL, BRG16      ;16-bit BAUD Rate Generator is used.
+                      00177         
+0076   1683 1303      00178         banksel SPBRG
+0078   3033           00179         movlw .51       ;baud rate = 38400 ---> Esto seguro hay que modificarlo.
+                      00180                                 ;(Fosc/(4*(SPBRG+1))) Error + 0.16%
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-006E   0099           00168         movwf SPBRG
+0079   0099           00181         movwf SPBRG
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-006F   019A           00169         clrf SPBRGH
-                      00170 
-0070   1683 1303      00171         banksel TXSTA
+007A   019A           00182         clrf SPBRGH
+                      00183 
+007B   1683 1303      00184         banksel TXSTA
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0072   1318           00172         bcf TXSTA, TX9  ;Data is 8-bit wide
+007D   1318           00185         bcf TXSTA, TX9  ;Data is 8-bit wide
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0073   1698           00173         bsf TXSTA, TXEN ;Data transmission enabled      No se para que...
+007E   1298           00186         bcf TXSTA, TXEN ;Data transmission disabled
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0074   1218           00174         bcf TXSTA, SYNC ;Asynchronous mode
+007F   1218           00187         bcf TXSTA, SYNC ;Asynchronous mode
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0075   1518           00175         bsf TXSTA, BRGH ;High-speed baud rate
-                      00176         
-0076   1283 1303      00177         banksel RCSTA
-0078   1798           00178         bsf RCSTA, SPEN ;RX/DT and TX/CK outputs configuration
-0079   1318           00179         bcf RCSTA, RX9  ;Select mode for 8-bit data receive
-007A   1618           00180         bsf RCSTA, CREN ;Receive data enabled
-007B   1198           00181         bcf RCSTA, ADDEN        ;No address detection, ninth bit 
-                      00182                                                 ;might be used as parity bit
-007C   1118           00183         bcf RCSTA, FERR
-007D   1098           00184         bcf RCSTA, OERR
-007E   081A           00185         movf RCREG, 0   ;cleared RCIF bit
-                      00186 
-007F   1683 1703      00187         banksel BAUDCTL
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0081   1207           00188         bcf BAUDCTL, SCKP ;unset inverted mode
-                      00189 ;-----------------------
-0082                  00190 Interrupts_Configuration                ;Para Comunicacion Serie
-                      00191 ;-----------------------
-0082   1683 1303      00192         banksel PIE1
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0084   168C           00193         bsf PIE1, RCIE  ;USART Rx interrupt enabled
-                      00194         
-MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  1:25:50         PAGE  5
+0080   1518           00188         bsf TXSTA, BRGH ;High-speed baud rate
+                      00189         
+0081   1283 1303      00190         banksel RCSTA
+0083   1798           00191         bsf RCSTA, SPEN ;RX/DT and TX/CK outputs configuration
+0084   1318           00192         bcf RCSTA, RX9  ;Select mode for 8-bit data receive
+0085   1618           00193         bsf RCSTA, CREN ;Receive data enabled
+0086   1198           00194         bcf RCSTA, ADDEN        ;No address detection, ninth bit 
+                      00195                                                 ;might be used as parity bit
+MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  12:23:06         PAGE  5
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-0085   1283 1303      00195         banksel INTCON
-0087   170B           00196         bsf INTCON, PEIE
-                      00197 
-0088   1283           00198         bcf STATUS, RP0
-0089   1303           00199         bcf STATUS, RP1 
-                      00200 
-008A   0008           00201         return
-                      00202 
-008B                  00203 INT_RX
-                      00204         ;bcf    PIR1, RCIF
-008B   1283 1303      00205         banksel RCSTA
-008D   1918           00206         btfsc   RCSTA, FERR
-008E   2???           00207         goto    FRAMING_ERROR
-008F   1898           00208         btfsc   RCSTA, OERR
-0090   2???           00209         goto    OVERRUN_ERROR
-0091   2???           00210         goto    RECIBIR_DATO
-0092                  00211 RECIBIR_DATO
-0092   081A           00212         movf    RCREG, 0
-0093   1283           00213         bcf             STATUS, RP0
-0094   1303           00214         bcf     STATUS, RP1
-0095   00A3           00215         movwf   PUNTAJE
-0096   2???           00216         call    PUNTAJE_MAYOR?
-0097   2???           00217         call    CONVERTIR
-0098   2???           00218         goto    FIN_RX
-0099                  00219 OVERRUN_ERROR
-0099   081A           00220         movf    RCREG, 0
-009A   1098           00221         bcf     RCSTA, OERR
-009B   1788           00222         bsf     PORTD, 7
-009C   2???           00223         goto    FIN_RX  
-009D                  00224 FRAMING_ERROR
-009D   081A           00225         movf    RCREG, 0
-009E   1118           00226         bcf             RCSTA, FERR
-009F   1708           00227         bsf     PORTD, 6
-00A0   2???           00228         goto    FIN_RX
-00A1                  00229 FIN_RX
-00A1   1283           00230         bcf STATUS, RP0
-00A2   1303           00231         bcf STATUS, RP1
-00A3   0009           00232         retfie
-                      00233 
-                      00234         end
-MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  1:25:50         PAGE  6
+0087   1118           00196         bcf RCSTA, FERR
+0088   1098           00197         bcf RCSTA, OERR
+0089   081A           00198         movf RCREG, 0   ;cleared RCIF bit
+                      00199 
+008A   1683 1703      00200         banksel BAUDCTL
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+008C   1207           00201         bcf BAUDCTL, SCKP ;unset inverted mode
+                      00202 ;-----------------------
+008D                  00203 Interrupts_Configuration                ;Para Comunicacion Serie
+                      00204 ;-----------------------
+008D   1683 1303      00205         banksel PIE1
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+008F   168C           00206         bsf PIE1, RCIE  ;USART Rx interrupt enabled
+                      00207         
+0090   1283 1303      00208         banksel INTCON
+0092   170B           00209         bsf INTCON, PEIE
+                      00210 
+0093   1283           00211         bcf STATUS, RP0
+0094   1303           00212         bcf STATUS, RP1 
+                      00213 
+0095   0008           00214         return
+                      00215 
+0096                  00216 INT_RX
+                      00217         ;bcf    PIR1, RCIF
+                      00218         ;banksel PIE1
+                      00219         ;bcf    PIE1, RCIE
+                      00220         ;call   PRUEBA
+0096   1283 1303      00221         banksel RCSTA
+0098   1898           00222         btfsc   RCSTA, OERR
+0099   2???           00223         goto    OVERRUN_ERROR
+009A   1918           00224         btfsc   RCSTA, FERR
+009B   2???           00225         goto    FRAMING_ERROR
+009C   2???           00226         goto    RECIBIR_DATO
+009D                  00227 RECIBIR_DATO
+009D   1283 1303      00228         banksel RCREG
+009F   081A           00229         movf    RCREG, 0
+00A0   00A4           00230         movwf   PUNTAJE
+00A1   2???           00231         call    PUNTAJE_MAYOR?
+00A2   2???           00232         call    CONVERTIR
+00A3   2???           00233         goto    FIN_RX
+00A4                  00234 OVERRUN_ERROR
+00A4   1283 1303      00235         banksel RCREG
+00A6   081A           00236         movf    RCREG, 0
+00A7   1098           00237         bcf     RCSTA, OERR
+00A8   1788           00238         bsf     PORTD, 7
+00A9   2???           00239         goto    FIN_RX  
+00AA                  00240 FRAMING_ERROR
+00AA   1283 1303      00241         banksel RCREG
+00AC   081A           00242         movf    RCREG, 0
+00AD   00A4           00243         movwf   PUNTAJE
+00AE   2???           00244         call    PUNTAJE_MAYOR?
+00AF   2???           00245         call    CONVERTIR
+00B0   1118           00246         bcf             RCSTA, FERR
+MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  12:23:06         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00B1   1708           00247         bsf     PORTD, 6
+00B2   2???           00248         goto    FIN_RX
+00B3                  00249 FIN_RX
+00B3   1283           00250         bcf STATUS, RP0
+00B4   1303           00251         bcf STATUS, RP1
+00B5   0009           00252         retfie
+                      00253 
+                      00254         end
+MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  12:23:06         PAGE  7
 
 
 SYMBOL TABLE
@@ -318,9 +345,9 @@ ANS8                              00000000
 ANS9                              00000001
 ANSEL                             00000188
 ANSELH                            00000189
-AUX                               00000020
-AUX1                              00000021
-AUX2                              00000022
+AUX                               00000021
+AUX1                              00000022
+AUX2                              00000023
 BAUDCTL                           00000187
 BCLIE                             00000003
 BCLIF                             00000003
@@ -339,7 +366,7 @@ BRG3                              00000003
 BRG4                              00000004
 BRG5                              00000005
 BRG6                              00000006
-MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  1:25:50         PAGE  7
+MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  12:23:06         PAGE  8
 
 
 SYMBOL TABLE
@@ -395,10 +422,10 @@ CCPR1H                            00000016
 CCPR1L                            00000015
 CCPR2H                            0000001C
 CCPR2L                            0000001B
-CFG                               0000000C
+CFG                               00000013
 CHS0                              00000002
 CHS1                              00000003
-MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  1:25:50         PAGE  8
+MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  12:23:06         PAGE  9
 
 
 SYMBOL TABLE
@@ -411,10 +438,11 @@ CKP                               00000004
 CM1CON0                           00000107
 CM2CON0                           00000108
 CM2CON1                           00000109
-CONVERTIR                         00000030
+CONTADOR_PRUEBA                   00000020
+CONVERTIR                         00000038
 CREN                              00000004
 CSRC                              00000007
-Configuracion_Puerto_Serie        00000064
+Configuracion_Puerto_Serie        0000006F
 D                                 00000005
 DATA_ADDRESS                      00000005
 DC                                00000001
@@ -422,8 +450,8 @@ DC1B0                             00000004
 DC1B1                             00000005
 DC2B0                             00000004
 DC2B1                             00000005
-DECENAS                           00000027
-DECENAS_TAG                       00000032
+DECENAS                           00000028
+DECENAS_TAG                       0000003D
 DISP_0                            0000003F
 DISP_1                            00000006
 DISP_2                            000000DB
@@ -453,16 +481,16 @@ EEIF                              00000004
 EEPGD                             00000007
 F                                 00000001
 FERR                              00000002
-FIN_RX                            000000A1
-FIN_TIMER                         00000055
-FLAGS                             00000024
-FRAMING_ERROR                     0000009D
-MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  1:25:50         PAGE  9
+FIN_RX                            000000B3
+FIN_TIMER                         00000060
+FLAGS                             00000025
+MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  12:23:06         PAGE 10
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+FRAMING_ERROR                     000000AA
 FSR                               00000004
 FVREN                             00000000
 GCEN                              00000007
@@ -479,10 +507,10 @@ INICIO                            00000005
 INTCON                            0000000B
 INTE                              00000004
 INTEDG                            00000006
-INTERRUPCION                      00000024
+INTERRUPCION                      0000002C
 INTF                              00000001
-INT_RX                            0000008B
-INT_TIMER                         0000002D
+INT_RX                            00000096
+INT_TIMER                         00000035
 IOCB                              00000096
 IOCB0                             00000000
 IOCB1                             00000001
@@ -496,14 +524,14 @@ IRCF0                             00000004
 IRCF1                             00000005
 IRCF2                             00000006
 IRP                               00000007
-Interrupts_Configuration          00000082
+Interrupts_Configuration          0000008D
 LTS                               00000001
-MAIN                              00000009
-MAYOR_PUNTAJE                     00000025
+MAIN                              0000000A
+MAYOR_PUNTAJE                     00000026
 MC1OUT                            00000007
 MC2OUT                            00000006
-MOSTRAR_DECENAS                   0000004E
-MOSTRAR_UNIDADES                  00000046
+MOSTRAR_DECENAS                   00000059
+MOSTRAR_UNIDADES                  00000051
 MSK                               00000093
 NOT_A                             00000005
 NOT_ADDRESS                       00000005
@@ -515,13 +543,13 @@ NOT_POR                           00000001
 NOT_RBPU                          00000007
 NOT_RC8                           00000006
 NOT_T1SYNC                        00000002
-NOT_TO                            00000004
-MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  1:25:50         PAGE 10
+MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  12:23:06         PAGE 11
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+NOT_TO                            00000004
 NOT_TX8                           00000006
 NOT_W                             00000002
 NOT_WRITE                         00000002
@@ -532,7 +560,7 @@ OSCTUNE                           00000090
 OSFIE                             00000007
 OSFIF                             00000007
 OSTS                              00000003
-OVERRUN_ERROR                     00000099
+OVERRUN_ERROR                     000000A4
 P                                 00000004
 P1M0                              00000006
 P1M1                              00000007
@@ -559,6 +587,7 @@ PORTD                             00000008
 PORTE                             00000009
 PR2                               00000092
 PRSEN                             00000007
+PRUEBA                            0000000D
 PS0                               00000000
 PS1                               00000001
 PS2                               00000002
@@ -570,17 +599,17 @@ PSSBD1                            00000001
 PSTRCON                           0000009D
 PULSR                             00000002
 PULSS                             00000003
-PUNTAJE                           00000023
-PUNTAJE_MAYOR?                    0000003D
+PUNTAJE                           00000024
+PUNTAJE_MAYOR?                    00000048
 PWM1CON                           0000009B
-R                                 00000002
-RBIE                              00000003
-MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  1:25:50         PAGE 11
+MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  12:23:06         PAGE 12
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+R                                 00000002
+RBIE                              00000003
 RBIF                              00000000
 RC8_9                             00000006
 RC9                               00000006
@@ -593,7 +622,7 @@ RCREG                             0000001A
 RCSTA                             00000018
 RD                                00000000
 READ_WRITE                        00000002
-RECIBIR_DATO                      00000092
+RECIBIR_DATO                      0000009D
 RP0                               00000005
 RP1                               00000006
 RSEN                              00000001
@@ -632,14 +661,14 @@ STATUS                            00000003
 STRA                              00000000
 STRB                              00000001
 STRC                              00000002
-STRD                              00000003
-STRSYNC                           00000004
-MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  1:25:50         PAGE 12
+MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  12:23:06         PAGE 13
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+STRD                              00000003
+STRSYNC                           00000004
 SWDTEN                            00000000
 SYNC                              00000004
 T0CS                              00000005
@@ -657,7 +686,7 @@ T1SYNC                            00000002
 T2CKPS0                           00000000
 T2CKPS1                           00000001
 T2CON                             00000012
-TABLA                             00000059
+TABLA                             00000064
 TMR0                              00000001
 TMR0IE                            00000005
 TMR0IF                            00000002
@@ -691,14 +720,14 @@ TX8_9                             00000006
 TX9                               00000006
 TX9D                              00000000
 TXD8                              00000000
-TXEN                              00000005
-TXIE                              00000004
-MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  1:25:50         PAGE 13
+MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  12:23:06         PAGE 14
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+TXEN                              00000005
+TXIE                              00000004
 TXIF                              00000004
 TXREG                             00000019
 TXSTA                             00000098
@@ -706,8 +735,8 @@ UA                                00000001
 ULPWUE                            00000005
 ULPWUIE                           00000002
 ULPWUIF                           00000002
-UNIDADES                          00000026
-UNIDADES_TAG                      0000003A
+UNIDADES                          00000027
+UNIDADES_TAG                      00000045
 VCFG0                             00000004
 VCFG1                             00000005
 VR0                               00000000
@@ -750,14 +779,14 @@ _CONFIG1                          00002007
 _CONFIG2                          00002008
 _CPD_OFF                          00003FFF
 _CPD_ON                           00003F7F
-_CP_OFF                           00003FFF
-_CP_ON                            00003FBF
-MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  1:25:50         PAGE 14
+MPASM  5.37                  PIC_DISPLAYS.ASM   6-10-2016  12:23:06         PAGE 15
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+_CP_OFF                           00003FFF
+_CP_ON                            00003FBF
 _DEBUG_OFF                        00003FFF
 _DEBUG_ON                         00001FFF
 _EC_OSC                           00003FFB
@@ -793,6 +822,6 @@ __DEBUG                           1
 
 Errors   :     0
 Warnings :     0 reported,     0 suppressed
-Messages :    15 reported,     0 suppressed
+Messages :    16 reported,     0 suppressed
 
 

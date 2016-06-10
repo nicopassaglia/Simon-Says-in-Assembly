@@ -32,6 +32,7 @@ INICIO
 	movwf 	Numero_de_valores_de_secuencia
 MAIN	
 	incf	Random, 1
+	clrwdt
 	btfss 	FLAGS, Comenzo	;Cuando viene interrupcion por RB0 setea el FLAG
 	goto 	MAIN
 	movf 	Random, 0
@@ -280,9 +281,9 @@ Llego_Cero
 	goto	Levanto_bandera_gano
 	bsf		FLAGS,Crear
 	bsf		FLAGS,Proximo ;Seteo la bandera de proximo para que el programa sepa que debe mostrar la siguiente secuencia
-	call delay_100ms
-	call delay_100ms
-	call delay_100ms
+	call 	delay_100ms
+	call 	delay_100ms
+	call 	delay_100ms
 	bcf		INTCON,RBIF
 	bcf		INTCON,INTF
 	retfie
@@ -373,39 +374,41 @@ CREAR_RANDOM
 ;-------------------------
 Configuracion_Puerto_Serie
 ;-------------------------
-	banksel TRISC
-	bcf TRISC, 6	;RC6/TX/CK = output
-	bsf TRISC, 7	;RC7/RX/DT = input
+	banksel	TRISC
+	bcf 	TRISC, 6	;RC6/TX/CK = output
+	bsf		TRISC, 7	;RC7/RX/DT = input
 
 	banksel BAUDCTL	
-	bsf BAUDCTL, BRG16	;16-bit BAUD Rate Generator is used.
+	bcf 	BAUDCTL, BRG16	;16-bit BAUD Rate Generator is used.
 	
 	banksel SPBRG
-	movlw .51	;baud rate = 38400 --->	Esto seguro hay que modificarlo.
+	movlw 	.51	;baud rate = 38400 --->	Esto seguro hay que modificarlo.
 				;(Fosc/(4*(SPBRG+1))) Error + 0.16%
-	movwf SPBRG
-	clrf SPBRGH
+	movwf 	SPBRG
+	clrf 	SPBRGH
 
 	banksel TXSTA
-	bcf TXSTA, TX9 	;Data is 8-bit wide
-	bsf TXSTA, TXEN	;Data transmission enabled	No se para que...
-	bcf TXSTA, SYNC	;Asynchronous mode
-	bsf TXSTA, BRGH	;High-speed baud rate
+	bcf 	TXSTA, TX9 	;Data is 8-bit wide
+	bsf 	TXSTA, TXEN	;Data transmission enabled	
+	bcf 	TXSTA, SYNC	;Asynchronous mode
+	bsf 	TXSTA, BRGH	;High-speed baud rate
 	
 	banksel RCSTA
-	bsf RCSTA, SPEN	;RX/DT and TX/CK outputs configuration
-	bcf RCSTA, RX9	;Select mode for 8-bit data receive
-	bsf RCSTA, CREN	;Receive data enabled
-	bcf RCSTA, ADDEN	;No address detection, ninth bit 
+	bsf 	RCSTA, SPEN	;RX/DT and TX/CK outputs configuration
+	bcf 	RCSTA, RX9	;Select mode for 8-bit data receive
+	bsf 	RCSTA, CREN	;Receive data enabled
+	bcf		RCSTA, ADDEN	;No address detection, ninth bit 
 						;might be used as parity bit
-	movf RCREG, 0	;cleared RCIF bit
+	movf 	RCREG, 0	;cleared RCIF bit
 
 	banksel BAUDCTL
-	bcf BAUDCTL, SCKP ;unset inverted mode
+	bcf 	BAUDCTL, SCKP ;unset inverted mode
 
-	bcf STATUS, RP0
-	bcf STATUS, RP1
+	bcf 	STATUS, RP0
+	bcf 	STATUS, RP1
 	
 	return
+
+
 
 	end
