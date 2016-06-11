@@ -18,7 +18,7 @@ Proximo EQU 1
 Gano	EQU 2
 Crear	EQU	3
 Comenzo EQU 4
-MAX_VAL	EQU .4
+MAX_VAL	EQU .60
 	org	0x00
 	goto 	INICIO
 	org	0x04
@@ -46,7 +46,6 @@ MAIN
 Espero
 ;{	
 	incf	Random,1
-	clrf	TMR0
 	CLRWDT
 	btfsc	FLAGS,Proximo	;Si pulso el/los color/es correcto/s, muestro la siguiente secuencia
 	call	SIGUIENTE_COLOR
@@ -153,7 +152,7 @@ CFG
 	clrf 	ANSELH
 
 	;Configurar carga al timer
-	banksel TMR0
+	banksel TMR0		;Al final no usamos el timer...
 	movlw 	.0
 	movwf 	TMR0
 
