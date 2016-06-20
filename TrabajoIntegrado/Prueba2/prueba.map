@@ -1,0 +1,48 @@
+MPLINK 4.37, Linker
+Linker Map File - Created Mon Jun 20 17:40:20 2016
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000002
+                   .org_2       code   0x000004    program   0x000056
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x00002e      
+            44 out of 8454 program addresses used, program memory utilization is 0%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+           ANTIREBOTE_INT   0x000005    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Prueba\prueba.asm
+               BUCLE1_100   0x000029    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Prueba\prueba.asm
+               BUCLE2_100   0x000027    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Prueba\prueba.asm
+                     HOLA   0x000022    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Prueba\prueba.asm
+                   INICIO   0x00000f    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Prueba\prueba.asm
+                      INT   0x000005    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Prueba\prueba.asm
+             PROBANDO_RB0   0x000006    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Prueba\prueba.asm
+              delay_100ms   0x000025    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Prueba\prueba.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+           ANTIREBOTE_INT   0x000005    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Prueba\prueba.asm
+                      INT   0x000005    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Prueba\prueba.asm
+             PROBANDO_RB0   0x000006    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Prueba\prueba.asm
+                   INICIO   0x00000f    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Prueba\prueba.asm
+                     HOLA   0x000022    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Prueba\prueba.asm
+              delay_100ms   0x000025    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Prueba\prueba.asm
+               BUCLE2_100   0x000027    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Prueba\prueba.asm
+               BUCLE1_100   0x000029    program     static C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Prueba\prueba.asm
+
+
