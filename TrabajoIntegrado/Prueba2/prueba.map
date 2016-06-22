@@ -1,5 +1,5 @@
 MPLINK 4.37, Linker
-Linker Map File - Created Mon Jun 20 17:40:20 2016
+Linker Map File - Created Tue Jun 21 01:05:49 2016
 
                                  Section Info
                   Section       Type    Address   Location Size(Bytes)
@@ -7,6 +7,8 @@ Linker Map File - Created Mon Jun 20 17:40:20 2016
                    .org_0       code   0x000000    program   0x000000
                    .org_1       code   0x000000    program   0x000002
                    .org_2       code   0x000004    program   0x000056
+    .config_2007_PRUEBA.O       code   0x002007    program   0x000002
+    .config_2008_PRUEBA.O       code   0x002008    program   0x000002
 
 
 
@@ -15,7 +17,8 @@ Linker Map File - Created Mon Jun 20 17:40:20 2016
                            ---------   ---------      
                             0x000000    0x000000      
                             0x000004    0x00002e      
-            44 out of 8454 program addresses used, program memory utilization is 0%
+                            0x002007    0x002008      
+            46 out of 8454 program addresses used, program memory utilization is 0%
 
 
 

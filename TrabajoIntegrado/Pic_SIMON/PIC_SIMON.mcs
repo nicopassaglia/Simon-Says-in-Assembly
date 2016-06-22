@@ -13,7 +13,7 @@ SOLK=<src>|PIC_SIMON.asm||<obj>||<lib>||<lkr>||
 SuiteArgsString=generate-relocatable-code
 ToolArgsString=
 TraceCmdString=
-DebugOptions=/d__DEBUG=1
+DebugOptions=
 [File001]
 Location=C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.err
 Folder=Intermediary
@@ -26,7 +26,7 @@ SOLK=<src>|PIC_SIMON.asm||<obj>||<lib>||<lkr>||
 SuiteArgsString=generate-relocatable-code
 ToolArgsString=
 TraceCmdString=
-DebugOptions=/d__DEBUG=1
+DebugOptions=
 [File002]
 Location=C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.lst
 Folder=Output
@@ -39,7 +39,7 @@ SOLK=<src>|PIC_SIMON.asm||<obj>||<lib>||<lkr>||
 SuiteArgsString=generate-relocatable-code
 ToolArgsString=
 TraceCmdString=
-DebugOptions=/d__DEBUG=1
+DebugOptions=
 [File003]
 Location=C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.cof
 Folder=Output
@@ -52,7 +52,7 @@ SOLK=<src>|PIC_SIMON.asm||<obj>||<lib>||<lkr>||
 SuiteArgsString=generate-relocatable-code
 ToolArgsString=/o"$(BINDIR_)$(TARGETBASE).cof" /M"$(BINDIR_)$(TARGETBASE).map" /W
 TraceCmdString=
-DebugOptions=/z__MPLAB_DEBUG=1
+DebugOptions=
 [File004]
 Location=C:\Users\familia colazo\AppData\Desktop\Agustin Colazo\Universidad\4to Ano\Primer Semestre\Repositorios\Simon_Electronica\TrabajoIntegrado\Pic_SIMON\PIC_SIMON.hex
 Folder=Output
@@ -65,7 +65,7 @@ SOLK=<src>|PIC_SIMON.asm||<obj>||<lib>||<lkr>||
 SuiteArgsString=generate-relocatable-code
 ToolArgsString=/o"$(BINDIR_)$(TARGETBASE).cof" /M"$(BINDIR_)$(TARGETBASE).map" /W
 TraceCmdString=
-DebugOptions=/z__MPLAB_DEBUG=1
+DebugOptions=
 [TOOL_LOC_STAMPS]
 tool_loc{49D3CA3F-D9A3-4518-9943-226A347E8CC7}=D:\Archivos de Programa\MPLAB\MPASM Suite\MPASMWIN.exe
 tool_loc{96C98149-AA1B-4CF9-B967-FAE79CAB663C}=D:\Archivos de Programa\MPLAB\MPASM Suite\mplink.exe

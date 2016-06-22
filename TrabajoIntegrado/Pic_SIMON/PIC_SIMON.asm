@@ -1,5 +1,8 @@
 	list p=16f887
 	INCLUDE "p16F887.inc"
+__CONFIG    _CONFIG1, _LVP_OFF & _FCMEN_ON & _IESO_OFF & _BOR_OFF & _CPD_OFF & _CP_OFF & _MCLRE_OFF & _PWRTE_OFF & _WDT_OFF & _XT_OSC
+    __CONFIG    _CONFIG2, _WRT_OFF & _BOR21V
+
 	CBLOCK 0x21
 	SCORE
 	Numero_de_valores_de_secuencia
@@ -18,6 +21,7 @@ Proximo EQU 1
 Gano	EQU 2
 Crear	EQU	3
 Comenzo EQU 4
+RESETER EQU 5
 MAX_VAL	EQU .60
 	org	0x00
 	goto 	INICIO
@@ -49,6 +53,8 @@ Espero
 	CLRWDT
 	btfsc	FLAGS,Proximo	;Si pulso el/los color/es correcto/s, muestro la siguiente secuencia
 	call	SIGUIENTE_COLOR
+	btfsc 	FLAGS, RESETER
+	goto	RESET_JUEGO
 	btfsc 	FLAGS,Perdio	;Si le erro, perdio
 	goto	PERDIO_JUEGO
 	btfsc	FLAGS,Gano		;Si gano, gano 
@@ -57,7 +63,9 @@ Espero
 
 ;----FIN BLOQUE ESPERO-----
 	
-
+RESET_JUEGO
+	bcf 	FLAGS, RESETER
+	goto	INICIO
 SIGUIENTE_COLOR
 ;{
 	incf 	Contador_Aux,1
@@ -72,21 +80,31 @@ SIGUIENTE_COLOR
 PERDIO_JUEGO
 	;{
 	;PRENDO LED QUE MUESTRA QUE PERDIO
+	banksel INTCON
 	bsf 	PORTD,0
-	bcf		INTCON, GIE ;No puede haber mas interrupciones
+	bsf		INTCON, GIE ;No puede haber mas interrupciones
+	bcf 	INTCON, RBIE
+	bsf		INTCON, INTE
 	movf 	SCORE, 0	
 	movwf 	TXREG		;Transmito el puntaje al otro PIC
-	goto 	$	;}
+	btfsc	FLAGS, RESETER
+	goto	RESET_JUEGO
+	goto 	$-2	;}
 
 
 GANO_JUEGO
 ;{
 	;PRENDO LED QUE MUESTRA QUE GANO
+	banksel	INTCON
 	bsf		PORTD,1
-	bcf		INTCON, GIE ;No puede haber mas interrupciones
+	bsf		INTCON, GIE ;No puede haber mas interrupciones
+	bcf 	INTCON, RBIE
+	bsf		INTCON, INTE
 	movf 	SCORE, 0
 	movwf 	TXREG		;Aqui deberia transmitir algo para mostrar que gano.
-	goto	$ ;}
+	btfsc 	FLAGS, RESETER
+	goto	RESET_JUEGO
+	goto	$-2 ;}
 
 
 ;MUESTRO LA SECUENCIA DE LEDS
@@ -215,7 +233,9 @@ PROBANDO_RB0
 	call 	delay_10ms	;Una vez que se dejo de presionar el boton, hago un delay de 10 ms para que pase el rebote.
 
 	bcf		INTCON, INTF
-	bcf		INTCON, INTE	
+	;bcf		INTCON, INTE	
+	btfsc	FLAGS, Comenzo
+	bsf		FLAGS, RESETER
 	bsf	 	FLAGS, Comenzo
 	bcf		INTCON, RBIF
 	bcf 	INTCON, T0IF

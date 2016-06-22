@@ -1,4 +1,4 @@
-MPASM  5.37                        PRUEBA.ASM   6-20-2016  17:40:19         PAGE  1
+MPASM  5.37                        PRUEBA.ASM   6-21-2016  1:05:44         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -12,95 +12,101 @@ Warning[205]: Found directive in column 1. (include)
                       00002 ; P16F887.INC  Standard Header File, Version 1.00    Microchip Technology, Inc.
                       00617         LIST
                       00003 
+Warning[205]: Found directive in column 1. (__CONFIG)
+2007   28D1           00004 __CONFIG    _CONFIG1, _LVP_OFF & _FCMEN_ON & _IESO_OFF & _BOR_OFF & _CPD_OFF & _CP_OFF & _MCLRE_OFF & _P
+                            WRTE_OFF & _WDT_OFF & _XT_OSC
+2008   3EFF           00005     __CONFIG    _CONFIG2, _WRT_OFF & _BOR21V
+                      00006 ;__CONFIG _XT_OSC & _PWRTE_OFF & _BOREN_OFF & _CP_OFF & _WDT_OFF & _DP_OFF & _CPC_OFF
+                      00007 
 Warning[205]: Found directive in column 1. (cblock)
-                      00004 cblock 0x30
-  00000030            00005 DELAY1
-  00000031            00006 DELAY2
+                      00008 cblock 0x30
+  00000030            00009 DELAY1
+  00000031            00010 DELAY2
 Warning[205]: Found directive in column 1. (ENDC)
-                      00007 endc
-                      00008 
+                      00011 endc
+                      00012 
 Warning[205]: Found directive in column 1. (org)
-0000                  00009 org     0x00
+0000                  00013 org     0x00
 Warning[203]: Found opcode in column 1. (goto)
-0000   280F           00010 goto    INICIO
+0000   280F           00014 goto    INICIO
 Warning[205]: Found directive in column 1. (org)
-0004                  00011 org     0x04
+0004                  00015 org     0x04
 Warning[203]: Found opcode in column 1. (goto)
-0004   2805           00012 goto    INT
-                      00013 
-0005                  00014 INT
+0004   2805           00016 goto    INT
+                      00017 
+0005                  00018 INT
 Warning[207]: Found label after column 1. (ANTIREBOTE_INT)
-0005                  00015         ANTIREBOTE_INT
-0005   2025           00016         call    delay_100ms
-0006                  00017 PROBANDO_RB0
-0006   1806           00018         btfsc   PORTB, 0        ;Testeo el bit RB0, si se dejo de pulsar el boton bajara a cero
-0007   2806           00019         goto    PROBANDO_RB0
-0008   2025           00020         call    delay_100ms     ;Una vez que se dejo de presionar el boton, hago un delay de 10 ms para 
+0005                  00019         ANTIREBOTE_INT
+0005   2025           00020         call    delay_100ms
+0006                  00021 PROBANDO_RB0
+0006   1806           00022         btfsc   PORTB, 0        ;Testeo el bit RB0, si se dejo de pulsar el boton bajara a cero
+0007   2806           00023         goto    PROBANDO_RB0
+0008   2025           00024         call    delay_100ms     ;Una vez que se dejo de presionar el boton, hago un delay de 10 ms para 
                             que pase el rebote.
-0009   1283 1303      00021         banksel INTCON
-000B   3002           00022         movlw   b'00000010'
-000C   0685           00023         xorwf   PORTA, 1
-000D   108B           00024         bcf     INTCON, INTF
-000E   0009           00025         retfie
-                      00026 
-000F                  00027 INICIO
-                      00028         ;banksel OSCCON
-                      00029         ;movlw  b'10101100'
-                      00030         ;movwf  OSCCON
-                      00031         
-000F   1683 1303      00032         banksel TRISA
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0011   1406           00033         bsf     TRISB, 0
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0012   1085           00034         bcf     TRISA, 1
+0009   1283 1303      00025         banksel INTCON
+000B   3002           00026         movlw   b'00000010'
+000C   0685           00027         xorwf   PORTA, 1
+000D   108B           00028         bcf     INTCON, INTF
+000E   0009           00029         retfie
+                      00030 
+000F                  00031 INICIO
+                      00032         ;banksel OSCCON
+                      00033         ;movlw  b'10101100'
+                      00034         ;movwf  OSCCON
                       00035         
-0013   1683 1703      00036         banksel ANSEL
+000F   1683 1303      00036         banksel TRISA
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0015   0188           00037         clrf    ANSEL
-MPASM  5.37                        PRUEBA.ASM   6-20-2016  17:40:19         PAGE  2
+0011   1406           00037         bsf     TRISB, 0
+MPASM  5.37                        PRUEBA.ASM   6-21-2016  1:05:44         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0016   0189           00038         clrf    ANSELH
+0012   1085           00038         bcf     TRISA, 1
                       00039         
-0017   1683 1303      00040         banksel OPTION_REG
-0019   30C0           00041         movlw   b'11000000'
+0013   1683 1703      00040         banksel ANSEL
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-001A   0081           00042         movwf   OPTION_REG
-                      00043 
-001B   1283 1303      00044         banksel INTCON
-001D   178B           00045         bsf             INTCON, GIE
-001E   160B           00046         bsf             INTCON, INTE
+0015   0188           00041         clrf    ANSEL
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0016   0189           00042         clrf    ANSELH
+                      00043         
+0017   1683 1303      00044         banksel OPTION_REG
+0019   30C0           00045         movlw   b'11000000'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+001A   0081           00046         movwf   OPTION_REG
                       00047 
-001F   1085           00048         bcf     PORTA, 1
-0020   0000           00049         nop
-0021   0000           00050         nop
-0022                  00051 HOLA
-0022   0000           00052         nop
-0023   0064           00053         clrwdt
-0024   2822           00054         goto HOLA
-0025                  00055 delay_100ms     
-                      00056 ;{
-0025   30C8           00057         movlw   .200
-0026   00B1           00058         movwf   DELAY2
-0027                  00059 BUCLE2_100
-0027   307C           00060         movlw   .124
-0028   00B0           00061         movwf   DELAY1
-0029                  00062 BUCLE1_100
-0029   0064           00063         clrwdt
-002A   0BB0           00064         decfsz  DELAY1, 1
-002B   2829           00065         goto    BUCLE1_100
-002C   0BB1           00066         decfsz  DELAY2, 1
-002D   2827           00067         goto    BUCLE2_100
-002E   0008           00068         return          ;La formula del delay es R=[(4X)+4]Y+1 donde X=124 e Y=20.
-                      00069 ;}
-                      00070 
+001B   1283 1303      00048         banksel INTCON
+001D   178B           00049         bsf             INTCON, GIE
+001E   160B           00050         bsf             INTCON, INTE
+                      00051 
+001F   1085           00052         bcf     PORTA, 1
+0020   0000           00053         nop
+0021   0000           00054         nop
+0022                  00055 HOLA
+0022   0000           00056         nop
+0023   0064           00057         clrwdt
+0024   2822           00058         goto HOLA
+0025                  00059 delay_100ms     
+                      00060 ;{
+0025   30C8           00061         movlw   .200
+0026   00B1           00062         movwf   DELAY2
+0027                  00063 BUCLE2_100
+0027   307C           00064         movlw   .124
+0028   00B0           00065         movwf   DELAY1
+0029                  00066 BUCLE1_100
+0029   0064           00067         clrwdt
+002A   0BB0           00068         decfsz  DELAY1, 1
+002B   2829           00069         goto    BUCLE1_100
+002C   0BB1           00070         decfsz  DELAY2, 1
+002D   2827           00071         goto    BUCLE2_100
+002E   0008           00072         return          ;La formula del delay es R=[(4X)+4]Y+1 donde X=124 e Y=20.
+                      00073 ;}
+                      00074 
 Warning[205]: Found directive in column 1. (end)
-                      00071 end
-MPASM  5.37                        PRUEBA.ASM   6-20-2016  17:40:19         PAGE  3
+                      00075 end
+MPASM  5.37                        PRUEBA.ASM   6-21-2016  1:05:44         PAGE  3
 
 
 SYMBOL TABLE
@@ -159,7 +165,7 @@ BRG5                              00000005
 BRG6                              00000006
 BRG7                              00000007
 BRG8                              00000000
-MPASM  5.37                        PRUEBA.ASM   6-20-2016  17:40:19         PAGE  4
+MPASM  5.37                        PRUEBA.ASM   6-21-2016  1:05:44         PAGE  4
 
 
 SYMBOL TABLE
@@ -218,7 +224,7 @@ CCPR2L                            0000001B
 CHS0                              00000002
 CHS1                              00000003
 CHS2                              00000004
-MPASM  5.37                        PRUEBA.ASM   6-20-2016  17:40:19         PAGE  5
+MPASM  5.37                        PRUEBA.ASM   6-21-2016  1:05:44         PAGE  5
 
 
 SYMBOL TABLE
@@ -277,7 +283,7 @@ INT                               00000005
 INTCON                            0000000B
 INTE                              00000004
 INTEDG                            00000006
-MPASM  5.37                        PRUEBA.ASM   6-20-2016  17:40:19         PAGE  6
+MPASM  5.37                        PRUEBA.ASM   6-21-2016  1:05:44         PAGE  6
 
 
 SYMBOL TABLE
@@ -336,7 +342,7 @@ PDC4                              00000004
 PDC5                              00000005
 PDC6                              00000006
 PEIE                              00000006
-MPASM  5.37                        PRUEBA.ASM   6-20-2016  17:40:19         PAGE  7
+MPASM  5.37                        PRUEBA.ASM   6-21-2016  1:05:44         PAGE  7
 
 
 SYMBOL TABLE
@@ -395,7 +401,7 @@ SEN                               00000000
 SENDB                             00000003
 SMP                               00000007
 SPBRG                             00000099
-MPASM  5.37                        PRUEBA.ASM   6-20-2016  17:40:19         PAGE  8
+MPASM  5.37                        PRUEBA.ASM   6-21-2016  1:05:44         PAGE  8
 
 
 SYMBOL TABLE
@@ -454,7 +460,7 @@ TMR1IE                            00000000
 TMR1IF                            00000000
 TMR1L                             0000000E
 TMR1ON                            00000000
-MPASM  5.37                        PRUEBA.ASM   6-20-2016  17:40:19         PAGE  9
+MPASM  5.37                        PRUEBA.ASM   6-21-2016  1:05:44         PAGE  9
 
 
 SYMBOL TABLE
@@ -513,7 +519,7 @@ WDTPS3                            00000004
 WPUB                              00000095
 WPUB0                             00000000
 WPUB1                             00000001
-MPASM  5.37                        PRUEBA.ASM   6-20-2016  17:40:19         PAGE 10
+MPASM  5.37                        PRUEBA.ASM   6-21-2016  1:05:44         PAGE 10
 
 
 SYMBOL TABLE
@@ -572,7 +578,7 @@ _WRT_256                          00003DFF
 _WRT_HALF                         000039FF
 _WRT_OFF                          00003FFF
 _XT_OSC                           00003FF9
-MPASM  5.37                        PRUEBA.ASM   6-20-2016  17:40:19         PAGE 11
+MPASM  5.37                        PRUEBA.ASM   6-21-2016  1:05:44         PAGE 11
 
 
 SYMBOL TABLE
@@ -585,6 +591,7 @@ delay_100ms                       00000025
 MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
 
 0000 : X---XXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXX- ----------------
+2000 : -------XX------- ---------------- ---------------- ----------------
 
 All other memory blocks unused.
 
@@ -593,7 +600,7 @@ Program Memory Words Free:  8148
 
 
 Errors   :     0
-Warnings :    10 reported,     0 suppressed
+Warnings :    11 reported,     0 suppressed
 Messages :     5 reported,     0 suppressed
 
 
